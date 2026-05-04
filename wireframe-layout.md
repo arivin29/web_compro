@@ -1,0 +1,487 @@
+# Wireframe & Layout Specification — Company Profile Devetek
+
+> Dokumen ini menjelaskan layout section-by-section setiap halaman.
+> Developer bisa langsung mapping ke komponen.
+
+---
+
+## Konvensi Layout
+
+```
+[ FULL ]    = Full width (edge-to-edge)
+[ CONTAINER ] = Max-width container (1280px), centered
+[ GRID-2 ]  = 2 kolom grid
+[ GRID-3 ]  = 3 kolom grid
+[ GRID-4 ]  = 4 kolom grid
+```
+
+---
+
+## 1. HOME (`/`)
+
+```
+┌─────────────────────────────────────────────────────┐
+│ [HEADER - sticky]                                   │
+│ Logo | Home About Products▼ Portfolio Clients Blog  │
+│ Contact                              [ Hubungi Kami ]│
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│ [HERO - FULL - dark gradient bg]                    │
+│                                                     │
+│    (kecil) PT Comon Cipta Inovasi                   │
+│    (H1)  Digitalisasi Tanpa Batas                   │
+│           — Dari Sensor Hingga Sistem               │
+│    (p)   Solusi teknologi end-to-end untuk PDAM,    │
+│          Pemerintahan, BUMN & Swasta                │
+│                                                     │
+│    [ Lihat Produk ]  [ Hubungi Kami ]               │
+│                                                     │
+│    (subtle particles / grid animation background)   │
+│                                                     │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│ [COUNTER - CONTAINER - GRID-4]                      │
+│                                                     │
+│  ┌─────────┐ ┌─────────┐ ┌─────────┐ ┌─────────┐  │
+│  │  12+    │ │  50+    │ │  100+   │ │   2     │  │
+│  │  Tahun  │ │  Klien  │ │  Proyek │ │  Benua  │  │
+│  │Pengalaman│ │  Aktif  │ │ Selesai │ │Indonesia│  │
+│  │         │ │         │ │         │ │ & Eropa │  │
+│  └─────────┘ └─────────┘ └─────────┘ └─────────┘  │
+│  (counter animation on scroll)                      │
+│                                                     │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│ [PRODUCTS OVERVIEW - CONTAINER]                     │
+│                                                     │
+│  (label) PRODUK & LAYANAN                           │
+│  (H2) Solusi Lengkap untuk Kebutuhan Digital Anda   │
+│                                                     │
+│  [GRID-3]                                           │
+│  ┌──────────────┐ ┌──────────────┐ ┌──────────────┐│
+│  │ 🏢 icon     │ │ 🗺️ icon     │ │ 📡 icon     ││
+│  │ D-IBS       │ │ D-ASSET      │ │ HELIOS       ││
+│  │ Sistem PDAM │ │ WebGIS PDAM  │ │ IoT Platform ││
+│  │ Terintegrasi│ │              │ │              ││
+│  │ (desc 2ln)  │ │ (desc 2ln)   │ │ (desc 2ln)   ││
+│  │ [Selengkap→]│ │ [Selengkap→] │ │ [Selengkap→] ││
+│  └──────────────┘ └──────────────┘ └──────────────┘│
+│  ┌──────────────┐ ┌──────────────┐ ┌──────────────┐│
+│  │ ⚙️ icon     │ │ 💻 icon     │ │ 🤝 icon     ││
+│  │ ERP         │ │ Software     │ │ Konsultasi   ││
+│  │             │ │ House        │ │ & Pengadaan  ││
+│  │ (desc 2ln)  │ │ (desc 2ln)   │ │ (desc 2ln)   ││
+│  │ [Selengkap→]│ │ [Selengkap→] │ │ [Selengkap→] ││
+│  └──────────────┘ └──────────────┘ └──────────────┘│
+│                                                     │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│ [EKOSISTEM - FULL - slightly lighter bg]            │
+│                                                     │
+│  (label) EKOSISTEM DEVETEK                          │
+│  (H2) Satu Ekosistem, Semua Terintegrasi            │
+│                                                     │
+│  ┌────────┐    ┌────────┐    ┌────────┐             │
+│  │ D-IBS  │←──→│D-ASSET │←──→│HELIOS  │             │
+│  │Billing │    │ WebGIS │    │  IoT   │             │
+│  └────────┘    └────────┘    └────────┘             │
+│       ↕             ↕             ↕                 │
+│  ┌──────────────────────────────────────┐           │
+│  │       DATABASE TERPUSAT              │           │
+│  └──────────────────────────────────────┘           │
+│  (animated diagram / illustration)                  │
+│                                                     │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│ [CLIENTS LOGO - CONTAINER]                          │
+│                                                     │
+│  (label) DIPERCAYA OLEH                             │
+│  (H2) Klien & Mitra Kami                            │
+│                                                     │
+│  [ logo ] [ logo ] [ logo ] [ logo ] [ logo ]       │
+│  [ logo ] [ logo ] [ logo ] [ logo ] [ logo ]       │
+│  (auto-scroll carousel, grayscale → color on hover) │
+│                                                     │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│ [TESTIMONIAL - CONTAINER]                           │
+│                                                     │
+│  (icon quote)                                       │
+│  "Setelah implementasi Devetek Helios di 5 DMA..."  │
+│  — Tim Teknis, PT Bakti Air Indonesia               │
+│  (carousel if multiple)                             │
+│                                                     │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│ [CTA - FULL - gradient accent bg]                   │
+│                                                     │
+│  (H2) Siap Transformasi Digital?                    │
+│  (p)  Konsultasi gratis dengan tim kami              │
+│                                                     │
+│  [ Hubungi Kami ]  [ WhatsApp ]                     │
+│                                                     │
+├─────────────────────────────────────────────────────┤
+│ [FOOTER]                                            │
+└─────────────────────────────────────────────────────┘
+```
+
+---
+
+## 2. ABOUT US (`/about`)
+
+```
+┌─────────────────────────────────────────────────────┐
+│ [HEADER]                                            │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│ [PAGE HERO - compact]                               │
+│  (label) TENTANG KAMI                               │
+│  (H1) Lebih dari Satu Dekade                        │
+│       Membangun Solusi Digital                      │
+│                                                     │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│ [STORY - GRID-2]                                    │
+│                                                     │
+│  ┌─────────────────┐  ┌─────────────────┐          │
+│  │  (H2) Tentang   │  │                 │          │
+│  │  Devetek        │  │  [ Foto/Ilust ] │          │
+│  │                 │  │                 │          │
+│  │  (paragraf      │  │                 │          │
+│  │   company story)│  │                 │          │
+│  │                 │  │                 │          │
+│  │  CCI = induk    │  │                 │          │
+│  │  DMI = rekanan  │  │                 │          │
+│  └─────────────────┘  └─────────────────┘          │
+│                                                     │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│ [TIMELINE - CONTAINER]                              │
+│                                                     │
+│  (H2) Perjalanan Kami                               │
+│                                                     │
+│  2012 ──●── Devetek didirikan                       │
+│         │                                           │
+│  2018 ──●── PT Comon Cipta Inovasi resmi            │
+│         │                                           │
+│  2019 ──●── Fokus SaaS & IoT untuk PDAM             │
+│         │                                           │
+│  2022 ──●── Ekspansi ke Eropa                       │
+│         │                                           │
+│  2026 ──●── 50+ klien, 100+ proyek                  │
+│                                                     │
+│  (vertical animated timeline)                       │
+│                                                     │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│ [VISI MISI - GRID-2]                                │
+│                                                     │
+│  ┌─────────────────┐  ┌─────────────────┐          │
+│  │  (H3) Visi      │  │  (H3) Misi      │          │
+│  │  Menjadi mitra  │  │  • Solusi        │          │
+│  │  strategis...   │  │    terintegrasi  │          │
+│  │                 │  │  • Digitalisasi  │          │
+│  │                 │  │  • Kualitas      │          │
+│  └─────────────────┘  └─────────────────┘          │
+│                                                     │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│ [VALUES - CONTAINER - GRID-5]                       │
+│                                                     │
+│  (H2) Nilai-Nilai Kami                              │
+│                                                     │
+│  ┌────┐ ┌────┐ ┌────┐ ┌────┐ ┌────┐               │
+│  │icon│ │icon│ │icon│ │icon│ │icon│               │
+│  │Inte│ │Ino │ │Kola│ │Komi│ │Komp│               │
+│  │grit│ │vasi│ │bora│ │tmen│ │eten│               │
+│  │as  │ │    │ │si  │ │    │ │si  │               │
+│  │desc│ │desc│ │desc│ │desc│ │desc│               │
+│  └────┘ └────┘ └────┘ └────┘ └────┘               │
+│                                                     │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│ [TIM - CONTAINER]                                   │
+│                                                     │
+│  (H2) Tim Kami                                      │
+│  (p) Didukung oleh profesional berpengalaman        │
+│                                                     │
+│  [GRID-4 or GRID-5]                                 │
+│  ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐              │
+│  │[foto]│ │[foto]│ │[foto]│ │[foto]│              │
+│  │ Nama │ │ Nama │ │ Nama │ │ Nama │              │
+│  │ Role │ │ Role │ │ Role │ │ Role │              │
+│  └──────┘ └──────┘ └──────┘ └──────┘              │
+│  ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐              │
+│  │[foto]│ │[foto]│ │[foto]│ │[foto]│              │
+│  │ Nama │ │ Nama │ │ Nama │ │ Nama │              │
+│  │ Role │ │ Role │ │ Role │ │ Role │              │
+│  └──────┘ └──────┘ └──────┘ └──────┘              │
+│  (hover: slight zoom + social links)                │
+│                                                     │
+├─────────────────────────────────────────────────────┤
+│ [CTA SECTION]                                       │
+├─────────────────────────────────────────────────────┤
+│ [FOOTER]                                            │
+└─────────────────────────────────────────────────────┘
+```
+
+---
+
+## 3. PRODUCTS OVERVIEW (`/products`)
+
+```
+┌─────────────────────────────────────────────────────┐
+│ [HEADER]                                            │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│ [PAGE HERO]                                         │
+│  (label) PRODUK & LAYANAN                           │
+│  (H1) Solusi Digital End-to-End                     │
+│  (p) Dari sensor di lapangan hingga laporan         │
+│      eksekutif — semua dalam ekosistem Devetek      │
+│                                                     │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│ [PRODUCT CARDS - GRID-2 or GRID-3]                  │
+│                                                     │
+│  Setiap card:                                       │
+│  ┌─────────────────────────────────────┐            │
+│  │  [thumbnail/icon]                   │            │
+│  │  (badge) PDAM / Software / IoT      │            │
+│  │  (H3) Nama Produk                   │            │
+│  │  (p) Deskripsi 2-3 baris            │            │
+│  │  • Fitur highlight 1                │            │
+│  │  • Fitur highlight 2                │            │
+│  │  • Fitur highlight 3                │            │
+│  │  [ Selengkapnya → ]                 │            │
+│  └─────────────────────────────────────┘            │
+│                                                     │
+│  6 cards: D-IBS, D-ASSET, HELIOS, ERP,              │
+│           Software House, Konsultasi                │
+│                                                     │
+├─────────────────────────────────────────────────────┤
+│ [CTA SECTION]                                       │
+├─────────────────────────────────────────────────────┤
+│ [FOOTER]                                            │
+└─────────────────────────────────────────────────────┘
+```
+
+---
+
+## 4. PRODUCT DETAIL — D-IBS (`/products/d-ibs`)
+
+```
+┌─────────────────────────────────────────────────────┐
+│ [HEADER]                                            │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│ [HERO - dengan screenshot mockup]                   │
+│  (label) D-IBS                                      │
+│  (H1) Sistem PDAM Terintegrasi                      │
+│  (p) Teknologi + SDM + Tata Kelola                  │
+│  [ Minta Demo ] [ Hubungi Kami ]                    │
+│  (right: laptop/tablet mockup screenshot)           │
+│                                                     │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│ [MASALAH - GRID-3]                                  │
+│  (H2) Tantangan PDAM yang Kami Selesaikan            │
+│  Card 1: Efisiensi rendah                           │
+│  Card 2: Data tidak akurat                          │
+│  Card 3: NRW tinggi                                 │
+│                                                     │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│ [MODUL - tabs atau accordion]                       │
+│  (H2) 7 Modul Terintegrasi                          │
+│                                                     │
+│  [ Billing ] [ Penagihan ] [ Baca Meter ] [ Non-Air]│
+│  [ Pengaduan ] [ Keuangan ] [ HR ]                  │
+│                                                     │
+│  ┌─────────────────────────────────────────┐        │
+│  │  (kiri)              (kanan)            │        │
+│  │  H3: Billing & Loket  [ Screenshot ]    │        │
+│  │  • Dashboard pendapatan                 │        │
+│  │  • Manajemen pelanggan                  │        │
+│  │  • Tagihan air & non-air                │        │
+│  │  • Laporan DRD/LPP                      │        │
+│  │  • Cicilan tagihan                      │        │
+│  └─────────────────────────────────────────┘        │
+│  (alternating left-right per modul)                 │
+│                                                     │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│ [KEUNGGULAN - GRID-3]                               │
+│  Efisiensi 70% | Data Terpusat | Real-time          │
+│                                                     │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│ [EKOSISTEM LINK]                                    │
+│  Lihat juga: D-ASSET (WebGIS) | HELIOS (IoT)       │
+│                                                     │
+├─────────────────────────────────────────────────────┤
+│ [CTA SECTION]                                       │
+├─────────────────────────────────────────────────────┤
+│ [FOOTER]                                            │
+└─────────────────────────────────────────────────────┘
+```
+
+---
+
+## 5. PRODUCT DETAIL — D-ASSET (`/products/d-asset`)
+
+```
+Layout mirip D-IBS, tapi lebih ringkas karena link ke
+webgis-pdam.devetek.app untuk detail penuh.
+
+Sections:
+1. Hero + screenshot WebGIS
+2. Tantangan (data tersebar, tracking sulit, laporan manual)
+3. 7 Fitur utama (grid cards)
+4. Keamanan data (4 poin)
+5. Integrasi QGIS (diagram)
+6. CTA: link ke webgis-pdam.devetek.app + hubungi kami
+```
+
+---
+
+## 6. PRODUCT DETAIL — HELIOS (`/products/helios`)
+
+```
+Layout mirip D-ASSET, ringkas + link ke iot.devetek.app.
+
+Sections:
+1. Hero + tagline "Monitor. Analisa. Kendalikan."
+2. Dua Pilar: Cloud Platform + Hardware (2 cards)
+3. Fitur unggulan (6 cards: Dashboard, WebGIS, Alert, Laporan, ML, Device)
+4. Hardware 3 varian (comparison table)
+5. Solusi industri (PDAM aktif, 3 segera hadir)
+6. Performa (angka: <500ms, 10K+/detik, 99.9%)
+7. CTA: link ke iot.devetek.app + minta demo
+```
+
+---
+
+## 7. PORTFOLIO (`/portfolio`)
+
+```
+┌─────────────────────────────────────────────────────┐
+│ [HEADER]                                            │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│ [PAGE HERO]                                         │
+│  (H1) Portfolio & Proyek                            │
+│  (p) Bukti nyata hasil kerja kami                    │
+│                                                     │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│ [FILTER BAR]                                        │
+│  [ Semua ] [ PDAM ] [ Pemerintah ] [ Swasta ]       │
+│                                                     │
+│ [PROJECT GRID - GRID-3]                             │
+│  ┌──────────────────┐                               │
+│  │  [ Screenshot ]   │                              │
+│  │  (badge) PDAM     │                              │
+│  │  (H3) D-IBS       │                              │
+│  │  PDAM Tanah Datar │                              │
+│  │  (tech tags)      │                              │
+│  │  Billing, IoT,    │                              │
+│  │  WebGIS           │                              │
+│  └──────────────────┘                               │
+│  (repeat for each project)                          │
+│  (hover: overlay with "Lihat Detail")               │
+│                                                     │
+├─────────────────────────────────────────────────────┤
+│ [CTA SECTION]                                       │
+├─────────────────────────────────────────────────────┤
+│ [FOOTER]                                            │
+└─────────────────────────────────────────────────────┘
+```
+
+---
+
+## 8. CLIENTS & PARTNERS (`/clients`)
+
+```
+Sections:
+1. Page hero
+2. Logo grid — semua klien (grayscale, color on hover)
+3. Partner logos (PT Bakti Air Indonesia, dll)
+4. Testimonial carousel
+5. Peta coverage (Indonesia + Eropa — bisa SVG map atau embed)
+6. CTA
+```
+
+---
+
+## 9. BLOG (`/blog`)
+
+```
+Sections:
+1. Page hero
+2. Featured article (large card, top)
+3. Article grid (GRID-3) — thumbnail, title, excerpt, date, category tag
+4. Pagination / Load more
+5. Sidebar (opsional): kategori, search
+
+/blog/[slug]:
+1. Article header (title, date, author, category, reading time)
+2. Featured image (full-width)
+3. Article body (prose/markdown)
+4. Share buttons
+5. Related articles (3 cards)
+```
+
+---
+
+## 10. CONTACT (`/contact`)
+
+```
+┌─────────────────────────────────────────────────────┐
+│ [HEADER]                                            │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│ [PAGE HERO]                                         │
+│  (H1) Hubungi Kami                                  │
+│  (p) Tim kami siap membantu Anda                    │
+│                                                     │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│ [CONTACT - GRID-2]                                  │
+│                                                     │
+│  ┌──────────────────┐  ┌──────────────────┐        │
+│  │  FORM             │  │  INFO KONTAK     │        │
+│  │                   │  │                  │        │
+│  │  Nama *           │  │  📧 Email        │        │
+│  │  [___________]    │  │  info@devetek.com│        │
+│  │                   │  │  marketing@...   │        │
+│  │  Email *          │  │                  │        │
+│  │  [___________]    │  │  📞 Telepon      │        │
+│  │                   │  │  0856 230 2229   │        │
+│  │  No. HP           │  │                  │        │
+│  │  [___________]    │  │  🏢 Office       │        │
+│  │                   │  │  Mutiara         │        │
+│  │  Kategori         │  │  Karadenan 7C    │        │
+│  │  [▼ Pilih___]     │  │  Cibinong, Bogor │        │
+│  │  - PDAM           │  │                  │        │
+│  │  - Custom Software│  │  🔧 Workshop     │        │
+│  │  - Konsultasi     │  │  Citra Raya,     │        │
+│  │  - Pengadaan      │  │  Tangerang       │        │
+│  │  - Lainnya        │  │                  │        │
+│  │                   │  │  [ Chat WA  ]    │        │
+│  │  Pesan *          │  │                  │        │
+│  │  [___________]    │  │                  │        │
+│  │  [___________]    │  │                  │        │
+│  │                   │  │                  │        │
+│  │  [ Kirim Pesan ]  │  │                  │        │
+│  └──────────────────┘  └──────────────────┘        │
+│                                                     │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│ [MAPS - FULL WIDTH]                                 │
+│  Google Maps embed — 2 pin (Office + Workshop)      │
+│                                                     │
+├─────────────────────────────────────────────────────┤
+│ [FOOTER]                                            │
+└─────────────────────────────────────────────────────┘
+```
