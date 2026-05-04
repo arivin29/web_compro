@@ -397,7 +397,7 @@ ESP32, Arduino, Raspberry Pi, PLC, Teltonika FM, MQTT, TCP/IP, HTTP/HTTPS, Webho
 - Quick links (semua halaman)
 - Kontak info
 - Social media icons
-- Copyright © 2025 PT Comon Cipta Inovasi
+- Copyright © 2026 PT Comon Cipta Inovasi
 
 ---
 

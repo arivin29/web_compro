@@ -135,7 +135,7 @@ devetek.com/
                         Software House      Contact            WhatsApp
                         Konsultasi          Privacy Policy
 
-[ Social Media Icons ]                     © 2025 PT Comon Cipta Inovasi
+[ Social Media Icons ]                     © 2026 PT Comon Cipta Inovasi
 ```
 
 ---

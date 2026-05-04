@@ -154,7 +154,7 @@ Menjadi mitra strategis dalam transformasi digital di Indonesia, memberikan solu
 | Fahmi Zulhasymi | Solution Architect | fahmi.jpg |
 | Muhammad Ilham C. | Developer | WhatsApp-...-9.06.09-PM.jpeg |
 | Muhammad Arifan | Developer | 20180510_145342-scaled.jpg |
-| Randi Maizul | [___] | WhatsApp-...-9.28.04-PM.jpeg |
+| Randi Maizul | <!-- TODO: isi role Randi --> Developer | WhatsApp-...-9.28.04-PM.jpeg |
 | Robinaldi | Design | Screenshot-2023-08-02-at-18.02.24.png |
 | Rully Culit | Digital Creative | IMG_2207-scaled.jpg |
 

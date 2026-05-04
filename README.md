@@ -16,6 +16,10 @@ Dokumen ini adalah pintu masuk utama untuk handoff ke developer atau agency.
 	│   ├── copy-deck.md
 	│   ├── design-spec.md
 	│   └── asset-inventory.md
+	├── development/
+	│   ├── architecture.md          ← Tech stack, Firebase, folder structure
+	│   ├── task-breakdown.md        ← Sprint plan, 17 tasks, dependency graph
+	│   └── component-design.md      ← Visual spec per komponen (Navbar, Card, dll)
 	└── reference/
 		├── persiapan-v2.md
 		└── source-materials.md
@@ -57,6 +61,14 @@ Dokumen ini adalah pintu masuk utama untuk handoff ke developer atau agency.
 | `docs/reference/source-materials.md` | REFERENCE ONLY | Bahan mentah, bukan source of truth |
 | `docs/reference/persiapan-v2.md` | REFERENCE ONLY | Catatan kerja dan referensi tambahan, bukan source of truth |
 
+### Development Docs (NEW)
+
+| Dokumen | Status | Fungsi |
+|---------|--------|--------|
+| `docs/development/architecture.md` | READY | Tech stack (Next.js 14 + Tailwind + Firebase Hosting), folder structure, Git branching, deploy strategy |
+| `docs/development/task-breakdown.md` | READY | 17 tasks dalam 5 sprint, estimasi, dependency graph, subtask checklist |
+| `docs/development/component-design.md` | READY | Visual blueprint per komponen: dimensi, warna, animasi, responsive behavior |
+
 ## Decision Rules
 
 1. Jika ada konflik antar dokumen, gunakan urutan prioritas: `docs/handoff/project-brief.md` → `docs/handoff/handoff-checklist.md` → dokumen final kerja per topik.
@@ -74,10 +86,17 @@ Dokumen ini adalah pintu masuk utama untuk handoff ke developer atau agency.
 
 ## Open Items Sebelum Eksekusi Penuh
 
-- Finalisasi klaim angka: pengalaman, jumlah klien, jumlah proyek, jangkauan benua
-- Verifikasi klaim ekspansi Eropa dan struktur entitas CCI / DMI / Devetek
-- Konfirmasi testimonial dan daftar klien yang boleh ditampilkan publik
-- Lengkapi screenshot terbaru untuk D-IBS dan D-ASSET
+- ~~Klaim ekspansi Eropa~~ → dihapus (tidak terverifikasi)
+- ~~Testimonial PT Bakti Air~~ → approved (rekanan resmi produk PDAM)
+- ~~Dark theme~~ → confirmed dan diterapkan di design-spec
+- ~~WhatsApp CTA~~ → ditambahkan (+62 856-2302-229)
+- Finalisasi klaim angka: 12+ tahun, 50+ klien, 100+ proyek — perlu verifikasi
+- Verifikasi struktur entitas CCI / DMI / Devetek
+- Konfirmasi daftar klien yang boleh ditampilkan publik (10+ logo masih kosong)
+- Lengkapi screenshot D-IBS dan D-ASSET (saat ini placeholder)
+- Role Randi Maizul (sementara: Developer)
+- PIC matrix di handoff-checklist (semua masih TBD)
+- Domain & hosting (devetek.com) — akses belum dikonfirmasi
 - Tetapkan PIC approval untuk copy, design, asset, dan legal
 
 ## Cara Pakai Repo Ini

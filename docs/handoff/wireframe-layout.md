@@ -185,7 +185,7 @@
 │         │                                           │
 │  2019 ──●── Fokus SaaS & IoT untuk PDAM             │
 │         │                                           │
-│  2022 ──●── Ekspansi ke Eropa                       │
+│  2023 ──●── Ekspansi layanan ERP & Konsultasi       │
 │         │                                           │
 │  2026 ──●── 50+ klien, 100+ proyek                  │
 │                                                     │
@@ -487,7 +487,7 @@ Sections:
 2. Logo grid — semua klien (grayscale, color on hover)
 3. Partner logos (PT Bakti Air Indonesia, dll)
 4. Testimonial carousel
-5. Peta coverage (Indonesia + Eropa — bisa SVG map atau embed)
+5. Peta coverage Indonesia (bisa SVG map atau embed)
 6. CTA
 ```
 
