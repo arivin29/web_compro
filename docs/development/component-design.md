@@ -8,7 +8,7 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│  [Logo]    Beranda  Tentang  Produk▾  Klien  Blog  Kontak  [CTA] │
+│  [Logo]    Beranda  Tentang  Produk▾  Portfolio & Klien  Blog  Kontak  [CTA] │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -21,7 +21,7 @@
 | Nav links | Inter 500, text-sm, text-gray-300, hover:text-white |
 | Active link | text-white + accent underline (2px bottom) |
 | CTA button | "Hubungi Kami" — accent bg, rounded-full, px-6 py-2 |
-| Produk dropdown | bg-navy-lighter border-border, 4 items, icon + label |
+| Produk dropdown | bg-navy-lighter border-border, 5 items (PDAM Suite, HELIOS, ERP, Software House, Konsultasi), icon + label |
 | Mobile trigger | Hamburger icon → X, lucide Menu/X |
 | Mobile menu | Full-screen overlay bg-navy, centered links, stagger animation |
 | Transition | scroll detection via `useScroll()`, opacity/blur transition 300ms |
@@ -80,10 +80,12 @@
 | Label | text-accent, text-sm, uppercase, tracking-widest, font-medium |
 | H1 | Plus Jakarta Sans 800, text-5xl md:text-6xl lg:text-7xl, text-white |
 | Subtitle | Inter 400, text-lg, text-gray-400, max-w-2xl |
-| CTA Primary | Button accent, rounded-full, px-8 py-3, glow shadow |
-| CTA Secondary | Button ghost (border-border), rounded-full |
+| CTA Primary | Button accent gradient (`bg-gradient-to-r from-[#00D4FF] to-[#0EA5E9]`), text-navy (#0D1117), rounded-full, px-8 py-3, glow shadow |
+| CTA Secondary | Button ghost (border-border), rounded-full, text-white |
 | Blobs | absolute, w-96 h-96, rounded-full, bg-accent/10, blur-3xl |
 | Animation | H1: fade-up 0.6s, subtitle: fade-up 0.8s, CTAs: fade-up 1.0s |
+
+**CTA Button Order:** `[Hubungi Kami]` (primary/filled) → `[Lihat Produk →]` (secondary/outline)
 
 ---
 
@@ -122,7 +124,7 @@
 
 | Variant | Background | Text | Border | Hover |
 |---------|-----------|------|--------|-------|
-| primary | bg-accent | text-navy (dark) | none | bg-accent/90, shadow-glow |
+| primary | bg-gradient-to-r from-accent to-[#0EA5E9] | text-navy (#0D1117) | none | shadow-glow, brightness-110 |
 | secondary | transparent | text-white | border-border | border-accent/50, bg-accent/10 |
 | ghost | transparent | text-gray-300 | none | text-white, bg-white/5 |
 | whatsapp | bg-green-500 | text-white | none | bg-green-600 |

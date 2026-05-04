@@ -58,7 +58,7 @@
 - 2012: Devetek didirikan
 - 2018: Resmi menjadi PT Comon Cipta Inovasi
 - 2018+: Fokus SaaS, IoT, dan sistem PDAM
-- Sekarang: 50+ klien, ekspansi ke Indonesia & Eropa
+- Sekarang: 50+ klien di Indonesia *(klaim Eropa dihapus — tidak terverifikasi)*
 - Struktur: CCI sebagai induk (lisensi), DMI sebagai rekanan fokus PDAM
 
 #### Deskripsi
@@ -67,7 +67,7 @@ Devetek adalah perusahaan teknologi yang berdiri sejak 2012. Kami berfokus pada 
 PT Comon Cipta Inovasi telah berekspansi ke bidang IT, Telekomunikasi, dan Kelistrikan.
 
 #### Visi
-Menjadi mitra strategis digital transformation di Indonesia & global.
+Menjadi mitra strategis digital transformation di Indonesia.
 
 #### Misi
 - Menyediakan solusi teknologi terintegrasi
@@ -354,7 +354,7 @@ ESP32, Arduino, Raspberry Pi, PLC, Teltonika FM, MQTT, TCP/IP, HTTP/HTTPS, Webho
 
 #### Tambahan
 - Testimonial (dummy dulu, diganti nanti)
-- Peta coverage Indonesia + Eropa
+- Peta coverage Indonesia *(Eropa dihapus)*
 
 ---
 

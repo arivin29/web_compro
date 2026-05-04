@@ -67,10 +67,10 @@ Info                 : #3B82F6
 ### Tailwind Config (mapping)
 ```js
 colors: {
-  bg: {
-    primary: '#0D1117',
-    secondary: '#161B22',
-    card: '#1E293B',
+  navy: {
+    DEFAULT: '#0D1117',
+    light: '#161B22',
+    lighter: '#1E293B',
     hover: '#263248',
   },
   accent: {
@@ -86,6 +86,9 @@ colors: {
   },
 }
 ```
+
+> **Canonical naming**: Gunakan `navy`, `navy-light`, `navy-lighter`, `navy-hover` di semua Tailwind classes.
+> Contoh: `bg-navy`, `bg-navy-lighter`, `border-border`, `text-accent`.
 
 ---
 
@@ -250,7 +253,7 @@ const stagger = {
 
 | Variant | Background | Text | Border | Hover |
 |---------|-----------|------|--------|-------|
-| Primary | accent gradient | white | none | glow + lighten |
+| Primary | accent gradient | navy (#0D1117) | none | glow + lighten |
 | Secondary | transparent | accent | 1px accent | bg accent/10% |
 | Ghost | transparent | text-secondary | none | bg white/5% |
 

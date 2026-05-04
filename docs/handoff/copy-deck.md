@@ -22,7 +22,8 @@
 | Struktur entitas CCI / DMI / Devetek | Need verification | Pastikan narasi legal dan bisnis konsisten |
 | Testimonial PT Bakti Air Indonesia | Approved | Rekanan resmi untuk produk PDAM, izin tampil sebagai partner testimonial |
 | Nama klien dan partner | Need verification | Tidak semua nama/logo otomatis aman dipublish |
-| Role tim yang masih `[___]` | Blocker | Wajib diisi sebelum halaman About final |
+| Klaim efisiensi 70% (D-IBS) | Need verification | Angka perlu sumber data sebelum publish |
+| Role tim (Randi Maizul) | Blocker | Role perlu konfirmasi sebelum halaman About final |
 
 ---
 
@@ -32,8 +33,8 @@
 - **Label:** PT Comon Cipta Inovasi
 - **H1:** Digitalisasi Tanpa Batas — Dari Sensor Hingga Sistem
 - **Subtitle:** Solusi teknologi end-to-end untuk PDAM, Pemerintahan, BUMN & Swasta. Berpengalaman lebih dari satu dekade membangun sistem yang benar-benar bekerja.
-- **CTA 1:** Lihat Produk
-- **CTA 2:** Hubungi Kami
+- **CTA 1:** Hubungi Kami *(primary/filled)*
+- **CTA 2:** Lihat Produk *(secondary/outline)*
 
 ### Counter
 | Angka | Label |
@@ -154,7 +155,7 @@ Menjadi mitra strategis dalam transformasi digital di Indonesia, memberikan solu
 | Fahmi Zulhasymi | Solution Architect | fahmi.jpg |
 | Muhammad Ilham C. | Developer | WhatsApp-...-9.06.09-PM.jpeg |
 | Muhammad Arifan | Developer | 20180510_145342-scaled.jpg |
-| Randi Maizul | <!-- TODO: isi role Randi --> Developer | WhatsApp-...-9.28.04-PM.jpeg |
+| Randi Maizul | Developer *(role perlu konfirmasi)* | WhatsApp-...-9.28.04-PM.jpeg |
 | Robinaldi | Design | Screenshot-2023-08-02-at-18.02.24.png |
 | Rully Culit | Digital Creative | IMG_2207-scaled.jpg |
 

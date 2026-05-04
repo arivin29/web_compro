@@ -131,7 +131,7 @@ devetek.com/
                         Solusi PDAM         About Us           Office: Bogor
                         ERP Custom          Portfolio           Workshop: Tangerang
                         HELIOS              Clients            Phone
-                        ERP                 Blog               Email
+                        ERP Custom          Blog               Email
                         Software House      Contact            WhatsApp
                         Konsultasi          Privacy Policy
 
@@ -188,7 +188,7 @@ devetek.com/
 | Analytics | Google Analytics / Plausible setup | Tracking |
 | Legal pages | Privacy policy, terms | `/privacy-policy`, `/terms` |
 | Final QA | Cross-browser, responsive, content review | Checklist |
-| Deployment | Deploy ke hosting (Vercel/VPS) | LIVE |
+| Deployment | Deploy ke Firebase Hosting (static export) | LIVE |
 
 ### Phase 5 — Post-Launch (Ongoing)
 > Iterasi berdasarkan feedback

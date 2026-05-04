@@ -8,11 +8,11 @@
 | Styling | Tailwind CSS 3.4 | Utility-first, dark theme tokens, responsive |
 | Animation | Framer Motion | Scroll reveal, page transitions, micro-interactions |
 | Icons | Lucide React | Konsisten, ringan, tree-shakeable |
-| Font | Google Fonts (Plus Jakarta Sans + Inter) | Gratis, CDN cepat |
+| Font | Google Fonts (Plus Jakarta Sans + Inter) | Self-hosted via `next/font/google`, tanpa CDN eksternal |
 | Hosting | Firebase Hosting | Static export, CDN global, SSL gratis |
 | Analytics | Google Analytics 4 | Gratis, terintegrasi Firebase |
 | Form | Firebase Functions (opsional) / Formspree | Contact form handler |
-| Blog | MDX (local) | Markdown + komponen React |
+| Blog | MDX (local) | Markdown + komponen React, via `@next/mdx` atau `next-mdx-remote` |
 
 ## Deployment Strategy — Firebase Hosting (Static Export)
 
@@ -35,6 +35,8 @@ firebase deploy → upload /out ke Firebase Hosting CDN
 {
   "hosting": {
     "public": "out",
+    "cleanUrls": true,
+    "trailingSlash": false,
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       { "source": "**", "destination": "/404.html" }
@@ -52,6 +54,28 @@ firebase deploy → upload /out ke Firebase Hosting CDN
   }
 }
 ```
+
+### next.config.js
+```js
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  output: 'export',
+  images: { unoptimized: true },
+  trailingSlash: false,
+}
+
+module.exports = nextConfig
+```
+
+### .firebaserc
+```json
+{
+  "projects": {
+    "default": "YOUR_FIREBASE_PROJECT_ID"
+  }
+}
+```
+> **Note:** Ganti `YOUR_FIREBASE_PROJECT_ID` dengan Firebase project ID yang sebenarnya.
 
 ### Contact Form Options (tanpa backend)
 1. **Formspree** — gratis 50 submission/bulan, cukup untuk compro
@@ -99,7 +123,9 @@ compro/
 │   │   ├── products/
 │   │   │   ├── page.tsx                # Products overview
 │   │   │   ├── pdam-suite/
-│   │   │   │   └── page.tsx            # D-IBS + D-ASSET + HELIOS
+│   │   │   │   └── page.tsx            # D-IBS + D-ASSET
+│   │   │   ├── helios/
+│   │   │   │   └── page.tsx            # HELIOS IoT Platform
 │   │   │   ├── erp/
 │   │   │   │   └── page.tsx
 │   │   │   ├── software-house/
@@ -230,4 +256,31 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
 NEXT_PUBLIC_FORMSPREE_ID=xyzabc
 NEXT_PUBLIC_WA_NUMBER=628562302229
 NEXT_PUBLIC_SITE_URL=https://devetek.com
+NEXT_PUBLIC_LINKEDIN_URL=https://linkedin.com/company/devetek
+NEXT_PUBLIC_INSTAGRAM_URL=https://instagram.com/devetek.id
 ```
+> **Note:** Konfirmasi URL social media sebelum launch.
+
+### robots.txt
+```
+User-agent: *
+Allow: /
+Sitemap: https://devetek.com/sitemap.xml
+```
+
+### "use client" Directive
+
+Next.js 14 App Router menjadikan semua komponen sebagai **Server Components** secara default. Komponen yang menggunakan Framer Motion, event handlers (`onClick`, `onChange`), atau React hooks (`useState`, `useEffect`, `useInView`) **wajib** menambahkan `'use client'` di baris pertama file.
+
+Komponen yang memerlukan `'use client'`:
+- Semua file di `components/sections/` (animasi, interaktivitas)
+- `components/layout/Navbar.tsx` (scroll detection, mobile menu state)
+- `components/layout/MobileMenu.tsx` (state)
+- `components/ui/Counter.tsx` (useInView, animate)
+- `components/shared/ScrollReveal.tsx` (Framer Motion)
+- `components/shared/WhatsAppFAB.tsx` (jika ada hover state)
+
+Komponen yang **tidak** perlu `'use client'`:
+- `app/layout.tsx` (bisa tetap server component)
+- `components/layout/Footer.tsx` (static)
+- `components/ui/Badge.tsx`, `SectionHeading.tsx` (static)

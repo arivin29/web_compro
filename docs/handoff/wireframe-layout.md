@@ -134,7 +134,7 @@
 │                                                     │
 │ [CTA - FULL - gradient accent bg]                   │
 │                                                     │
-│  (H2) Siap Transformasi Digital?                    │
+│  (H2) Siap Memulai Transformasi Digital?             │
 │  (p)  Konsultasi gratis dengan tim kami              │
 │                                                     │
 │  [ Hubungi Kami ]  [ WhatsApp ]                     │
