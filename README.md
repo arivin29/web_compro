@@ -68,6 +68,7 @@ Dokumen ini adalah pintu masuk utama untuk handoff ke developer atau agency.
 | `docs/development/architecture.md` | READY | Tech stack (Next.js 14 + Tailwind + Firebase Hosting), folder structure, Git branching, deploy strategy |
 | `docs/development/task-breakdown.md` | READY | 17 tasks dalam 5 sprint, estimasi, dependency graph, subtask checklist |
 | `docs/development/component-design.md` | READY | Visual blueprint per komponen: dimensi, warna, animasi, responsive behavior |
+| `docs/development/data-constants.md` | READY | Semua data siap copy-paste ke TypeScript: nav, team, products, SEO metadata, contacts, CTA |
 
 ## Decision Rules
 
