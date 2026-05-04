@@ -1,7 +1,31 @@
 # Design Spec & Style Guide
 
-> Dokumen referensi visual untuk developer & designer.
-> Semua value di sini harus diimplementasikan konsisten di seluruh website.
+> Status: WORKING DRAFT
+> Fungsi: panduan visual dan UI untuk design/development.
+> Catatan: dokumen ini sekarang sudah cukup kuat sebagai style guide, tetapi masih perlu guardrail kreatif agar agency tidak menafsirkan visual terlalu jauh.
+
+## Brand Direction
+
+- Personality: modern, enterprise, trustworthy, technical
+- Mood: premium, fokus, rapi, tidak playful
+- Tone visual: corporate terang dengan basis putih-biru, formal, bersih, dan aman untuk company profile
+- Core principle: trust-building lebih penting daripada efek visual yang ramai
+
+## Creative Guardrails
+
+### Do
+
+- Gunakan layout yang bersih, mudah dibaca, dan terasa premium
+- Tunjukkan produk, dashboard, implementasi lapangan, dan bukti kerja nyata
+- Gunakan surface putih, panel abu-biru muda, dan border halus untuk membangun kesan enterprise
+- Prioritaskan hierarchy teks dan CTA yang jelas
+
+### Don't
+
+- Jangan membuat UI terlalu neon, terlalu gaming, atau terlalu futuristik berlebihan
+- Jangan memakai ilustrasi kartun atau visual yang terasa startup-anak-muda
+- Jangan menumpuk animasi sampai mengganggu kredibilitas atau keterbacaan
+- Jangan memakai hero visual yang generik jika ada screenshot produk atau dokumentasi lapangan yang lebih kuat
 
 ---
 
@@ -9,27 +33,29 @@
 
 ### Primary Colors
 ```
-Background Primary   : #0D1117  (dark navy — main bg)
-Background Secondary : #161B22  (slightly lighter — sections)
-Background Card      : #1E293B  (card, modal, dropdown)
-Background Hover     : #263248  (card hover state)
-Border               : #30363D  (subtle borders)
+Background Primary   : #F7FAFC  (off-white — main bg)
+Background Secondary : #EEF3F8  (soft blue-gray — section alt)
+Background Card      : #FFFFFF  (card, modal, dropdown)
+Background Hover     : #F2F6FB  (card hover state)
+Border               : #D7E1EC  (subtle cool border)
 ```
 
 ### Accent Colors
 ```
-Accent Primary       : #00D4FF  (electric blue — CTA, links, highlights)
-Accent Hover         : #33DDFF  (lighter blue — hover state)
-Accent Glow          : rgba(0, 212, 255, 0.15)  (glow effect)
-Accent Gradient      : linear-gradient(135deg, #00D4FF, #0EA5E9)
+Accent Primary       : #5E8FC8  (brand blue — CTA, links, highlights)
+Accent Hover         : #3F6FA8  (deeper blue — hover state)
+Accent Soft          : #8FB4DE  (light blue — subtle highlights)
+Accent Secondary     : #FF6A2A  (warm accent — badge, key emphasis)
+Accent Strong        : #FF3B1F  (limited high-attention use)
+Accent Gradient      : linear-gradient(135deg, #5E8FC8, #7AA7D6)
 ```
 
 ### Text Colors
 ```
-Text Primary         : #FFFFFF  (headings, important text)
-Text Secondary       : #94A3B8  (body text, descriptions)
-Text Muted           : #64748B  (labels, captions, meta)
-Text Accent          : #00D4FF  (links, highlights)
+Text Primary         : #16202E  (headings, important text)
+Text Secondary       : #526274  (body text, descriptions)
+Text Muted           : #74839A  (labels, captions, meta)
+Text Accent          : #5E8FC8  (links, highlights)
 ```
 
 ### Semantic Colors
@@ -44,21 +70,23 @@ Info                 : #3B82F6
 ```js
 colors: {
   bg: {
-    primary: '#0D1117',
-    secondary: '#161B22',
-    card: '#1E293B',
-    hover: '#263248',
+    primary: '#F7FAFC',
+    secondary: '#EEF3F8',
+    card: '#FFFFFF',
+    hover: '#F2F6FB',
   },
   accent: {
-    DEFAULT: '#00D4FF',
-    hover: '#33DDFF',
-    glow: 'rgba(0, 212, 255, 0.15)',
+    DEFAULT: '#5E8FC8',
+    hover: '#3F6FA8',
+    soft: '#8FB4DE',
+    secondary: '#FF6A2A',
+    strong: '#FF3B1F',
   },
-  border: '#30363D',
+  border: '#D7E1EC',
   text: {
-    primary: '#FFFFFF',
-    secondary: '#94A3B8',
-    muted: '#64748B',
+    primary: '#16202E',
+    secondary: '#526274',
+    muted: '#74839A',
   },
 }
 ```
@@ -135,29 +163,29 @@ Full (avatars, pills)   : 9999px (rounded-full)
 
 ## 5. SHADOWS & EFFECTS
 
-### Box Shadows (dark theme — subtle)
+### Box Shadows (light corporate — subtle)
 ```
-Card       : 0 4px 6px -1px rgba(0, 0, 0, 0.3)
-Card Hover : 0 10px 25px -5px rgba(0, 0, 0, 0.4)
-Dropdown   : 0 10px 40px rgba(0, 0, 0, 0.5)
+Card       : 0 8px 24px rgba(22, 32, 46, 0.06)
+Card Hover : 0 14px 32px rgba(22, 32, 46, 0.10)
+Dropdown   : 0 16px 40px rgba(22, 32, 46, 0.12)
 ```
 
-### Glassmorphism (untuk cards premium)
+### Surface Treatment (untuk cards premium)
 ```css
-.glass {
-  background: rgba(30, 41, 59, 0.6);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+.surface-premium {
+  background: #FFFFFF;
+  border: 1px solid #D7E1EC;
+  box-shadow: 0 12px 32px rgba(22, 32, 46, 0.08);
 }
 ```
 
-### Glow Effect (accent elements)
+### Accent Treatment (accent elements)
 ```css
 .glow {
-  box-shadow: 0 0 20px rgba(0, 212, 255, 0.15);
+  box-shadow: 0 8px 24px rgba(94, 143, 200, 0.18);
 }
 .glow-strong {
-  box-shadow: 0 0 40px rgba(0, 212, 255, 0.25);
+  box-shadow: 0 10px 28px rgba(255, 106, 42, 0.18);
 }
 ```
 
@@ -191,25 +219,25 @@ const stagger = {
 /* Card hover */
 .card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
-  border-color: rgba(0, 212, 255, 0.3);
+  box-shadow: 0 14px 32px rgba(22, 32, 46, 0.10);
+  border-color: rgba(94, 143, 200, 0.35);
   transition: all 0.3s ease;
 }
 
 /* Button hover */
 .btn-primary:hover {
-  background: #33DDFF;
-  box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+  background: #3F6FA8;
+  box-shadow: 0 10px 24px rgba(94, 143, 200, 0.22);
   transition: all 0.2s ease;
 }
 
 /* Logo grayscale → color */
 .client-logo {
-  filter: grayscale(100%) brightness(0.7);
+  filter: grayscale(100%) opacity(0.7);
   transition: all 0.3s ease;
 }
 .client-logo:hover {
-  filter: grayscale(0%) brightness(1);
+  filter: grayscale(0%) opacity(1);
 }
 ```
 
@@ -226,9 +254,9 @@ const stagger = {
 
 | Variant | Background | Text | Border | Hover |
 |---------|-----------|------|--------|-------|
-| Primary | accent gradient | white | none | glow + lighten |
-| Secondary | transparent | accent | 1px accent | bg accent/10% |
-| Ghost | transparent | text-secondary | none | bg white/5% |
+| Primary | accent gradient | white | none | darker blue + soft shadow |
+| Secondary | white | accent | 1px border | bg secondary/40% |
+| Ghost | transparent | text-secondary | none | bg primary/80% |
 
 ```
 Padding   : 12px 24px (md) / 16px 32px (lg)
@@ -239,28 +267,28 @@ Min-width : 120px
 
 ### Cards
 ```
-Background  : bg-card (#1E293B)
-Border      : 1px solid #30363D
+Background  : bg-card (#FFFFFF)
+Border      : 1px solid #D7E1EC
 Radius      : 16px
 Padding     : 24px (md) / 32px (lg)
-Hover       : translateY(-4px) + accent border glow
+Hover       : translateY(-4px) + soft blue border emphasis
 ```
 
 ### Input Fields
 ```
-Background  : #0D1117
-Border      : 1px solid #30363D
+Background  : #FFFFFF
+Border      : 1px solid #D7E1EC
 Radius      : 12px
 Padding     : 12px 16px
-Focus       : border-color: #00D4FF + glow
-Text        : #FFFFFF
-Placeholder : #64748B
+Focus       : border-color: #5E8FC8 + subtle shadow
+Text        : #16202E
+Placeholder : #74839A
 ```
 
 ### Badges / Tags
 ```
-Background  : rgba(0, 212, 255, 0.1)
-Text        : #00D4FF
+Background  : rgba(94, 143, 200, 0.12)
+Text        : #3F6FA8
 Padding     : 4px 12px
 Radius      : 6px
 Font        : 12px, weight 600
@@ -269,8 +297,8 @@ Font        : 12px, weight 600
 ### Navigation
 ```
 Header height     : 72px
-Header bg          : rgba(13, 17, 23, 0.8) + backdrop-blur(12px)
-Header border-bottom : 1px solid rgba(48, 54, 61, 0.5)
+Header bg          : rgba(255, 255, 255, 0.92) + backdrop-blur(12px)
+Header border-bottom : 1px solid rgba(215, 225, 236, 0.9)
 Active link        : accent color + underline
 Mobile breakpoint  : 768px (hamburger)
 ```
@@ -346,3 +374,40 @@ Blog           : 16:9 (featured image)
 - Wrap screenshot dalam device mockup (laptop/tablet/phone)
 - Drop shadow pada mockup
 - Slight 3D perspective opsional
+
+---
+
+## 11. VISUAL REFERENCES
+
+Tambahkan 3-5 website acuan sebelum masuk fase desain final. Format yang disarankan:
+
+| Reference | Yang Diambil | Yang Dihindari |
+|-----------|--------------|----------------|
+| Ref 1 | Hero structure, density, CTA hierarchy | Jangan copy identitas visual mentah |
+| Ref 2 | Card treatment, use of product screenshot | Hindari layout yang terlalu padat |
+| Ref 3 | Enterprise trust cues, case study presentation | Hindari terlalu corporate kaku |
+
+## 12. PHOTOGRAPHY & ILLUSTRATION DIRECTION
+
+### Photography
+
+- Prioritaskan foto tim, kantor, implementasi lapangan, dan dashboard produk
+- Pilih foto yang terasa profesional dan aktual, bukan stok generik
+- Gunakan cropping yang konsisten dan latar yang tidak terlalu ramai
+
+### Illustration
+
+- Minimal, teknikal, diagrammatic
+- Cocok untuk ekosistem produk, workflow, dan coverage map
+- Hindari ilustrasi karakter, kartun, atau gaya yang terlalu dekoratif
+
+## 13. PRIORITY COMPONENTS
+
+Komponen yang harus dikunci lebih dulu sebelum eksplorasi detail lain:
+
+1. Header / navigation
+2. Hero section
+3. Product card
+4. CTA section
+5. Contact form
+6. Logo grid / trust section

@@ -1,7 +1,29 @@
 # Copy Deck — Teks Final per Halaman
 
-> Dokumen ini berisi teks SIAP PAKAI untuk setiap section di website.
-> Developer tinggal copy-paste. Tanda [___] = perlu diisi/konfirmasi klien.
+> Status: WORKING DRAFT
+> Fungsi: sumber copy per halaman, tetapi belum seluruhnya approved untuk publish.
+> Aturan pakai: semua placeholder `[___]`, angka performa, nama klien, testimonial, dan struktur entitas harus lolos approval internal sebelum tayang.
+
+## Approval Legend
+
+| Label | Arti |
+|-------|------|
+| Approved | Aman dipakai untuk handoff dan publish |
+| Need verification | Boleh dipakai untuk diskusi, belum aman untuk publish |
+| Internal only | Jangan ditampilkan publik |
+| Optional | Boleh dihilangkan jika ruang terbatas |
+| Blocker | Harus diputuskan sebelum page terkait masuk build final |
+
+## High-Risk Content Register
+
+| Area | Status | Notes |
+|------|--------|-------|
+| Counter: 12+ tahun, 50+ klien, 100+ proyek, 2 benua | Need verification | Perlu sumber data dan approval final |
+| Claim ekspansi ke Eropa | Need verification | Perlu validasi wording dan bukti pendukung |
+| Struktur entitas CCI / DMI / Devetek | Need verification | Pastikan narasi legal dan bisnis konsisten |
+| Testimonial PT Bakti Air Indonesia | Need verification | Pastikan izin tampil publik |
+| Nama klien dan partner | Need verification | Tidak semua nama/logo otomatis aman dipublish |
+| Role tim yang masih `[___]` | Blocker | Wajib diisi sebelum halaman About final |
 
 ---
 
@@ -284,7 +306,7 @@ Database pegawai digital. Absensi manual, QR code, atau GPS check-in. Dashboard 
 - **Desc:** Lebih dari 100 proyek selesai di berbagai sektor. Berikut sebagian yang bisa kami tampilkan.
 
 ### Project Cards
-(Lihat daftar lengkap di persiapan v2.md bagian Portfolio)
+(Lihat daftar lengkap di `docs/reference/persiapan-v2.md` bagian Portfolio)
 
 ---
 

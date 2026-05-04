@@ -1,7 +1,27 @@
 # Wireframe & Layout Specification — Company Profile Devetek
 
-> Dokumen ini menjelaskan layout section-by-section setiap halaman.
-> Developer bisa langsung mapping ke komponen.
+> Status: WORKING DRAFT
+> Fungsi: panduan struktur section per halaman untuk design dan development.
+> Aturan pakai: wireframe ini tidak berarti semua section wajib dibangun pada fase launch. Gunakan prioritas `P0`, `P1`, dan `P2` sebagai penentu scope.
+
+## Prioritas Halaman
+
+| Halaman | Priority | Catatan |
+|---------|----------|---------|
+| Home | P0 | Halaman paling penting untuk launch |
+| About | P0 | Wajib untuk trust-building |
+| Products overview | P0 | Wajib untuk menjelaskan penawaran |
+| Product detail utama | P0 | Fokus pada D-IBS, D-ASSET, HELIOS, ERP, Software House, Consulting |
+| Contact | P0 | Jalur konversi utama |
+| Portfolio | P1 | Bisa disederhanakan jika konten belum siap |
+| Clients | P1 | Tampilkan hanya jika logo/izin sudah clear |
+| Blog | P2 | Jangan memblokir launch |
+
+## Prioritas Section Umum
+
+- P0 default: header, hero, product/service explanation, CTA, contact path, footer
+- P1 default: testimonial carousel, filter lanjutan, peta coverage, timeline animatif kompleks
+- P2 default: blog system, CMS, animasi dekoratif non-esensial
 
 ---
 
@@ -26,7 +46,7 @@
 │ Contact                              [ Hubungi Kami ]│
 ├─────────────────────────────────────────────────────┤
 │                                                     │
-│ [HERO - FULL - dark gradient bg]                    │
+│ [HERO - FULL - light corporate gradient bg]         │
 │                                                     │
 │    (kecil) PT Comon Cipta Inovasi                   │
 │    (H1)  Digitalisasi Tanpa Batas                   │
@@ -256,9 +276,21 @@
 │  │  [ Selengkapnya → ]                 │            │
 │  └─────────────────────────────────────┘            │
 │                                                     │
-│  6 cards: D-IBS, D-ASSET, HELIOS, ERP,              │
-│           Software House, Konsultasi                │
+│  Card yang disarankan:                              │
+│  1. Solusi PDAM                                     │
+│  2. ERP Custom                                      │
+│  3. HELIOS IoT                                      │
+│  4. Software House                                  │
+│  5. Konsultasi & Pengadaan                          │
 │                                                     │
+│  Catatan: D-IBS dan D-ASSET tidak harus menjadi     │
+│  card utama terpisah; keduanya bisa tampil sebagai  │
+│  bagian dari Solusi PDAM.                           │
+│                                                     │
+├─────────────────────────────────────────────────────┤
+│ [TRUST / IMPLEMENTATION SNAPSHOT]                   │
+│  “Dipakai oleh 10+ PDAM dan berbagai perusahaan”    │
+│  [logo ringkas] [foto lapangan] [link ke portfolio] │
 ├─────────────────────────────────────────────────────┤
 │ [CTA SECTION]                                       │
 ├─────────────────────────────────────────────────────┤
@@ -269,6 +301,9 @@
 ---
 
 ## 4. PRODUCT DETAIL — D-IBS (`/products/d-ibs`)
+
+Catatan revisi arsitektur:
+Untuk handoff final, halaman ini lebih aman digabung sebagai bagian dari halaman `Solusi PDAM` daripada berdiri sendiri sebagai top-level product page. Jika tetap dipisah, pastikan ia tetap terhubung kuat dengan D-ASSET dan HELIOS.
 
 ```
 ┌─────────────────────────────────────────────────────┐
@@ -316,6 +351,26 @@
 │                                                     │
 ├─────────────────────────────────────────────────────┤
 │                                                     │
+│ [IMPLEMENTATION PROOF]                              │
+│  (H2) Sudah Diimplementasikan di Berbagai PDAM      │
+│  - Logo atau nama PDAM yang approved                │
+│  - Jumlah rollout / lokasi                          │
+│  - Highlight training, pendampingan, go-live        │
+│                                                     │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│ [GALERI DOKUMENTASI]                                │
+│  Foto kegiatan, implementasi lapangan,              │
+│  meeting, training, commissioning                   │
+│                                                     │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│ [SELECTED CASES]                                    │
+│  2-4 case cards pendek                              │
+│  [Nama PDAM] [Masalah] [Solusi] [Output]            │
+│                                                     │
+├─────────────────────────────────────────────────────┤
+│                                                     │
 │ [EKOSISTEM LINK]                                    │
 │  Lihat juga: D-ASSET (WebGIS) | HELIOS (IoT)       │
 │                                                     │
@@ -340,7 +395,8 @@ Sections:
 3. 7 Fitur utama (grid cards)
 4. Keamanan data (4 poin)
 5. Integrasi QGIS (diagram)
-6. CTA: link ke webgis-pdam.devetek.app + hubungi kami
+6. Foto implementasi / survey lapangan
+7. CTA: link ke webgis-pdam.devetek.app + hubungi kami
 ```
 
 ---
@@ -359,6 +415,26 @@ Sections:
 6. Performa (angka: <500ms, 10K+/detik, 99.9%)
 7. CTA: link ke iot.devetek.app + minta demo
 ```
+
+---
+
+## 6A. PRODUCT DETAIL — ERP CUSTOM (`/products/erp`)
+
+```
+Sections yang disarankan:
+1. Hero: ERP custom, bukan ERP template
+2. Masalah bisnis yang diselesaikan
+3. Modul-modul inti (Finance, HR, Inventory, Procurement, Approval, dll)
+4. Cara kerja custom implementation
+5. Selected companies / implementation proof
+6. Screenshot modul prioritas
+7. CTA konsultasi kebutuhan ERP
+```
+
+Catatan:
+- Jangan menjual ERP hanya sebagai daftar fitur.
+- Tunjukkan bahwa sistem ini fleksibel, modular, dan pernah diimplementasikan di beberapa perusahaan.
+- Jika nama perusahaan sensitif, gunakan versi `selected industries` atau `selected implementations`.
 
 ---
 

@@ -1,5 +1,36 @@
 # Sitemap & Roadmap — Company Profile Devetek
 
+> Status: WORKING DRAFT
+> Fungsi: dokumen kerja gabungan untuk struktur halaman, prioritas launch, dan roadmap delivery.
+> Catatan: roadmap dan tech stack di bawah adalah rekomendasi implementasi, bukan scope final, kecuali item yang sudah ditetapkan sebagai `P0`.
+
+## Prioritas Phase 1
+
+| Priority | Halaman / Item |
+|----------|----------------|
+| P0 | Home, About, Products, detail produk inti, Contact, legal minimum |
+| P1 | Portfolio, Clients, logo grid tambahan, testimonial tambahan, coverage map |
+| P2 | Blog, CMS/MDX, multi-bahasa, chatbot, career page, enhancement lanjutan |
+
+## Interpretasi Scope
+
+1. Semua item P0 dianggap kandidat launch batch pertama.
+2. Item P1 boleh masuk jika waktu, budget, dan approval konten memadai.
+3. Item P2 tidak diasumsikan masuk fase launch kecuali disetujui terpisah.
+
+## Prinsip Arsitektur Produk
+
+Untuk website ini, struktur produk sebaiknya tidak murni `satu produk = satu halaman brosur`. Ada dua jenis offering yang berbeda dan harus diperlakukan berbeda:
+
+1. Produk / solusi utama yang punya positioning jelas dan butuh halaman sendiri.
+2. Implementasi, modul, dokumentasi lapangan, dan case studies yang berfungsi sebagai bukti, bukan sebagai menu utama semua.
+
+Implikasinya:
+
+- PDAM tidak cukup dipresentasikan sebagai satu produk kecil; lebih tepat sebagai solution cluster.
+- ERP custom tidak ideal jika ditampilkan seperti produk template; lebih tepat sebagai solution page dengan daftar modul dan contoh implementasi.
+- Bukti implementasi seperti foto kegiatan, rollout ke PDAM, dan perusahaan pengguna sebaiknya masuk ke section `implementation proof` atau `selected case studies`, bukan memecah nav menjadi terlalu banyak item.
+
 ---
 
 ## SITEMAP (Struktur URL & Hierarki Halaman)
@@ -14,37 +45,45 @@ devetek.com/
 │   └── #timeline .............. Section: Timeline Perusahaan
 │   └── #values ................ Section: Visi, Misi, Values
 │
-├── /products ................... PRODUCTS & SERVICES (Overview)
-│   ├── /products/d-ibs ........ D-IBS Sistem PDAM Terintegrasi
-│   │   ├── #billing ........... Billing & Loket
-│   │   ├── #penagihan ......... Penagihan Mobile
-│   │   ├── #baca-meter ........ Baca Meter Mobile
-│   │   ├── #non-air ........... Non-Air
-│   │   ├── #pengaduan ......... Hubungan Langganan & Pengaduan
-│   │   ├── #keuangan .......... Akuntansi & Keuangan
-│   │   └── #hr ................ HR & Absensi
+├── /products ................... PRODUCTS & SOLUTIONS (Overview / Hub)
+│   ├── /products/pdam-suite ... Solusi Digital untuk PDAM
+│   │   ├── #overview .......... Ringkasan value proposition PDAM
+│   │   ├── #solutions ......... D-IBS, D-ASSET, HELIOS
+│   │   ├── #modules ........... Billing, Penagihan, Baca Meter, HR, Keuangan, dll
+│   │   ├── #implementation .... Implementasi & rollout ke PDAM
+│   │   ├── #gallery ........... Foto kegiatan, training, instalasi, go-live
+│   │   ├── #clients ........... Daftar PDAM pengguna (approved only)
+│   │   └── #cta ............... Demo / Hubungi kami
 │   │
-│   ├── /products/d-asset ....... D-ASSET (WebGIS PDAM)
-│   │   → link ke: webgis-pdam.devetek.app
+│   ├── /products/erp .......... ERP Custom untuk Operasional Bisnis
+│   │   ├── #overview .......... Positioning ERP custom
+│   │   ├── #modules ........... Finance, HR, inventory, procurement, approval, dll
+│   │   ├── #use-cases ......... Contoh kebutuhan perusahaan yang dilayani
+│   │   ├── #implementation .... Perusahaan pengguna terpilih
+│   │   └── #cta ............... Konsultasi kebutuhan ERP
 │   │
-│   ├── /products/helios ........ DEVETEK HELIOS (IoT Platform + Hardware)
-│   │   → link ke: iot.devetek.app
-│   │
-│   ├── /products/erp ........... DEVETEK ERP
+│   ├── /products/helios ....... DEVETEK HELIOS (IoT Platform + Hardware)
+│   │   ├── #platform .......... Cloud platform
+│   │   ├── #hardware .......... Sensor dan device
+│   │   ├── #industries ........ Industri / use cases
+│   │   ├── #implementation .... Bukti implementasi lapangan
+│   │   └── #cta ............... Demo / external product link
 │   │
 │   ├── /products/software-house  Custom Software Development
-│   │   ├── #web-app
-│   │   ├── #mobile-app
-│   │   ├── #web-gis
-│   │   └── #specialized (AMIMS, EDUTECH, HOMPES, Perkebunan)
+│   │   ├── #overview
+│   │   ├── #capabilities ...... Web app, mobile app, GIS, system integration
+│   │   ├── #selected-work ..... Proyek representatif
+│   │   └── #cta
 │   │
 │   └── /products/consulting .... Konsultasi & Pengadaan
 │       ├── #it-consulting
 │       ├── #procurement
-│       └── #maintenance
+│       ├── #maintenance
+│       └── #cta
 │
 ├── /portfolio .................. PORTFOLIO / PROJECTS
 │   ├── ?filter=pdam ........... Filter: PDAM
+│   ├── ?filter=erp ............ Filter: ERP / Enterprise Systems
 │   ├── ?filter=government ..... Filter: Pemerintah
 │   └── ?filter=private ........ Filter: Swasta
 │
@@ -72,19 +111,25 @@ devetek.com/
 ```
 [ Logo ] Home | About | Products ▼ | Portfolio | Clients | Blog | Contact [ Hubungi Kami ]
                                   |
-                                  ├── D-IBS (Sistem PDAM)
-                                  ├── D-ASSET (WebGIS)
+                                  ├── Solusi PDAM
+                                  ├── ERP Custom
                                   ├── HELIOS (IoT)
-                                  ├── ERP
                                   ├── Software House
                                   └── Konsultasi & Pengadaan
 ```
 
+### Catatan Navigasi Produk
+
+- `D-IBS` dan `D-ASSET` tetap tampil di halaman `Solusi PDAM`, tetapi tidak wajib menjadi item menu utama terpisah.
+- Jika nanti dibutuhkan landing page mandiri untuk SEO atau campaign, keduanya bisa dibuat sebagai child page atau anchor deep link dari `Solusi PDAM`.
+- Daftar 10 PDAM pengguna lebih tepat masuk ke section `clients` atau `implementation`, bukan jadi 10 halaman produk terpisah.
+- Untuk ERP custom, yang dijual adalah kemampuan solusi dan rentang modul, bukan satu paket produk kaku.
+
 ### Footer
 ```
 [ Logo + Deskripsi ]    [ Produk ]          [ Perusahaan ]     [ Kontak ]
-                        D-IBS               About Us           Office: Bogor
-                        D-ASSET             Portfolio           Workshop: Tangerang
+                        Solusi PDAM         About Us           Office: Bogor
+                        ERP Custom          Portfolio           Workshop: Tangerang
                         HELIOS              Clients            Phone
                         ERP                 Blog               Email
                         Software House      Contact            WhatsApp
@@ -114,11 +159,10 @@ devetek.com/
 | Task | Detail | Deliverable |
 |------|--------|-------------|
 | About Us | Story, timeline, values, tim leadership | `/about` |
-| Products overview | Landing produk dengan 6 cards | `/products` |
-| Products: D-IBS | Detail 7 modul billing/HR/keuangan | `/products/d-ibs` |
-| Products: D-ASSET | Overview + link ke webgis-pdam.devetek.app | `/products/d-asset` |
-| Products: HELIOS | Overview + link ke iot.devetek.app | `/products/helios` |
-| Products: ERP | Feature list + screenshot | `/products/erp` |
+| Products overview | Hub solusi dengan grouping yang lebih jelas | `/products` |
+| Products: Solusi PDAM | Overview solusi + modul + implementasi PDAM | `/products/pdam-suite` |
+| Products: HELIOS | Overview + bukti implementasi + link eksternal | `/products/helios` |
+| Products: ERP | Modul + use cases + perusahaan pengguna terpilih | `/products/erp` |
 | Products: Software House | Layanan custom dev | `/products/software-house` |
 | Products: Consulting | Konsultasi & pengadaan | `/products/consulting` |
 | Contact page | Form + maps + WhatsApp CTA | `/contact` |
@@ -181,7 +225,7 @@ Minggu 5  ████████  Polish, SEO, testing, LAUNCH 🚀
 | Logo 8 PDAM | ⏳ | Dari klien |
 | Detail klien kementerian | ⏳ | Dari klien |
 | Screenshot produk | ✅ | Ada di wp-content + website IoT/WebGIS |
-| Konten teks | ✅ | Sudah disusun di persiapan v2.md |
+| Konten teks | ✅ | Sudah disusun di `docs/reference/persiapan-v2.md` |
 | Domain & DNS | ⏳ | devetek.com — perlu akses |
 | Hosting | ⏳ | Belum ditentukan |
 
@@ -192,7 +236,7 @@ Minggu 5  ████████  Polish, SEO, testing, LAUNCH 🚀
 | Layer | Teknologi | Alasan |
 |-------|-----------|--------|
 | Framework | Next.js 14+ (App Router) | SSG/SSR, SEO, performa |
-| Styling | Tailwind CSS | Utility-first, dark theme mudah |
+| Styling | Tailwind CSS | Utility-first, mudah menjaga design token dan konsistensi UI |
 | Animasi | Framer Motion | Smooth, declarative |
 | Icons | Lucide / Heroicons | Clean, consistent |
 | Blog/CMS | MDX (local) atau Contentful | Simple, scalable |
