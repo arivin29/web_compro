@@ -1,14 +1,14 @@
 # Design Spec & Style Guide
 
-> Status: WORKING DRAFT
+> Status: FINAL — DARK THEME
 > Fungsi: panduan visual dan UI untuk design/development.
-> Catatan: dokumen ini sekarang sudah cukup kuat sebagai style guide, tetapi masih perlu guardrail kreatif agar agency tidak menafsirkan visual terlalu jauh.
+> Keputusan tema: **DARK** (navy + electric blue). Konsisten dengan branding produk IoT & WebGIS.
 
 ## Brand Direction
 
 - Personality: modern, enterprise, trustworthy, technical
 - Mood: premium, fokus, rapi, tidak playful
-- Tone visual: corporate terang dengan basis putih-biru, formal, bersih, dan aman untuk company profile
+- Tone visual: dark premium dengan basis navy-biru neon, technical, modern, enterprise
 - Core principle: trust-building lebih penting daripada efek visual yang ramai
 
 ## Creative Guardrails
@@ -17,7 +17,7 @@
 
 - Gunakan layout yang bersih, mudah dibaca, dan terasa premium
 - Tunjukkan produk, dashboard, implementasi lapangan, dan bukti kerja nyata
-- Gunakan surface putih, panel abu-biru muda, dan border halus untuk membangun kesan enterprise
+- Gunakan dark navy surface, card abu gelap, dan accent electric blue untuk kesan tech-modern
 - Prioritaskan hierarchy teks dan CTA yang jelas
 
 ### Don't
@@ -33,29 +33,27 @@
 
 ### Primary Colors
 ```
-Background Primary   : #F7FAFC  (off-white — main bg)
-Background Secondary : #EEF3F8  (soft blue-gray — section alt)
-Background Card      : #FFFFFF  (card, modal, dropdown)
-Background Hover     : #F2F6FB  (card hover state)
-Border               : #D7E1EC  (subtle cool border)
+Background Primary   : #0D1117  (dark navy — main bg)
+Background Secondary : #161B22  (slightly lighter — section alt)
+Background Card      : #1E293B  (card, modal, dropdown)
+Background Hover     : #263248  (card hover state)
+Border               : #30363D  (subtle borders)
 ```
 
 ### Accent Colors
 ```
-Accent Primary       : #5E8FC8  (brand blue — CTA, links, highlights)
-Accent Hover         : #3F6FA8  (deeper blue — hover state)
-Accent Soft          : #8FB4DE  (light blue — subtle highlights)
-Accent Secondary     : #FF6A2A  (warm accent — badge, key emphasis)
-Accent Strong        : #FF3B1F  (limited high-attention use)
-Accent Gradient      : linear-gradient(135deg, #5E8FC8, #7AA7D6)
+Accent Primary       : #00D4FF  (electric blue — CTA, links, highlights)
+Accent Hover         : #33DDFF  (lighter blue — hover state)
+Accent Glow          : rgba(0, 212, 255, 0.15)  (glow effect)
+Accent Gradient      : linear-gradient(135deg, #00D4FF, #0EA5E9)
 ```
 
 ### Text Colors
 ```
-Text Primary         : #16202E  (headings, important text)
-Text Secondary       : #526274  (body text, descriptions)
-Text Muted           : #74839A  (labels, captions, meta)
-Text Accent          : #5E8FC8  (links, highlights)
+Text Primary         : #FFFFFF  (headings, important text)
+Text Secondary       : #94A3B8  (body text, descriptions)
+Text Muted           : #64748B  (labels, captions, meta)
+Text Accent          : #00D4FF  (links, highlights)
 ```
 
 ### Semantic Colors
@@ -70,23 +68,21 @@ Info                 : #3B82F6
 ```js
 colors: {
   bg: {
-    primary: '#F7FAFC',
-    secondary: '#EEF3F8',
-    card: '#FFFFFF',
-    hover: '#F2F6FB',
+    primary: '#0D1117',
+    secondary: '#161B22',
+    card: '#1E293B',
+    hover: '#263248',
   },
   accent: {
-    DEFAULT: '#5E8FC8',
-    hover: '#3F6FA8',
-    soft: '#8FB4DE',
-    secondary: '#FF6A2A',
-    strong: '#FF3B1F',
+    DEFAULT: '#00D4FF',
+    hover: '#33DDFF',
+    glow: 'rgba(0, 212, 255, 0.15)',
   },
-  border: '#D7E1EC',
+  border: '#30363D',
   text: {
-    primary: '#16202E',
-    secondary: '#526274',
-    muted: '#74839A',
+    primary: '#FFFFFF',
+    secondary: '#94A3B8',
+    muted: '#64748B',
   },
 }
 ```
@@ -163,29 +159,29 @@ Full (avatars, pills)   : 9999px (rounded-full)
 
 ## 5. SHADOWS & EFFECTS
 
-### Box Shadows (light corporate — subtle)
+### Box Shadows (dark theme — subtle)
 ```
-Card       : 0 8px 24px rgba(22, 32, 46, 0.06)
-Card Hover : 0 14px 32px rgba(22, 32, 46, 0.10)
-Dropdown   : 0 16px 40px rgba(22, 32, 46, 0.12)
+Card       : 0 4px 6px -1px rgba(0, 0, 0, 0.3)
+Card Hover : 0 10px 25px -5px rgba(0, 0, 0, 0.4)
+Dropdown   : 0 10px 40px rgba(0, 0, 0, 0.5)
 ```
 
-### Surface Treatment (untuk cards premium)
+### Glassmorphism (untuk cards premium)
 ```css
-.surface-premium {
-  background: #FFFFFF;
-  border: 1px solid #D7E1EC;
-  box-shadow: 0 12px 32px rgba(22, 32, 46, 0.08);
+.glass {
+  background: rgba(30, 41, 59, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 ```
 
-### Accent Treatment (accent elements)
+### Glow Effect (accent elements)
 ```css
 .glow {
-  box-shadow: 0 8px 24px rgba(94, 143, 200, 0.18);
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.15);
 }
 .glow-strong {
-  box-shadow: 0 10px 28px rgba(255, 106, 42, 0.18);
+  box-shadow: 0 0 40px rgba(0, 212, 255, 0.25);
 }
 ```
 
@@ -219,25 +215,25 @@ const stagger = {
 /* Card hover */
 .card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 14px 32px rgba(22, 32, 46, 0.10);
-  border-color: rgba(94, 143, 200, 0.35);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+  border-color: rgba(0, 212, 255, 0.3);
   transition: all 0.3s ease;
 }
 
 /* Button hover */
 .btn-primary:hover {
-  background: #3F6FA8;
-  box-shadow: 0 10px 24px rgba(94, 143, 200, 0.22);
+  background: #33DDFF;
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
   transition: all 0.2s ease;
 }
 
 /* Logo grayscale → color */
 .client-logo {
-  filter: grayscale(100%) opacity(0.7);
+  filter: grayscale(100%) brightness(0.7);
   transition: all 0.3s ease;
 }
 .client-logo:hover {
-  filter: grayscale(0%) opacity(1);
+  filter: grayscale(0%) brightness(1);
 }
 ```
 
@@ -254,9 +250,9 @@ const stagger = {
 
 | Variant | Background | Text | Border | Hover |
 |---------|-----------|------|--------|-------|
-| Primary | accent gradient | white | none | darker blue + soft shadow |
-| Secondary | white | accent | 1px border | bg secondary/40% |
-| Ghost | transparent | text-secondary | none | bg primary/80% |
+| Primary | accent gradient | white | none | glow + lighten |
+| Secondary | transparent | accent | 1px accent | bg accent/10% |
+| Ghost | transparent | text-secondary | none | bg white/5% |
 
 ```
 Padding   : 12px 24px (md) / 16px 32px (lg)
@@ -267,28 +263,28 @@ Min-width : 120px
 
 ### Cards
 ```
-Background  : bg-card (#FFFFFF)
-Border      : 1px solid #D7E1EC
+Background  : bg-card (#1E293B)
+Border      : 1px solid #30363D
 Radius      : 16px
 Padding     : 24px (md) / 32px (lg)
-Hover       : translateY(-4px) + soft blue border emphasis
+Hover       : translateY(-4px) + accent border glow
 ```
 
 ### Input Fields
 ```
-Background  : #FFFFFF
-Border      : 1px solid #D7E1EC
+Background  : #0D1117
+Border      : 1px solid #30363D
 Radius      : 12px
 Padding     : 12px 16px
-Focus       : border-color: #5E8FC8 + subtle shadow
-Text        : #16202E
-Placeholder : #74839A
+Focus       : border-color: #00D4FF + glow
+Text        : #FFFFFF
+Placeholder : #64748B
 ```
 
 ### Badges / Tags
 ```
-Background  : rgba(94, 143, 200, 0.12)
-Text        : #3F6FA8
+Background  : rgba(0, 212, 255, 0.1)
+Text        : #00D4FF
 Padding     : 4px 12px
 Radius      : 6px
 Font        : 12px, weight 600
@@ -297,8 +293,8 @@ Font        : 12px, weight 600
 ### Navigation
 ```
 Header height     : 72px
-Header bg          : rgba(255, 255, 255, 0.92) + backdrop-blur(12px)
-Header border-bottom : 1px solid rgba(215, 225, 236, 0.9)
+Header bg          : rgba(13, 17, 23, 0.8) + backdrop-blur(12px)
+Header border-bottom : 1px solid rgba(48, 54, 61, 0.5)
 Active link        : accent color + underline
 Mobile breakpoint  : 768px (hamburger)
 ```

@@ -45,7 +45,7 @@
 | Section | Konten |
 |---------|--------|
 | **Hero** | Tagline besar + subtitle + CTA button ("Hubungi Kami" / "Lihat Produk") |
-| **Angka Pencapaian** | 12+ Tahun · 50+ Klien · 100+ Proyek · 2 Benua (Indonesia & Eropa) |
+| **Angka Pencapaian** | 12+ Tahun · 50+ Klien · 100+ Proyek |
 | **Overview Produk** | 4 cards: D-IBS, ERP & Custom Software, IoT & Monitoring, Konsultasi & Pengadaan |
 | **Logo Klien** | Carousel: PDAM Tanah Datar, KKP, BPBD, Pemkab Bogor, RPN, dll |
 | **CTA Section** | Ajakan konsultasi gratis |

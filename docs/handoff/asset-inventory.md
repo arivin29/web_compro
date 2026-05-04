@@ -75,8 +75,8 @@ Untuk kategori produk, format yang lebih aman adalah `per produk`, bukan satu li
 
 | Produk | Priority | Halaman | Minimum asset untuk launch | Status | Catatan |
 |--------|----------|---------|----------------------------|--------|---------|
-| D-IBS | P0 | Detail product | 1 hero overview, 3-4 screenshot modul utama | Partial | Masih kurang screenshot Billing, Penagihan, HR, dan Keuangan versi terbaru |
-| D-ASSET | P0 | Detail product | 1 hero WebGIS preview, 2-3 screenshot fitur inti | Pending | Perlu ambil screenshot final dari webgis-pdam |
+| D-IBS | P0 | Detail product | 1 hero overview, 3-4 screenshot modul utama | Partial | Screenshot Billing, Penagihan, HR, Keuangan **gunakan placeholder** dulu |
+| D-ASSET | P0 | Detail product | 1 hero WebGIS preview, 2-3 screenshot fitur inti | Partial | **Gunakan placeholder** dulu, screenshot menyusul |
 | HELIOS | P0 | Detail product | 1 hero dashboard, 3-5 screenshot fitur inti, foto instalasi hardware | Ready | Aset paling lengkap dan siap dipakai |
 | ERP | P0 | Detail product | 1 hero overview, 2-4 screenshot modul inti | Ready | Sudah cukup untuk launch page |
 | Software House | P0 | Service page | 3-5 contoh proyek representatif lintas kategori | Partial | Pilih hanya case yang approved untuk publik |
@@ -91,16 +91,16 @@ Untuk kategori produk, format yang lebih aman adalah `per produk`, bukan satu li
 |-------|------|--------|-------|----------------|
 | Hero overview PDAM | pdam-1.png, pdam.png | Ready | Hero / overview section | wp-content/uploads/2023/08/ |
 | Baca Meter | baca-meter.png, baca-meter.jpg, meteran-1.jpg | Ready | Modul / feature highlight | wp-content/uploads/2023/08/ |
-| Billing | — | Pending | Modul / feature highlight | Perlu screenshot terbaru |
-| Penagihan | — | Pending | Modul / feature highlight | Perlu screenshot terbaru |
-| HR | — | Pending | Modul / feature highlight | Perlu screenshot terbaru |
-| Keuangan | — | Pending | Modul / feature highlight | Perlu screenshot terbaru |
+| Billing | — | Placeholder | Modul / feature highlight | Gunakan placeholder mockup, screenshot menyusul |
+| Penagihan | — | Placeholder | Modul / feature highlight | Gunakan placeholder mockup, screenshot menyusul |
+| HR | — | Placeholder | Modul / feature highlight | Gunakan placeholder mockup, screenshot menyusul |
+| Keuangan | — | Placeholder | Modul / feature highlight | Gunakan placeholder mockup, screenshot menyusul |
 
 #### D-ASSET
 
 | Asset | File | Status | Usage | Lokasi / Notes |
 |-------|------|--------|-------|----------------|
-| WebGIS preview | — | Pending | Hero / feature overview | Perlu screenshot dari webgis-pdam |
+| WebGIS preview | — | Placeholder | Hero / feature overview | Gunakan placeholder mockup, screenshot menyusul |
 
 #### HELIOS
 

@@ -27,7 +27,7 @@ Website ini ditujukan untuk mempresentasikan PT Comon Cipta Inovasi / Devetek se
 
 - Personality: modern, enterprise, trustworthy, technical
 - Tone of voice: jelas, percaya diri, tidak bombastis, tidak terlalu santai
-- Visual intent: corporate terang, premium, rapi, fokus pada trust-building
+- Visual intent: dark premium (navy + electric blue), modern, tech-feel, fokus pada trust-building
 
 ## Primary CTA
 

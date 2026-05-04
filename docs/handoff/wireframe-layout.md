@@ -46,7 +46,7 @@
 │ Contact                              [ Hubungi Kami ]│
 ├─────────────────────────────────────────────────────┤
 │                                                     │
-│ [HERO - FULL - light corporate gradient bg]         │
+│ [HERO - FULL - dark gradient bg]                   │
 │                                                     │
 │    (kecil) PT Comon Cipta Inovasi                   │
 │    (H1)  Digitalisasi Tanpa Batas                   │
@@ -60,14 +60,13 @@
 │                                                     │
 ├─────────────────────────────────────────────────────┤
 │                                                     │
-│ [COUNTER - CONTAINER - GRID-4]                      │
+│ [COUNTER - CONTAINER - GRID-3]                      │
 │                                                     │
-│  ┌─────────┐ ┌─────────┐ ┌─────────┐ ┌─────────┐  │
-│  │  12+    │ │  50+    │ │  100+   │ │   2     │  │
-│  │  Tahun  │ │  Klien  │ │  Proyek │ │  Benua  │  │
-│  │Pengalaman│ │  Aktif  │ │ Selesai │ │Indonesia│  │
-│  │         │ │         │ │         │ │ & Eropa │  │
-│  └─────────┘ └─────────┘ └─────────┘ └─────────┘  │
+│  ┌───────────┐  ┌───────────┐  ┌───────────┐       │
+│  │   12+     │  │   50+     │  │   100+    │       │
+│  │   Tahun   │  │   Klien   │  │   Proyek  │       │
+│  │ Pengalaman│  │   Aktif   │  │  Selesai  │       │
+│  └───────────┘  └───────────┘  └───────────┘       │
 │  (counter animation on scroll)                      │
 │                                                     │
 ├─────────────────────────────────────────────────────┤
@@ -300,7 +299,11 @@
 
 ---
 
-## 4. PRODUCT DETAIL — D-IBS (`/products/d-ibs`)
+## 4. PRODUCT DETAIL — PDAM Suite / D-IBS (`/products/pdam-suite`)
+
+> Catatan: Halaman ini menampilkan D-IBS sebagai bagian dari solusi PDAM.
+> D-ASSET dan HELIOS juga ditampilkan di sini sebagai bagian ekosistem,
+> dengan link ke halaman/website masing-masing.
 
 Catatan revisi arsitektur:
 Untuk handoff final, halaman ini lebih aman digabung sebagai bagian dari halaman `Solusi PDAM` daripada berdiri sendiri sebagai top-level product page. Jika tetap dipisah, pastikan ia tetap terhubung kuat dengan D-ASSET dan HELIOS.
@@ -383,7 +386,7 @@ Untuk handoff final, halaman ini lebih aman digabung sebagai bagian dari halaman
 
 ---
 
-## 5. PRODUCT DETAIL — D-ASSET (`/products/d-asset`)
+## 5. PRODUCT DETAIL — D-ASSET (`/products/pdam-suite#d-asset` atau link ke webgis-pdam.devetek.app)
 
 ```
 Layout mirip D-IBS, tapi lebih ringkas karena link ke
@@ -401,7 +404,7 @@ Sections:
 
 ---
 
-## 6. PRODUCT DETAIL — HELIOS (`/products/helios`)
+## 6. PRODUCT DETAIL — HELIOS (`/products/helios` atau link ke iot.devetek.app)
 
 ```
 Layout mirip D-ASSET, ringkas + link ke iot.devetek.app.

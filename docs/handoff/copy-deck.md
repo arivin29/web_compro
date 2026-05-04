@@ -18,10 +18,9 @@
 
 | Area | Status | Notes |
 |------|--------|-------|
-| Counter: 12+ tahun, 50+ klien, 100+ proyek, 2 benua | Need verification | Perlu sumber data dan approval final |
-| Claim ekspansi ke Eropa | Need verification | Perlu validasi wording dan bukti pendukung |
+| Counter: 12+ tahun, 50+ klien, 100+ proyek | Need verification | Perlu sumber data dan approval final |
 | Struktur entitas CCI / DMI / Devetek | Need verification | Pastikan narasi legal dan bisnis konsisten |
-| Testimonial PT Bakti Air Indonesia | Need verification | Pastikan izin tampil publik |
+| Testimonial PT Bakti Air Indonesia | Approved | Rekanan resmi untuk produk PDAM, izin tampil sebagai partner testimonial |
 | Nama klien dan partner | Need verification | Tidak semua nama/logo otomatis aman dipublish |
 | Role tim yang masih `[___]` | Blocker | Wajib diisi sebelum halaman About final |
 
@@ -42,7 +41,6 @@
 | 12+ | Tahun Pengalaman |
 | 50+ | Klien Aktif |
 | 100+ | Proyek Selesai |
-| 2 | Benua Terjangkau |
 
 ### Product Overview Cards
 
@@ -94,13 +92,14 @@
 
 ### Testimonial
 > "Setelah implementasi Devetek Helios di 5 DMA dengan 200+ node, waktu deteksi kebocoran berkurang drastis dari hitungan hari menjadi hitungan menit."
-> — Tim Teknis, PT Bakti Air Indonesia
+> — Tim Teknis, PT Bakti Air Indonesia (Rekanan Resmi Produk PDAM)
 
 ### CTA Bottom
 - **H2:** Siap Memulai Transformasi Digital?
 - **Desc:** Konsultasikan kebutuhan Anda dengan tim kami — gratis, tanpa komitmen.
 - **CTA 1:** Hubungi Kami
 - **CTA 2:** WhatsApp Langsung
+- **WhatsApp:** https://wa.me/628562302229
 
 ---
 
@@ -113,7 +112,7 @@
 ### Company Story
 Devetek adalah perusahaan teknologi yang berdiri sejak 2012, dan resmi menjadi PT Comon Cipta Inovasi pada tahun 2018. Kami berfokus pada pengembangan solusi perangkat lunak dan sistem sensor yang mendukung digitalisasi sektor swasta, BUMN, BUMD, dan Pemerintahan.
 
-Dengan pengalaman lebih dari satu dekade, Devetek telah menangani berbagai proyek mulai dari ERP terintegrasi, infrastruktur cloud, hingga sistem PDAM lengkap. PT Comon Cipta Inovasi telah berekspansi ke bidang IT, Telekomunikasi, dan Kelistrikan dengan jangkauan di Indonesia dan Eropa.
+Dengan pengalaman lebih dari satu dekade, Devetek telah menangani berbagai proyek mulai dari ERP terintegrasi, infrastruktur cloud, hingga sistem PDAM lengkap. PT Comon Cipta Inovasi telah berekspansi ke bidang IT, Telekomunikasi, dan Kelistrikan.
 
 Sebagai induk perusahaan, CCI memiliki lisensi dan didukung oleh PT Devetek Marapi Inovasi (DMI) sebagai rekanan yang fokus pada pasar PDAM.
 
@@ -124,11 +123,10 @@ Sebagai induk perusahaan, CCI memiliki lisensi dan didukung oleh PT Devetek Mara
 | 2012 | Devetek didirikan sebagai startup teknologi |
 | 2018 | Resmi menjadi PT Comon Cipta Inovasi |
 | 2019 | Fokus pada SaaS & IoT untuk sektor PDAM |
-| 2022 | Ekspansi proyek ke benua Eropa |
 | 2026 | 50+ klien aktif, 100+ proyek selesai |
 
 ### Visi
-Menjadi mitra strategis dalam transformasi digital di Indonesia dan global, memberikan solusi teknologi yang berdampak nyata.
+Menjadi mitra strategis dalam transformasi digital di Indonesia, memberikan solusi teknologi yang berdampak nyata.
 
 ### Misi
 - Menyediakan solusi teknologi terintegrasi yang menyelesaikan masalah nyata
@@ -343,6 +341,11 @@ Database pegawai digital. Absensi manual, QR code, atau GPS check-in. Dashboard 
 - Pesan *
 - Button: Kirim Pesan
 
+### WhatsApp CTA
+- Nomor: +62 856-2302-229
+- Link: https://wa.me/628562302229
+- Text preset: "Halo Devetek, saya tertarik dengan layanan Anda."
+
 ---
 
 ## 14. FOOTER
@@ -351,4 +354,4 @@ Database pegawai digital. Absensi manual, QR code, atau GPS check-in. Dashboard 
 PT Comon Cipta Inovasi — Perusahaan teknologi yang berfokus pada pengembangan solusi perangkat lunak dan sistem sensor untuk digitalisasi sektor publik dan swasta.
 
 **Copyright:**
-© 2025 PT Comon Cipta Inovasi. Seluruh hak dilindungi undang-undang.
+© 2026 PT Comon Cipta Inovasi. Seluruh hak dilindungi undang-undang.

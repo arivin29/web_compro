@@ -22,7 +22,7 @@
 | Project brief disetujui | OPEN | Gunakan `docs/handoff/project-brief.md` |
 | Scope P0/P1/P2 disepakati | OPEN | Gunakan `README.md` dan `docs/handoff/sitemap-roadmap.md` |
 | Copy tanpa placeholder untuk P0 | OPEN | Cek `docs/handoff/copy-deck.md` |
-| Klaim angka dan jangkauan diverifikasi | OPEN | Pengalaman, klien, proyek, Eropa |
+| Klaim angka dan jangkauan diverifikasi | OPEN | Pengalaman, klien, proyek |
 | Daftar klien publik disetujui | OPEN | Termasuk logo dan testimonial |
 | Aset prioritas P0 tersedia | OPEN | Logo, foto tim, screenshot produk inti |
 | Arah visual disetujui | OPEN | Cek `docs/handoff/design-spec.md` |
@@ -30,11 +30,17 @@
 
 ## Known Open Issues
 
-- Ada placeholder `[___]` di `docs/handoff/copy-deck.md`
+- Ada placeholder `[___]` di `docs/handoff/copy-deck.md` (Randi Maizul role)
 - Ada role tim yang belum final
-- Ada klaim marketing yang masih perlu verifikasi formal
-- Ada aset produk dan logo klien yang masih pending
-- Sitemap, roadmap, dan rekomendasi teknis masih berada dalam satu dokumen
+- ~~Ada klaim Eropa yang perlu verifikasi~~ → DIHAPUS
+- ~~Testimonial PT Bakti Air belum approved~~ → APPROVED (rekanan resmi)
+- ~~Tema visual belum diputuskan~~ → DARK THEME (confirmed)
+- ~~WhatsApp CTA belum ada nomor~~ → +62 856-2302-229
+- ~~Copyright masih 2025~~ → Updated ke 2026
+- Ada aset produk D-IBS & D-ASSET yang gunakan placeholder dulu
+- Ada logo klien yang masih pending
+- Screenshot D-IBS (Billing, Penagihan, HR, Keuangan) masih placeholder
+- Screenshot D-ASSET masih placeholder
 
 ## Minimum Package Untuk Dilempar Ke Agency
 
