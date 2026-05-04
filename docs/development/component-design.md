@@ -17,7 +17,7 @@
 | Height | 72px desktop, 64px mobile |
 | Background (top) | transparent |
 | Background (scroll) | bg-navy/80 backdrop-blur-xl border-b border-border |
-| Logo | height 32px, versi putih/light |
+| Logo | height 32px, `devetek.svg` (putih/light untuk dark bg) |
 | Nav links | Inter 500, text-sm, text-gray-300, hover:text-white |
 | Active link | text-white + accent underline (2px bottom) |
 | CTA button | "Hubungi Kami" — accent bg, rounded-full, px-6 py-2 |

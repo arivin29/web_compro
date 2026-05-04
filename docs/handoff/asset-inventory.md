@@ -43,7 +43,7 @@ Setiap aset prioritas P0 idealnya punya informasi berikut sebelum dikirim ke age
 | Favicon | 9aec1558-...-DEVETEK-f.png (176x168) | ✅ | wp-content/uploads/2023/08/ |
 | Logo CCI | comon-cipta-inovasi-1.png | ✅ | wp-content/uploads/2023/08/ |
 | Logo DMI | logo-dmi.png | ✅ | wp-content/uploads/2025/02/ |
-| Logo versi gelap (dark bg) | — | 🎨 | Perlu buat versi putih/light |
+| Logo SVG (untuk web) | — | 🎨 | Konversi logo utama ke SVG, versi putih/light untuk dark bg |
 | OG Image (social share) | — | 🎨 | 1200x630px untuk SEO |
 
 ---

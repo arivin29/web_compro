@@ -69,8 +69,7 @@ compro/
 ├── public/
 │   ├── images/
 │   │   ├── logo/
-│   │   │   ├── devetek-dark.svg        # Logo untuk dark bg
-│   │   │   └── devetek-light.svg       # Logo untuk light bg (fallback)
+│   │   │   └── devetek.svg             # Logo utama (putih/light, untuk dark bg)
 │   │   ├── team/
 │   │   │   ├── arifin.jpg
 │   │   │   ├── raka.jpg
