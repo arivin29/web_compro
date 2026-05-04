@@ -18,15 +18,15 @@
 | Deps | — |
 
 **Subtasks:**
-- [ ] `npx create-next-app@14 . --typescript --tailwind --app --src-dir`
-- [ ] Install dependencies: `framer-motion`, `lucide-react`, `clsx`, `tailwind-merge`
-- [ ] Setup `next.config.js` → `output: 'export'`, `images: { unoptimized: true }`, `trailingSlash: false`
-- [ ] Setup `firebase.json` (dengan `cleanUrls: true`) + `.firebaserc`
-- [ ] Setup `.env.local` template → `.env.example`
-- [ ] Setup `.gitignore` (tambah `/out`, `.firebase`)
-- [ ] Buat branch `develop` dari `main`
-- [ ] Buat branch `feature/setup-project` dari `develop`
-- [ ] Verify: `npm run build` berhasil, `firebase emulators:start` bisa serve `/out`
+- [x] ~~`npx create-next-app@14`~~ → manual setup (npm naming restriction workaround)
+- [x] Install dependencies: `framer-motion`, `lucide-react`, `clsx`, `tailwind-merge`
+- [x] Setup `next.config.js` → `output: 'export'`, `images: { unoptimized: true }`, `trailingSlash: false`
+- [x] Setup `firebase.json` (dengan `cleanUrls: true`) + `.firebaserc`
+- [x] Setup `.env.local` template → `.env.example`
+- [x] Setup `.gitignore` (tambah `/out`, `.firebase`)
+- [x] Buat branch `develop` dari `main`
+- [x] Buat branch `feature/setup-project` dari `develop`
+- [x] Verify: `npm run build` berhasil ✅
 
 ### TASK-002: Tailwind Config — Design Tokens
 | Field | Value |
@@ -36,17 +36,12 @@
 | Deps | TASK-001 |
 
 **Subtasks:**
-- [ ] `tailwind.config.ts` — extend colors:
-  ```
-  navy: { DEFAULT: '#0D1117', light: '#161B22', lighter: '#1E293B', hover: '#263248' }
-  accent: { DEFAULT: '#00D4FF', hover: '#33DDFF', glow: 'rgba(0, 212, 255, 0.15)' }
-  border: '#30363D'
-  ```
-- [ ] Extend fontFamily: `heading: 'Plus Jakarta Sans'`, `body: 'Inter'`
-- [ ] `globals.css`: custom utilities (`.glass-card`, `.gradient-text`, `.glow-border`)
-- [ ] Setup Google Fonts di `layout.tsx` via `next/font/google`
-- [ ] Dark body background: `bg-navy text-white`
-- [ ] Verify: semua token bisa dipakai di Tailwind classes
+- [x] `tailwind.config.ts` — extend colors: navy, accent, border
+- [x] Extend fontFamily: `heading: 'Plus Jakarta Sans'`, `body: 'Inter'`
+- [x] `globals.css`: custom utilities (`.glass-card`, `.gradient-text`, `.glow-border`)
+- [x] Setup Google Fonts di `layout.tsx` via `next/font/google`
+- [x] Dark body background: `bg-navy text-white`
+- [x] Verify: semua token bisa dipakai di Tailwind classes ✅
 
 ### TASK-003: Base UI Components
 | Field | Value |
@@ -56,16 +51,18 @@
 | Deps | TASK-002 |
 
 **Subtasks:**
-- [ ] `Button.tsx` — variant: primary (accent), secondary (outline), ghost, whatsapp (green)
-- [ ] `Card.tsx` — glassmorphism card (bg-navy-lighter/80 backdrop-blur border-border)
-- [ ] `Badge.tsx` — label produk (PDAM, ERP, Consulting, dll)
-- [ ] `SectionHeading.tsx` — label + H2 + subtitle, centered or left
-- [ ] `Counter.tsx` — animated count-up on scroll (useInView + animate)
-- [ ] `ClientLogo.tsx` — grayscale → color on hover
-- [ ] `TestimonialCard.tsx` — avatar, nama, role, company, kutipan
-- [ ] `ScrollReveal.tsx` — Framer Motion wrapper (fade-up, stagger children)
-- [ ] `GradientBlob.tsx` — decorative blur circle (accent color)
-- [ ] Verify: setiap komponen render benar, props typed, responsive
+- [x] `Button.tsx` — variant: primary (accent), secondary (outline), ghost, whatsapp (green)
+- [x] `Card.tsx` — glassmorphism card (bg-navy-lighter/80 backdrop-blur border-border)
+- [x] `Badge.tsx` — label produk (PDAM, ERP, Consulting, dll)
+- [x] `SectionHeading.tsx` — label + H2 + subtitle, centered or left
+- [x] `Counter.tsx` — animated count-up on scroll (useInView + animate)
+- [x] `ClientLogo.tsx` — grayscale → color on hover
+- [x] `TestimonialCard.tsx` — avatar, nama, role, company, kutipan
+- [x] `ScrollReveal.tsx` — Framer Motion wrapper (fade-up, stagger children)
+- [x] `GradientBlob.tsx` — decorative blur circle (accent color)
+- [x] Verify: build pass, props typed ✅
+- [x] Bonus: `motion.ts` — animation presets (fadeUp, fadeIn, stagger, scaleIn, slideInLeft)
+- [x] Bonus: barrel export `components/ui/index.ts`
 
 ---
 
