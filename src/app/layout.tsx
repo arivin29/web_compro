@@ -1,6 +1,10 @@
 import type { Metadata } from 'next'
 import { Plus_Jakarta_Sans, Inter } from 'next/font/google'
 import '@/styles/globals.css'
+import Navbar from '@/components/layout/Navbar'
+import Footer from '@/components/layout/Footer'
+import WhatsAppFAB from '@/components/layout/WhatsAppFAB'
+import PageTransition from '@/components/ui/PageTransition'
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -37,8 +41,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="id" className={`${plusJakarta.variable} ${inter.variable}`}>
-      <body>{children}</body>
+    <html lang="id" className={`${plusJakarta.variable} ${inter.variable} scroll-smooth`}>
+      <body>
+        <Navbar />
+        <PageTransition>{children}</PageTransition>
+        <Footer />
+        <WhatsAppFAB />
+      </body>
     </html>
   )
 }

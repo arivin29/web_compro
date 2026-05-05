@@ -76,6 +76,7 @@ export const FOOTER_LINKS = {
     { label: 'Blog', href: '/blog' },
     { label: 'Kontak', href: '/contact' },
     { label: 'Privacy Policy', href: '/privacy-policy' },
+    { label: 'Syarat & Ketentuan', href: '/terms' },
   ],
 } as const
 

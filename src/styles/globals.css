@@ -3,14 +3,31 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
-    @apply bg-navy text-white font-body antialiased;
+    @apply bg-white text-text-primary font-body antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading text-brand-dark;
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    @apply text-text-secondary;
   }
 }
 
 @layer components {
   .glass-card {
-    @apply bg-navy-lighter/80 backdrop-blur-sm border border-border rounded-2xl;
+    @apply bg-white border border-border rounded-2xl shadow-card transition-all duration-300;
+  }
+
+  .glass-card:hover {
+    @apply shadow-lg border-accent/20;
   }
 
   .gradient-text {
@@ -18,6 +35,35 @@
   }
 
   .glow-border {
-    @apply border-accent/30 shadow-[0_0_20px_rgba(0,212,255,0.15)];
+    @apply border-accent/30 shadow-glow;
+  }
+
+  .section-padding {
+    @apply py-24 md:py-32;
+  }
+
+  .card-lift {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 }

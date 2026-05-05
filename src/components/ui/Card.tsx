@@ -15,7 +15,7 @@ export default function Card({ children, className, hover = true }: CardProps) {
         clsx(
           'glass-card p-6 md:p-8',
           hover &&
-            'transition-all duration-300 hover:border-accent/50 hover:-translate-y-1 hover:shadow-lg hover:shadow-accent/10',
+            'transition-all duration-300 hover:border-brand-blue/30 hover:-translate-y-1 hover:shadow-card-hover',
           className,
         ),
       )}

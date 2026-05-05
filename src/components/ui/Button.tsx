@@ -15,11 +15,11 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary:
-    'bg-gradient-to-r from-accent to-[#0EA5E9] text-navy font-medium shadow-lg shadow-accent/20 hover:brightness-110 hover:shadow-accent/30',
+    'bg-brand-blue text-white font-medium shadow-blue hover:bg-brand-blue-light hover:shadow-lg',
   secondary:
-    'border border-border text-white hover:border-accent/50 hover:bg-accent/10',
+    'border border-border text-brand-dark hover:border-brand-blue hover:bg-accent-light',
   ghost:
-    'text-gray-300 hover:text-white hover:bg-white/5',
+    'text-text-secondary hover:text-brand-dark hover:bg-surface-hover',
   whatsapp:
     'bg-green-500 text-white hover:bg-green-600',
 }

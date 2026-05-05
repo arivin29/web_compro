@@ -8,10 +8,10 @@ interface BadgeProps {
 }
 
 const variantStyles = {
-  accent: 'bg-accent/10 text-accent border-accent/20',
-  green: 'bg-green-500/10 text-green-400 border-green-500/20',
-  yellow: 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20',
-  gray: 'bg-gray-500/10 text-gray-400 border-gray-500/20',
+  accent: 'bg-accent/10 text-brand-blue border-brand-blue/20',
+  green: 'bg-green-500/10 text-green-600 border-green-500/20',
+  yellow: 'bg-yellow-500/10 text-yellow-600 border-yellow-500/20',
+  gray: 'bg-gray-100 text-text-muted border-gray-200',
 }
 
 export default function Badge({ children, variant = 'accent', className }: BadgeProps) {

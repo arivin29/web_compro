@@ -45,13 +45,13 @@ export default function Counter({
 
   return (
     <div ref={ref} className="text-center">
-      <div className="font-heading font-extrabold text-4xl md:text-5xl text-accent">
+      <div className="font-heading font-extrabold text-4xl md:text-5xl text-brand-blue">
         {count}
         {suffix}
       </div>
-      <div className="font-body font-medium text-sm text-white mt-1">{label}</div>
+      <div className="font-body font-medium text-sm text-brand-dark mt-1">{label}</div>
       {sublabel && (
-        <div className="font-body text-xs text-gray-500">{sublabel}</div>
+        <div className="font-body text-xs text-text-muted">{sublabel}</div>
       )}
     </div>
   )

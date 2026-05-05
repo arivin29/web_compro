@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { Quote } from 'lucide-react'
+import { Quotes } from '@phosphor-icons/react'
 
 interface TestimonialCardProps {
   quote: string
@@ -18,11 +18,11 @@ export default function TestimonialCard({
 }: TestimonialCardProps) {
   return (
     <div className="glass-card p-8 relative">
-      <Quote className="absolute top-4 right-4 w-8 h-8 text-accent/30" />
-      <p className="text-base text-gray-300 italic mb-6 leading-relaxed">
+      <Quotes className="absolute top-4 right-4 text-brand-blue/15" size={32} />
+      <p className="text-base text-text-secondary italic mb-6 leading-relaxed">
         &ldquo;{quote}&rdquo;
       </p>
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 justify-center">
         {avatar ? (
           <Image
             src={avatar}
@@ -32,13 +32,13 @@ export default function TestimonialCard({
             className="w-12 h-12 rounded-full object-cover"
           />
         ) : (
-          <div className="w-12 h-12 rounded-full bg-navy-hover flex items-center justify-center text-accent font-heading font-bold text-lg">
+          <div className="w-12 h-12 rounded-full bg-accent-light flex items-center justify-center text-brand-blue font-heading font-bold text-lg">
             {name.charAt(0)}
           </div>
         )}
-        <div>
-          <div className="font-heading font-semibold text-sm text-white">{name}</div>
-          <div className="text-xs text-gray-500">
+        <div className="text-left">
+          <div className="font-heading font-semibold text-sm text-brand-dark">{name}</div>
+          <div className="text-xs text-text-muted">
             {role} — {company}
           </div>
         </div>
