@@ -218,10 +218,7 @@ export default function ContactPage() {
                       <div>
                         <p className="font-heading font-semibold text-brand-dark">Kantor</p>
                         <p className="text-sm text-text-body mt-1">
-                          <span className="font-medium">Office:</span> {CONTACT.address.office.full}
-                        </p>
-                        <p className="text-sm text-text-body mt-1">
-                          <span className="font-medium">Workshop:</span> {CONTACT.address.workshop.full}
+                          {CONTACT.address.office.full}
                         </p>
                       </div>
                     </div>

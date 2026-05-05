@@ -76,7 +76,7 @@ export default function TermsPage() {
             </p>
             <ul className="list-none space-y-1 text-text-body mt-3">
               <li><strong>PT Comon Cipta Inovasi</strong></li>
-              <li>Mutiara Karadenan No. 7C, Cibinong, Kab. Bogor, Jawa Barat</li>
+              <li>Komplek Meranti No. 3, RT.01/RW.02, Pasir Jaya, Bogor Barat, Kota Bogor, Jawa Barat 16119</li>
               <li>Email: info@devetek.com</li>
               <li>Telepon: 0856 230 2229</li>
             </ul>

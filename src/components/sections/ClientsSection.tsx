@@ -54,11 +54,11 @@ export default function ClientsSection() {
           </div>
         </ScrollReveal>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="space-y-4 max-w-3xl mx-auto">
           {SECTORS.map((sector, i) => (
             <ScrollReveal key={sector.sector} delay={i * 0.1}>
-              <div className="bg-white border border-border rounded-2xl p-6 h-full">
-                <div className="flex items-center gap-3 mb-5">
+              <div className="bg-white border border-border rounded-2xl p-6">
+                <div className="flex items-center gap-3 mb-4">
                   <div className="w-10 h-10 rounded-lg bg-brand-blue/10 flex items-center justify-center">
                     <sector.icon className="text-brand-blue" size={20} />
                   </div>
@@ -67,12 +67,12 @@ export default function ClientsSection() {
                     <span className="text-xs text-text-muted">{sector.clients.length} klien</span>
                   </div>
                 </div>
-                <div className="space-y-2">
+                <div className="flex flex-wrap gap-2">
                   {sector.clients.map((name) => (
-                    <div key={name} className="flex items-center gap-2 text-sm text-text-secondary">
-                      <div className="w-1.5 h-1.5 rounded-full bg-brand-blue/40 shrink-0" />
+                    <span key={name} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-alt text-sm text-text-secondary border border-border">
+                      <span className="w-1.5 h-1.5 rounded-full bg-brand-blue/40 shrink-0" />
                       {name}
-                    </div>
+                    </span>
                   ))}
                 </div>
               </div>

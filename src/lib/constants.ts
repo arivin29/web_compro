@@ -29,12 +29,8 @@ export const CONTACT = {
   },
   address: {
     office: {
-      label: 'Office',
-      full: 'Mutiara Karadenan No. 7C, Cibinong, Kab. Bogor, Jawa Barat',
-    },
-    workshop: {
-      label: 'Workshop',
-      full: 'Citra Raya, Pesona Atlantis M23/37, Kab. Tangerang, Banten',
+      label: 'Kantor',
+      full: 'Komplek Meranti No. 3, RT.01/RW.02, Pasir Jaya, Bogor Barat, Kota Bogor, Jawa Barat 16119',
     },
   },
   social: {

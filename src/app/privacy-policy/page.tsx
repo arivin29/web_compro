@@ -76,7 +76,7 @@ export default function PrivacyPolicyPage() {
             <ul className="list-none space-y-1 text-text-body mt-3">
               <li><strong>Email:</strong> info@devetek.com</li>
               <li><strong>Telepon:</strong> 0856 230 2229</li>
-              <li><strong>Alamat:</strong> Mutiara Karadenan No. 7C, Cibinong, Kab. Bogor, Jawa Barat</li>
+              <li><strong>Alamat:</strong> Komplek Meranti No. 3, RT.01/RW.02, Pasir Jaya, Bogor Barat, Kota Bogor, Jawa Barat 16119</li>
             </ul>
           </div>
         </div>

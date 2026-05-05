@@ -39,7 +39,7 @@ export default function LocationSection() {
 
             {/* Office cards */}
             <div className="space-y-4">
-              {/* Office 1 */}
+              {/* Office */}
               <div className="bg-surface-alt border border-border rounded-2xl p-6">
                 <div className="flex items-start gap-4">
                   <div className="w-11 h-11 rounded-xl bg-brand-blue/10 flex items-center justify-center shrink-0">
@@ -51,19 +51,6 @@ export default function LocationSection() {
                       <span className="text-[10px] px-2 py-0.5 rounded-full bg-green-100 text-green-700 font-medium">Kantor Utama</span>
                     </div>
                     <p className="text-sm text-text-secondary leading-relaxed">{CONTACT.address.office.full}</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Office 2 */}
-              <div className="bg-surface-alt border border-border rounded-2xl p-6">
-                <div className="flex items-start gap-4">
-                  <div className="w-11 h-11 rounded-xl bg-brand-blue/10 flex items-center justify-center shrink-0">
-                    <MapPin className="text-brand-blue" size={22} />
-                  </div>
-                  <div>
-                    <h3 className="font-heading font-bold text-sm text-brand-dark mb-1">{CONTACT.address.workshop.label}</h3>
-                    <p className="text-sm text-text-secondary leading-relaxed">{CONTACT.address.workshop.full}</p>
                   </div>
                 </div>
               </div>
