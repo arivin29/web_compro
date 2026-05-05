@@ -2,8 +2,6 @@
 
 import { CheckCircle, Headphones, Zap, RefreshCw } from 'lucide-react'
 import ScrollReveal from '@/components/ui/ScrollReveal'
-import Counter from '@/components/ui/Counter'
-import { STATS } from '@/lib/constants'
 
 const WHY_US = [
   {
@@ -31,23 +29,6 @@ const WHY_US = [
 export default function StatsSection() {
   return (
     <section className="relative bg-white">
-      {/* Stats bar */}
-      <div className="bg-surface-alt border-y border-border">
-        <div className="max-w-7xl mx-auto px-6 py-10 md:py-14">
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
-            {STATS.map((stat) => (
-              <Counter
-                key={stat.label}
-                value={stat.value}
-                suffix={stat.suffix}
-                label={stat.label}
-                sublabel={stat.sublabel}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-
       {/* Why Devetek */}
       <div className="max-w-7xl mx-auto px-6 py-20 md:py-28">
         <ScrollReveal>
