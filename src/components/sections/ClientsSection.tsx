@@ -1,44 +1,84 @@
 'use client'
 
-import SectionHeading from '@/components/ui/SectionHeading'
+import { Buildings, Drop, Lightning } from '@phosphor-icons/react'
 import ScrollReveal from '@/components/ui/ScrollReveal'
 
-const CLIENT_NAMES = [
-  'PDAM Kab. Tangerang',
-  'PDAM Kota Tangerang',
-  'PDAM Tirta Pakuan Bogor',
-  'PDAM Tirta Kahuripan',
-  'PDAM Kab. Subang',
-  'PDAM Kab. Sukabumi',
-  'PDAM Kota Depok',
-  'PT Bakti Air Indonesia',
-  'Kementerian PUPR',
-  'PLN',
+const SECTORS = [
+  {
+    icon: Drop,
+    sector: 'PDAM / Air Minum',
+    clients: [
+      'PDAM Kab. Tangerang',
+      'PDAM Kota Tangerang',
+      'PDAM Tirta Pakuan Bogor',
+      'PDAM Tirta Kahuripan',
+      'PDAM Kab. Subang',
+      'PDAM Kab. Sukabumi',
+      'PDAM Kota Depok',
+    ],
+  },
+  {
+    icon: Buildings,
+    sector: 'Pemerintah & BUMN',
+    clients: [
+      'Kementerian PUPR',
+      'PT Bakti Air Indonesia',
+    ],
+  },
+  {
+    icon: Lightning,
+    sector: 'Utilitas & Energi',
+    clients: [
+      'PLN',
+    ],
+  },
 ]
 
 export default function ClientsSection() {
   return (
-    <section className="py-24 md:py-32 bg-white">
+    <section className="py-20 md:py-28 bg-surface-alt">
       <div className="max-w-7xl mx-auto px-6">
         <ScrollReveal>
-          <SectionHeading
-            label="DIPERCAYA OLEH"
-            title="Klien & Mitra Kami"
-          />
-        </ScrollReveal>
-
-        <ScrollReveal delay={0.2}>
-          <div className="mt-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            {CLIENT_NAMES.map((name) => (
-              <div
-                key={name}
-                className="glass-card px-4 py-5 flex items-center justify-center text-center transition-all duration-300 hover:border-brand-blue/30 hover:shadow-card-hover"
-              >
-                <span className="text-sm text-text-secondary font-medium">{name}</span>
-              </div>
-            ))}
+          <div className="text-center mb-14">
+            <div className="flex items-center gap-3 mb-4 text-brand-blue text-sm uppercase tracking-widest font-medium justify-center">
+              <span className="w-8 h-px bg-brand-blue" />
+              DIPERCAYA OLEH
+              <span className="w-8 h-px bg-brand-blue" />
+            </div>
+            <h2 className="font-heading font-bold text-3xl md:text-4xl text-brand-dark mb-4">
+              Klien & Mitra di Berbagai Sektor
+            </h2>
+            <p className="text-base text-text-secondary max-w-xl mx-auto">
+              Melayani PDAM, pemerintahan, BUMN, dan sektor swasta di seluruh Indonesia.
+            </p>
           </div>
         </ScrollReveal>
+
+        <div className="grid md:grid-cols-3 gap-6">
+          {SECTORS.map((sector, i) => (
+            <ScrollReveal key={sector.sector} delay={i * 0.1}>
+              <div className="bg-white border border-border rounded-2xl p-6 h-full">
+                <div className="flex items-center gap-3 mb-5">
+                  <div className="w-10 h-10 rounded-lg bg-brand-blue/10 flex items-center justify-center">
+                    <sector.icon className="text-brand-blue" size={20} />
+                  </div>
+                  <div>
+                    <h3 className="font-heading font-bold text-sm text-brand-dark">{sector.sector}</h3>
+                    <span className="text-xs text-text-muted">{sector.clients.length} klien</span>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  {sector.clients.map((name) => (
+                    <div key={name} className="flex items-center gap-2 text-sm text-text-secondary">
+                      <div className="w-1.5 h-1.5 rounded-full bg-brand-blue/40 shrink-0" />
+                      {name}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </ScrollReveal>
+          ))}
+        </div>
       </div>
     </section>
   )

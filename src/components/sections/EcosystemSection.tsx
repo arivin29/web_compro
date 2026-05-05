@@ -1,55 +1,98 @@
 'use client'
 
-import { Database, ArrowsLeftRight } from '@phosphor-icons/react'
-import SectionHeading from '@/components/ui/SectionHeading'
+import { Database, ArrowsLeftRight, ChartBar, CloudArrowUp, UsersThree } from '@phosphor-icons/react'
 import ScrollReveal from '@/components/ui/ScrollReveal'
 
-const ECOSYSTEM_NODES = [
-  { label: 'D-IBS', sublabel: 'Billing', color: 'from-brand-red to-brand-red' },
-  { label: 'D-ASSET', sublabel: 'WebGIS', color: 'from-brand-blue to-brand-blue' },
-  { label: 'HELIOS', sublabel: 'IoT', color: 'from-brand-blue-dark to-brand-blue-dark' },
+const FLOW_STEPS = [
+  {
+    icon: UsersThree,
+    title: 'Data Lapangan',
+    desc: 'Petugas input via mobile app & sensor IoT',
+    color: 'bg-brand-red',
+  },
+  {
+    icon: Database,
+    title: 'Database Terpusat',
+    desc: 'Semua data tersimpan aman di cloud',
+    color: 'bg-brand-blue',
+  },
+  {
+    icon: CloudArrowUp,
+    title: 'Proses Otomatis',
+    desc: 'Billing, penagihan, analisa berjalan otomatis',
+    color: 'bg-brand-blue-light',
+  },
+  {
+    icon: ChartBar,
+    title: 'Dashboard Eksekutif',
+    desc: 'Laporan real-time di meja direksi',
+    color: 'bg-brand-blue-dark',
+  },
 ]
 
 export default function EcosystemSection() {
   return (
-    <section className="py-24 md:py-32 bg-surface-alt">
+    <section className="py-20 md:py-28 bg-white">
       <div className="max-w-7xl mx-auto px-6">
         <ScrollReveal>
-          <SectionHeading
-            label="EKOSISTEM DEVETEK"
-            title="Satu Ekosistem, Semua Terintegrasi"
-            subtitle="D-IBS (Billing) ↔ D-ASSET (WebGIS) ↔ HELIOS (IoT) — terhubung dalam satu database terpusat. Data mengalir seamless dari sensor di lapangan hingga laporan di meja direksi."
-          />
+          <div className="text-center mb-6">
+            <div className="flex items-center gap-3 mb-4 text-brand-blue text-sm uppercase tracking-widest font-medium justify-center">
+              <span className="w-8 h-px bg-brand-blue" />
+              CARA KERJA
+              <span className="w-8 h-px bg-brand-blue" />
+            </div>
+            <h2 className="font-heading font-bold text-3xl md:text-4xl text-brand-dark mb-4">
+              Dari Lapangan ke Meja Direksi
+            </h2>
+            <p className="text-base text-text-secondary max-w-2xl mx-auto">
+              Data mengalir seamless dari sensor & petugas di lapangan, diproses otomatis, 
+              hingga menjadi insight di dashboard eksekutif.
+            </p>
+          </div>
         </ScrollReveal>
 
         <ScrollReveal delay={0.2}>
-          <div className="mt-16 flex flex-col items-center">
-            {/* Nodes */}
-            <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 w-full">
-              {ECOSYSTEM_NODES.map((node, index) => (
-                <div key={node.label} className="flex items-center gap-4 md:gap-6">
-                  <div className="glass-card px-8 py-6 text-center min-w-[140px]">
-                    <div className={`font-heading font-bold text-lg bg-gradient-to-r ${node.color} bg-clip-text text-transparent`}>
-                      {node.label}
-                    </div>
-                    <div className="text-xs text-text-muted mt-1">{node.sublabel}</div>
-                  </div>
-                  {index < ECOSYSTEM_NODES.length - 1 && (
-                    <ArrowsLeftRight className="text-brand-blue/50 hidden md:block" size={20} />
-                  )}
+          <div className="mt-14 grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-0 relative">
+            {/* Connecting line (desktop) */}
+            <div aria-hidden className="hidden md:block absolute top-10 left-[12.5%] right-[12.5%] h-px bg-border z-0" />
+
+            {FLOW_STEPS.map((step, i) => (
+              <div key={step.title} className="relative flex flex-col items-center text-center px-4">
+                {/* Step number + icon */}
+                <div className={`relative z-10 w-20 h-20 rounded-2xl ${step.color} flex items-center justify-center mb-4 shadow-lg`}>
+                  <step.icon className="text-white" size={32} />
                 </div>
-              ))}
-            </div>
+                
+                {/* Arrow between steps (mobile) */}
+                {i < FLOW_STEPS.length - 1 && (
+                  <div className="md:hidden py-2">
+                    <ArrowsLeftRight className="text-brand-blue/30 rotate-90" size={20} />
+                  </div>
+                )}
 
-            {/* Connector */}
-            <div className="w-px h-8 bg-border my-4" />
+                <h3 className="font-heading font-bold text-sm text-brand-dark mb-1">{step.title}</h3>
+                <p className="text-xs text-text-muted leading-relaxed max-w-[180px]">{step.desc}</p>
+              </div>
+            ))}
+          </div>
+        </ScrollReveal>
 
-            {/* Database */}
-            <div className="glass-card px-10 py-5 flex items-center gap-3 border-brand-blue/30 shadow-glow">
-              <Database className="text-brand-blue" size={20} />
-              <span className="font-heading font-semibold text-sm text-brand-dark">
-                DATABASE TERPUSAT
-              </span>
+        {/* Bottom summary */}
+        <ScrollReveal delay={0.3}>
+          <div className="mt-14 bg-surface-alt rounded-2xl border border-border p-6 md:p-8">
+            <div className="grid md:grid-cols-3 gap-6 text-center">
+              <div>
+                <div className="font-heading font-bold text-lg text-brand-blue">D-IBS + D-ASSET + HELIOS</div>
+                <div className="text-sm text-text-muted mt-1">Tiga sistem, satu ekosistem</div>
+              </div>
+              <div>
+                <div className="font-heading font-bold text-lg text-brand-dark">Real-Time</div>
+                <div className="text-sm text-text-muted mt-1">Data update otomatis 24/7</div>
+              </div>
+              <div>
+                <div className="font-heading font-bold text-lg text-brand-dark">Zero Data Silo</div>
+                <div className="text-sm text-text-muted mt-1">Semua modul saling terhubung</div>
+              </div>
             </div>
           </div>
         </ScrollReveal>
