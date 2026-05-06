@@ -41,7 +41,7 @@ const OTHER_PRODUCTS = [
 
 export default function ProductsSection() {
   return (
-    <section className="py-20 md:py-28 bg-surface-alt">
+    <section className="py-20 md:py-28 bg-[#EBF5FF]">
       <div className="max-w-7xl mx-auto px-6">
         <ScrollReveal>
           <div className="text-center mb-14">

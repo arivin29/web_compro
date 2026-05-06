@@ -39,7 +39,7 @@ export default function HeroSection() {
               className="mb-5"
             >
               <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-medium bg-white/15 text-white border border-white/20 backdrop-blur-sm">
-                PT Comon Cipta Inovasi — Berdiri sejak 2012
+                Devetek — Berdiri sejak 2012
               </span>
             </motion.div>
 

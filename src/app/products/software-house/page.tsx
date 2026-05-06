@@ -4,7 +4,6 @@ import Link from 'next/link'
 import { Globe, DeviceMobile, MapTrifold, Airplane, GraduationCap, House, Tree, PaintBrush, Megaphone } from '@phosphor-icons/react'
 import ScrollReveal from '@/components/ui/ScrollReveal'
 import SectionHeading from '@/components/ui/SectionHeading'
-import Badge from '@/components/ui/Badge'
 
 const SERVICES = [
   { title: 'Web Application', icon: Globe, desc: 'Aplikasi web custom dengan teknologi modern' },
@@ -27,16 +26,22 @@ const PROCESS = [
 
 export default function SoftwareHousePage() {
   return (
-    <main className="pt-24">
+    <main>
       {/* Hero */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
+      <section className="relative pt-[72px] bg-gradient-to-br from-brand-blue-dark to-brand-blue overflow-hidden">
+        <div aria-hidden className="absolute inset-0 opacity-[0.05]" style={{
+          backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0)',
+          backgroundSize: '40px 40px',
+        }} />
+        <div className="relative max-w-7xl mx-auto px-6 py-20 md:py-28">
           <ScrollReveal>
-            <Badge>CUSTOM DEVELOPMENT</Badge>
-            <h1 className="mt-4 text-4xl md:text-5xl font-heading font-bold text-brand-dark">
+            <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-medium bg-white/10 text-white/80 border border-white/20 mb-6">
+              CUSTOM DEVELOPMENT
+            </span>
+            <h1 className="font-heading font-extrabold text-4xl md:text-5xl tracking-tight leading-[1.1] text-white">
               Kami Bangun Solusi Digital Anda
             </h1>
-            <p className="mt-4 text-lg text-text-body max-w-3xl">
+            <p className="mt-4 text-lg text-white/70 max-w-3xl">
               Dari ide hingga produksi — tim kami merancang, mengembangkan, dan mendukung aplikasi custom sesuai kebutuhan bisnis Anda.
             </p>
           </ScrollReveal>
@@ -54,12 +59,12 @@ export default function SoftwareHousePage() {
               const Icon = svc.icon
               return (
                 <ScrollReveal key={svc.title} delay={i * 0.06}>
-                  <div className="glass-card p-6 h-full">
+                  <div className="bg-white border border-border rounded-2xl shadow-sm p-6 h-full">
                     <div className="w-12 h-12 rounded-lg bg-orange-50 flex items-center justify-center mb-4">
                       <Icon size={24} weight="bold" className="text-orange-600" />
                     </div>
                     <h4 className="font-heading font-semibold text-brand-dark">{svc.title}</h4>
-                    <p className="mt-2 text-sm text-text-body">{svc.desc}</p>
+                    <p className="mt-2 text-sm text-text-secondary">{svc.desc}</p>
                   </div>
                 </ScrollReveal>
               )
@@ -78,11 +83,11 @@ export default function SoftwareHousePage() {
             {PROCESS.map((p, i) => (
               <ScrollReveal key={p.step} delay={i * 0.1}>
                 <div className="text-center">
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-brand-red to-accent flex items-center justify-center mx-auto mb-4">
+                  <div className="w-16 h-16 rounded-full bg-brand-blue flex items-center justify-center mx-auto mb-4">
                     <span className="text-white font-bold text-lg">{p.step}</span>
                   </div>
                   <h4 className="font-heading font-bold text-brand-dark">{p.title}</h4>
-                  <p className="mt-2 text-sm text-text-body">{p.desc}</p>
+                  <p className="mt-2 text-sm text-text-secondary">{p.desc}</p>
                 </div>
               </ScrollReveal>
             ))}
@@ -91,20 +96,20 @@ export default function SoftwareHousePage() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 md:py-24 bg-gradient-to-br from-accent/5 to-brand-red/5">
+      <section className="py-16 md:py-24 bg-surface-alt">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <ScrollReveal>
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-brand-dark">
               Punya Ide Aplikasi?
             </h2>
-            <p className="mt-4 text-text-body text-lg">
+            <p className="mt-4 text-text-secondary text-lg">
               Ceritakan kebutuhan Anda, dan kami akan wujudkan menjadi produk digital berkualitas.
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contact" className="inline-flex items-center justify-center px-8 py-3 rounded-xl bg-gradient-to-r from-brand-red to-accent text-white font-semibold hover:shadow-lg transition-shadow">
+              <Link href="/contact" className="inline-flex items-center justify-center px-8 py-3 rounded-xl bg-brand-blue text-white font-semibold hover:bg-brand-blue-dark hover:shadow-lg transition-all">
                 Mulai Konsultasi
               </Link>
-              <a href="https://wa.me/628562302229" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-8 py-3 rounded-xl border-2 border-accent text-accent font-semibold hover:bg-accent/5 transition-colors">
+              <a href="https://wa.me/628562302229" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-8 py-3 rounded-xl border-2 border-brand-blue text-brand-blue font-semibold hover:bg-brand-blue/5 transition-colors">
                 WhatsApp Langsung
               </a>
             </div>

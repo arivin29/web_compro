@@ -28,9 +28,15 @@ const WHY_US = [
 
 export default function StatsSection() {
   return (
-    <section className="relative bg-white">
+    <section className="relative bg-white overflow-hidden">
+      {/* Subtle dot pattern */}
+      <div aria-hidden className="absolute inset-0 opacity-[0.03]" style={{
+        backgroundImage: 'radial-gradient(circle at 1px 1px, #1565C0 1px, transparent 0)',
+        backgroundSize: '32px 32px',
+      }} />
+
       {/* Why Devetek */}
-      <div className="max-w-7xl mx-auto px-6 py-20 md:py-28">
+      <div className="relative max-w-7xl mx-auto px-6 py-20 md:py-28">
         <ScrollReveal>
           <div className="text-center mb-14">
             <div className="flex items-center gap-3 mb-4 text-brand-blue text-sm uppercase tracking-widest font-medium justify-center">

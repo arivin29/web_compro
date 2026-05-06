@@ -12,7 +12,7 @@ export const seoConfig: Record<string, Metadata> = {
   about: {
     title: 'Tentang Kami',
     description:
-      'Lebih dari satu dekade membangun solusi digital. PT Comon Cipta Inovasi — partner teknologi untuk PDAM, pemerintah, dan swasta.',
+      'Lebih dari satu dekade membangun solusi digital. Devetek — partner teknologi untuk PDAM, pemerintah, dan swasta.',
     openGraph: { url: `${siteUrl}/about` },
   },
   products: {
