@@ -32,7 +32,7 @@ const FLOW_STEPS = [
 
 export default function EcosystemSection() {
   return (
-    <section className="py-20 md:py-28 bg-white">
+    <section className="py-20 md:py-28 bg-white border-t-4 border-brand-blue/10">
       <div className="max-w-7xl mx-auto px-6">
         <ScrollReveal>
           <div className="text-center mb-6">

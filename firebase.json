@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "target": "devetek-compro",
     "public": "out",
     "cleanUrls": true,
     "trailingSlash": false,

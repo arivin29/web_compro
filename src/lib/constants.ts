@@ -6,7 +6,7 @@ export const COMPANY = {
     'Perusahaan teknologi yang berfokus pada pengembangan solusi perangkat lunak dan sistem sensor untuk digitalisasi sektor publik dan swasta.',
   founded: 2012,
   incorporated: 2018,
-  copyright: `© ${new Date().getFullYear()} PT Comon Cipta Inovasi. Seluruh hak dilindungi undang-undang.`,
+  copyright: `© ${new Date().getFullYear()} Devetek. Seluruh hak dilindungi undang-undang.`,
   entities: {
     cci: { name: 'PT Comon Cipta Inovasi', role: 'Induk perusahaan (lisensi)' },
     dmi: { name: 'PT Devetek Marapi Inovasi', role: 'Rekanan fokus pasar PDAM' },

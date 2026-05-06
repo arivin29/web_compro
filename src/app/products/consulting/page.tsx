@@ -4,7 +4,6 @@ import Link from 'next/link'
 import { Desktop, ComputerTower, Wrench, HardDrives, Toolbox, CheckCircle } from '@phosphor-icons/react'
 import ScrollReveal from '@/components/ui/ScrollReveal'
 import SectionHeading from '@/components/ui/SectionHeading'
-import Badge from '@/components/ui/Badge'
 
 const SERVICES = [
   { title: 'IT Consulting', icon: Desktop, desc: 'Konsultasi kebutuhan teknologi dan infrastruktur' },
@@ -16,16 +15,22 @@ const SERVICES = [
 
 export default function ConsultingPage() {
   return (
-    <main className="pt-24">
+    <main>
       {/* Hero */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
+      <section className="relative pt-[72px] bg-gradient-to-br from-brand-blue-dark to-brand-blue overflow-hidden">
+        <div aria-hidden className="absolute inset-0 opacity-[0.05]" style={{
+          backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0)',
+          backgroundSize: '40px 40px',
+        }} />
+        <div className="relative max-w-7xl mx-auto px-6 py-20 md:py-28">
           <ScrollReveal>
-            <Badge>KONSULTASI & PENGADAAN</Badge>
-            <h1 className="mt-4 text-4xl md:text-5xl font-heading font-bold text-brand-dark">
+            <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-medium bg-white/10 text-white/80 border border-white/20 mb-6">
+              KONSULTASI & PENGADAAN
+            </span>
+            <h1 className="font-heading font-extrabold text-4xl md:text-5xl tracking-tight leading-[1.1] text-white">
               Mitra Terpercaya untuk Pengadaan & Layanan IT
             </h1>
-            <p className="mt-4 text-lg text-text-body max-w-3xl">
+            <p className="mt-4 text-lg text-white/70 max-w-3xl">
               Berpengalaman dalam pengadaan barang dan jasa untuk sektor swasta dan pemerintahan. Harga terbaik tanpa mengorbankan kualitas.
             </p>
           </ScrollReveal>
@@ -43,12 +48,12 @@ export default function ConsultingPage() {
               const Icon = svc.icon
               return (
                 <ScrollReveal key={svc.title} delay={i * 0.08}>
-                  <div className="glass-card p-6 h-full">
-                    <div className="w-12 h-12 rounded-lg bg-rose-50 flex items-center justify-center mb-4">
-                      <Icon size={24} weight="bold" className="text-rose-600" />
+                  <div className="bg-white border border-border rounded-2xl shadow-sm p-6 h-full">
+                    <div className="w-12 h-12 rounded-lg bg-blue-50 flex items-center justify-center mb-4">
+                      <Icon size={24} weight="bold" className="text-brand-blue" />
                     </div>
                     <h4 className="font-heading font-semibold text-brand-dark">{svc.title}</h4>
-                    <p className="mt-2 text-sm text-text-body leading-relaxed">{svc.desc}</p>
+                    <p className="mt-2 text-sm text-text-secondary leading-relaxed">{svc.desc}</p>
                   </div>
                 </ScrollReveal>
               )
@@ -75,7 +80,7 @@ export default function ConsultingPage() {
               ].map((item) => (
                 <div key={item} className="flex items-center gap-3 p-4 rounded-lg bg-surface-alt">
                   <CheckCircle size={20} weight="bold" className="text-green-500 flex-shrink-0" />
-                  <span className="text-sm text-text-body">{item}</span>
+                  <span className="text-sm text-text-secondary">{item}</span>
                 </div>
               ))}
             </div>
@@ -84,20 +89,20 @@ export default function ConsultingPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 md:py-24 bg-gradient-to-br from-accent/5 to-brand-red/5">
+      <section className="py-16 md:py-24 bg-surface-alt">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <ScrollReveal>
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-brand-dark">
               Butuh Konsultasi atau Penawaran?
             </h2>
-            <p className="mt-4 text-text-body text-lg">
+            <p className="mt-4 text-text-secondary text-lg">
               Hubungi kami untuk konsultasi gratis dan penawaran terbaik.
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contact" className="inline-flex items-center justify-center px-8 py-3 rounded-xl bg-gradient-to-r from-brand-red to-accent text-white font-semibold hover:shadow-lg transition-shadow">
+              <Link href="/contact" className="inline-flex items-center justify-center px-8 py-3 rounded-xl bg-brand-blue text-white font-semibold hover:bg-brand-blue-dark hover:shadow-lg transition-all">
                 Minta Penawaran
               </Link>
-              <a href="https://wa.me/628562302229" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-8 py-3 rounded-xl border-2 border-accent text-accent font-semibold hover:bg-accent/5 transition-colors">
+              <a href="https://wa.me/628562302229" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-8 py-3 rounded-xl border-2 border-brand-blue text-brand-blue font-semibold hover:bg-brand-blue/5 transition-colors">
                 WhatsApp Langsung
               </a>
             </div>

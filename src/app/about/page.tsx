@@ -5,7 +5,6 @@ import CompanyStory from './components/CompanyStory'
 import Timeline from './components/Timeline'
 import VisiMisi from './components/VisiMisi'
 import Values from './components/Values'
-import TeamSection from './components/TeamSection'
 import CTASection from '@/components/sections/CTASection'
 
 export const metadata: Metadata = seoConfig.about
@@ -18,7 +17,6 @@ export default function AboutPage() {
       <Timeline />
       <VisiMisi />
       <Values />
-      <TeamSection />
       <CTASection />
     </>
   )

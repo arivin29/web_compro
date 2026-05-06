@@ -6,7 +6,7 @@ import { TEAM } from '@/lib/constants'
 
 export default function TeamSection() {
   return (
-    <section className="py-24 md:py-32 bg-white">
+    <section className="py-24 md:py-32 bg-[#EBF5FF]">
       <div className="max-w-7xl mx-auto px-6">
         <ScrollReveal>
           <SectionHeading

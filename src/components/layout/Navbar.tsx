@@ -15,8 +15,8 @@ export default function Navbar() {
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
-  const isHome = pathname === '/'
-  const showLight = isHome && !scrolled
+  const hasBlueHero = pathname === '/' || pathname === '/about' || pathname === '/clients' || pathname === '/contact' || pathname.startsWith('/products')
+  const showLight = hasBlueHero && !scrolled
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20)
