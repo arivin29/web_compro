@@ -6,17 +6,17 @@ import { COMPANY } from '@/lib/constants'
 
 export default function CompanyStory() {
   return (
-    <section className="relative py-20 md:py-28 bg-white overflow-hidden">
+    <section className="relative py-12 md:py-20 bg-white overflow-hidden">
       {/* Subtle dot pattern */}
       <div aria-hidden className="absolute inset-0 opacity-[0.03]" style={{
         backgroundImage: 'radial-gradient(circle at 1px 1px, #1565C0 1px, transparent 0)',
         backgroundSize: '32px 32px',
       }} />
       <div className="relative max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 items-start">
           <ScrollReveal>
             <div>
-              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-brand-blue/10 text-brand-blue mb-4">
+              <span className="inline-flex items-center px-3 py- rounded-full text-xs font-medium bg-brand-blue/10 text-brand-blue mb-4">
                 SEJAK 2012
               </span>
               <h2 className="font-heading font-bold text-3xl md:text-4xl text-brand-dark mb-6">

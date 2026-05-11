@@ -104,13 +104,13 @@ export default function ERPPage() {
   return (
     <main>
       {/* ─── Hero ─────────────────────────────────────────────────────── */}
-      <section className="relative pt-[72px] bg-gradient-to-br from-brand-blue-dark to-brand-blue overflow-hidden">
+      <section className="relative pt-[20px] bg-gradient-to-br from-brand-blue-dark to-brand-blue overflow-hidden">
         <div aria-hidden className="absolute inset-0 opacity-[0.05]" style={{
           backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0)',
           backgroundSize: '40px 40px',
         }} />
-        <div className="relative max-w-7xl mx-auto px-6 pt-20 pb-0 md:pt-24">
-          <div className="grid lg:grid-cols-2 gap-10 items-end">
+        <div className="relative max-w-7xl mx-auto px-6 pt-6 pb-0 md:pt-24 md:pb-12">
+          <div className="grid lg:grid-cols-2 gap-10">
             <ScrollReveal>
               <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase bg-white/10 text-white/80 border border-white/20 mb-5">
                 DEVETEK ERP V2

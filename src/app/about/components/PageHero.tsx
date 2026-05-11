@@ -4,14 +4,14 @@ import { motion } from 'framer-motion'
 
 export default function PageHero() {
   return (
-    <section className="relative pt-[72px] bg-gradient-to-br from-brand-blue-dark to-brand-blue overflow-hidden">
+    <section className="relative pt-[36px] bg-gradient-to-br from-brand-blue-dark to-brand-blue overflow-hidden">
       {/* Background pattern */}
       <div aria-hidden className="absolute inset-0 opacity-[0.05]" style={{
         backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0)',
         backgroundSize: '40px 40px',
       }} />
 
-      <div className="relative max-w-7xl mx-auto px-6 py-20 md:py-28 text-center">
+      <div className="relative max-w-7xl mx-auto px-6 py-14 md:py-10 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
