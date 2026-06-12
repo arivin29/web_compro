@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { EnvelopeSimple, Phone, MapPin, WhatsappLogo, PaperPlaneTilt, Buildings, CheckCircle } from '@phosphor-icons/react'
+import { EnvelopeSimple, Phone, WhatsappLogo, PaperPlaneTilt, Buildings, CheckCircle } from '@phosphor-icons/react'
 import ScrollReveal from '@/components/ui/ScrollReveal'
 import { CONTACT } from '@/lib/constants'
 

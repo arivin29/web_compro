@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import {
-  Users, CurrencyDollar, ShoppingCart, Package, GearSix,
+  Users, Package, GearSix,
   CheckCircle, ArrowRight, Headset, Handshake, MegaphoneSimple,
   ClipboardText, Wallet, GlobeSimple, PresentationChart, Truck,
   SealCheck, ShieldCheck, Bell, TrendUp, Sparkle,
@@ -253,7 +253,7 @@ export default function ERPPage() {
                     ].map((g) => (
                       <div key={g.section} className="mb-3">
                         <p className="px-3 text-[8px] font-extrabold tracking-widest text-white/30 uppercase mb-1">{g.section}</p>
-                        {g.items.map((item, idx) => (
+                        {g.items.map((item) => (
                           <div key={item} className={`px-3 py-[5px] text-[10px] flex items-center gap-1.5 ${
                             item === 'Dashboard' ? 'bg-[#1B2B6B] text-white font-semibold' : 'text-white/60'
                           }`}>

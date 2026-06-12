@@ -6,14 +6,14 @@ import { COMPANY } from '@/lib/constants'
 
 export default function CompanyStory() {
   return (
-    <section className="relative py-12 md:py-20 bg-white overflow-hidden">
+    <section className="relative py-12 md:py-18 bg-white overflow-hidden">
       {/* Subtle dot pattern */}
       <div aria-hidden className="absolute inset-0 opacity-[0.03]" style={{
         backgroundImage: 'radial-gradient(circle at 1px 1px, #1565C0 1px, transparent 0)',
         backgroundSize: '32px 32px',
       }} />
       <div className="relative max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
           <ScrollReveal>
             <div>
               <span className="inline-flex items-center px-3 py- rounded-full text-xs font-medium bg-brand-blue/10 text-brand-blue mb-4">

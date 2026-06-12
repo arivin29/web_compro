@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import {
-  WifiHigh, CloudArrowUp, Cpu, Bell, ChartLine, Shield,
+  WifiHigh, CloudArrowUp, Cpu, Bell, ChartLine,
   CheckCircle, ArrowRight, MapPin, Robot, FileText,
   HardDrives, PlugsConnected, Broadcast, ArrowsClockwise,
   Brain, Handshake, Gauge, TrendUp, Drop, Factory,

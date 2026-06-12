@@ -5,13 +5,13 @@ import ScrollReveal from '@/components/ui/ScrollReveal'
 import SectionHeading from '@/components/ui/SectionHeading'
 import { VALUES } from '@/lib/constants'
 
-const ICON_MAP: Record<string, React.ComponentType<any>> = {
+const ICON_MAP = {
   Shield: ShieldCheck,
   Lightbulb: LightbulbFilament,
   Users: UsersFour,
   Target: Target,
   Award: Trophy,
-}
+} as const
 
 export default function Values() {
   return (
@@ -32,10 +32,10 @@ export default function Values() {
                       <Icon className="text-brand-blue" size={24} />
                     </div>
                   )}
-                  <h4 className="font-heading font-semibold text-sm text-brand-dark mb-2">
+                  <h4 className="font-heading font-semibold text-1g text-brand-dark mb-2">
                     {value.name}
                   </h4>
-                  <p className="text-xs text-text-secondary leading-relaxed">
+                  <p className="text-sm text-text-secondary leading-relaxed">
                     {value.description}
                   </p>
                 </div>

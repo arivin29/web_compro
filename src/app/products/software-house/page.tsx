@@ -3,10 +3,9 @@
 import Link from 'next/link'
 import {
   Globe, DeviceMobile, MapTrifold, Airplane, GraduationCap,
-  House, Tree, PaintBrush, MegaphoneSimple, Code, Terminal,
-  Laptop, Database, PuzzlePiece, Rocket, GitBranch, Stack,
-  CheckCircle, ArrowRight, Headset, UserFocus, Trophy, Checks,
-  FileCode, Layout,
+  House, Tree, PaintBrush, MegaphoneSimple,
+  Database, PuzzlePiece, Rocket, GitBranch, Stack,
+  CheckCircle, ArrowRight, Headset,
 } from '@phosphor-icons/react'
 import ScrollReveal from '@/components/ui/ScrollReveal'
 import SectionHeading from '@/components/ui/SectionHeading'

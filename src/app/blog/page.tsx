@@ -3,7 +3,6 @@
 import { CalendarBlank, Clock, ArrowRight } from '@phosphor-icons/react'
 import ScrollReveal from '@/components/ui/ScrollReveal'
 import Badge from '@/components/ui/Badge'
-import SectionHeading from '@/components/ui/SectionHeading'
 
 const ARTICLES = [
   {

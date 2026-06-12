@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { Drop, MapPin, WifiHigh, Receipt, Users, CurrencyDollar, Package, Headset, ChartLine, ArrowRight, CheckCircle, FileText, Gear, Database, Lightning, ShieldCheck } from '@phosphor-icons/react'
+import { Drop, MapPin, WifiHigh, Receipt, Users, CurrencyDollar, Package, Headset, ChartLine, ArrowRight, CheckCircle, Database, Lightning } from '@phosphor-icons/react'
 import ScrollReveal from '@/components/ui/ScrollReveal'
 import SectionHeading from '@/components/ui/SectionHeading'
 import Badge from '@/components/ui/Badge'
@@ -45,12 +45,12 @@ export default function PDAMSuitePage() {
   return (
     <main>
       {/* Hero */}
-      <section className="relative pt-[72px] bg-gradient-to-br from-brand-blue-dark to-brand-blue overflow-hidden">
+      <section className="relative pt-[24px] bg-gradient-to-br from-brand-blue-dark to-brand-blue overflow-hidden">
         <div aria-hidden className="absolute inset-0 opacity-[0.05]" style={{
           backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0)',
           backgroundSize: '40px 40px',
         }} />
-        <div className="relative max-w-7xl mx-auto px-6 py-20 md:py-28">
+        <div className="relative max-w-7xl mx-auto px-6 py-20 md:py-24">
           <ScrollReveal>
             <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-medium bg-white/10 text-white/80 border border-white/20 mb-6">
               D-IBS
@@ -122,7 +122,14 @@ export default function PDAMSuitePage() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <ScrollReveal>
               <div className="rounded-2xl overflow-hidden border border-white/15 shadow-lg">
-                <img src="/images/projects/pdam-billing.png" alt="D-IBS Billing Dashboard" className="w-full object-cover" />
+                <Image
+                src="/images/projects/pdam-billing.png"
+                alt="D-IBS Billing Dashboard"
+                width={800}
+                height={450}
+                className="w-full object-cover"
+                unoptimized
+              />
               </div>
             </ScrollReveal>
             <ScrollReveal delay={0.2}>
@@ -168,7 +175,14 @@ export default function PDAMSuitePage() {
             </ScrollReveal>
             <ScrollReveal delay={0.2}>
               <div className="rounded-2xl border border-border bg-white overflow-hidden shadow-sm">
-                <img src="/images/projects/pdam-dashboard.png" alt="D-ASSET WebGIS Dashboard" className="w-full h-64 object-cover" />
+                <Image
+                src="/images/projects/pdam-dashboard.png"
+                alt="D-ASSET WebGIS Dashboard"
+                width={800}
+                height={256}
+                className="w-full h-64 object-cover"
+                unoptimized
+              />
               </div>
             </ScrollReveal>
           </div>
@@ -181,7 +195,14 @@ export default function PDAMSuitePage() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <ScrollReveal delay={0.2}>
               <div className="rounded-2xl border border-border bg-white overflow-hidden shadow-sm">
-                <img src="/images/projects/helios-dashboard.jpg" alt="HELIOS IoT Platform" className="w-full h-64 object-cover" />
+                <Image
+                src="/images/projects/helios-dashboard.jpg"
+                alt="HELIOS IoT Platform"
+                width={800}
+                height={256}
+                className="w-full h-64 object-cover"
+                unoptimized
+              />
               </div>
             </ScrollReveal>
             <ScrollReveal>

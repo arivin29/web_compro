@@ -38,7 +38,7 @@ const STEPS = [
 
 export default function ProcessSection() {
   return (
-    <section className="py-20 md:py-28 bg-surface-alt">
+    <section className="py-22 md:py-28 bg-surface-alt">
       <div className="max-w-7xl mx-auto px-6">
         <ScrollReveal>
           <div className="text-center mb-14">
@@ -74,10 +74,10 @@ export default function ProcessSection() {
                     Step {step.step}
                   </div>
 
-                  <h3 className="font-heading font-bold text-sm text-brand-dark mb-2">
+                  <h3 className="font-heading font-bold text-1x text-brand-dark mb-2">
                     {step.title}
                   </h3>
-                  <p className="text-xs text-text-muted leading-relaxed max-w-[200px] mx-auto">
+                  <p className="text-sm text-text-muted leading-relaxed max-w-[200px] mx-auto">
                     {step.desc}
                   </p>
                 </div>
