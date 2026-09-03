@@ -1,11 +1,18 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
-import { Drop, MapPinArea, WifiHigh, GearSix, Code, Handshake } from '@phosphor-icons/react'
-import Badge from '@/components/ui/Badge'
-import ScrollReveal from '@/components/ui/ScrollReveal'
+import {
+  ArrowRight,
+  Code,
+  Drop,
+  GearSix,
+  Handshake,
+  MapPinArea,
+  WifiHigh,
+} from '@phosphor-icons/react'
+import { Badge, Card, FeatureCard, Reveal, Section, SectionHeading } from '@/components/ui'
 
+/** Produk unggulan — mendapat card lebih besar dan permukaan navy (blueprint §8.2). */
 const FLAGSHIP = {
   title: 'Solusi PDAM Terintegrasi',
   description:
@@ -14,7 +21,7 @@ const FLAGSHIP = {
   modules: [
     { icon: Drop, name: 'D-IBS', desc: 'Billing, baca meter, penagihan, keuangan & HR' },
     { icon: MapPinArea, name: 'D-ASSET', desc: 'WebGIS pengelolaan aset & infrastruktur' },
-    { icon: WifiHigh, name: 'HELIOS', desc: 'IoT sensor monitoring 24/7' },
+    { icon: WifiHigh, name: 'HELIOS', desc: 'Sensor IoT dan monitoring 24/7' },
   ],
 }
 
@@ -22,95 +29,117 @@ const OTHER_PRODUCTS = [
   {
     icon: GearSix,
     title: 'DEVETEK ERP',
-    description: 'Sistem ERP modular — dynamic approval, microservice, payment gateway.',
+    description: 'Sistem ERP modular dengan dynamic approval, microservice, dan payment gateway.',
     href: '/products/erp',
   },
   {
     icon: Code,
     title: 'Custom Software',
-    description: 'Web app, mobile app, Web GIS, dan solusi digital sesuai kebutuhan.',
+    description: 'Web app, mobile app, Web GIS, dan solusi digital sesuai kebutuhan spesifik.',
     href: '/products/software-house',
   },
   {
     icon: Handshake,
     title: 'Konsultasi & Pengadaan',
-    description: 'IT consulting, pengadaan, maintenance, dan instalasi.',
+    description: 'IT consulting, pengadaan barang IT, maintenance, dan instalasi.',
     href: '/products/consulting',
   },
 ]
 
+/** Produk & layanan — blueprint §17 poin 4 dan 5. */
 export default function ProductsSection() {
   return (
-    <section className="py-20 md:py-28 bg-[#EBF5FF]">
-      <div className="max-w-7xl mx-auto px-6">
-        <ScrollReveal>
-          <div className="text-center mb-14">
-            <div className="flex items-center gap-3 mb-4 text-brand-blue text-sm uppercase tracking-widest font-medium justify-center">
-              <span className="w-8 h-px bg-brand-blue" />
-              PRODUK & LAYANAN
-              <span className="w-8 h-px bg-brand-blue" />
-            </div>
-            <h2 className="font-heading font-bold text-3xl md:text-4xl text-brand-dark mb-4">
-              Solusi Lengkap untuk Transformasi Digital
-            </h2>
-          </div>
-        </ScrollReveal>
+    <Section tone="white">
+      <Reveal>
+        <SectionHeading
+          label="Produk & Layanan"
+          title="Solusi lengkap untuk transformasi digital"
+          subtitle="Satu produk unggulan untuk sektor air minum, ditopang layanan enterprise lain yang memakai fondasi teknologi sama."
+        />
+      </Reveal>
 
-        {/* Flagship — PDAM Suite */}
-        <ScrollReveal>
-          <Link href={FLAGSHIP.href} className="block mb-8">
-            <div className="bg-gradient-to-br from-brand-blue-dark to-brand-blue rounded-2xl p-8 md:p-10 text-white relative overflow-hidden group">
-              <div aria-hidden className="absolute top-0 right-0 w-80 h-80 rounded-full bg-white/5 blur-3xl -translate-y-1/2 translate-x-1/4" />
-              
-              <div className="relative">
-                <div className="flex items-center gap-3 mb-4">
-                  <Badge className="bg-white/20 text-white border-white/30">Produk Unggulan</Badge>
-                </div>
-                <h3 className="font-heading font-bold text-2xl md:text-3xl mb-3">{FLAGSHIP.title}</h3>
-                <p className="text-white/75 max-w-2xl mb-8 leading-relaxed">{FLAGSHIP.description}</p>
+      {/* ── Card unggulan ── */}
+      <Reveal>
+        <Card
+          tone="dark"
+          accent="gradient"
+          href={FLAGSHIP.href}
+          padding="none"
+          className="mt-12"
+        >
+          <div className="p-6 md:p-9">
+            <Badge variant="inverse" dot>
+              Produk Unggulan
+            </Badge>
 
-                <div className="grid md:grid-cols-3 gap-4">
-                  {FLAGSHIP.modules.map((mod) => (
-                    <div key={mod.name} className="bg-white/10 backdrop-blur-sm rounded-xl px-5 py-4 border border-white/10">
-                      <div className="flex items-center gap-3 mb-2">
-                        <mod.icon className="text-white/80" size={20} />
-                        <span className="font-heading font-bold text-sm">{mod.name}</span>
-                      </div>
-                      <p className="text-xs text-white/60 leading-relaxed">{mod.desc}</p>
+            <h3 className="mt-4 font-heading text-h2 font-bold text-text-inverse">
+              {FLAGSHIP.title}
+            </h3>
+            <p className="measure mt-3 font-body text-body-lg text-text-inverse-muted">
+              {FLAGSHIP.description}
+            </p>
+
+            <ul className="mt-8 grid gap-3 md:grid-cols-3">
+              {FLAGSHIP.modules.map((m) => {
+                const Icon = m.icon
+                return (
+                  <li
+                    key={m.name}
+                    className="rounded-md border border-white/12 bg-white/[0.06] px-4 py-3.5"
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <Icon size={18} className="text-brand-blue-soft" />
+                      <span className="font-heading text-body-sm font-bold text-white">
+                        {m.name}
+                      </span>
                     </div>
-                  ))}
-                </div>
+                    <p className="mt-1.5 font-body text-body-sm leading-relaxed text-text-inverse-muted">
+                      {m.desc}
+                    </p>
+                  </li>
+                )
+              })}
+            </ul>
 
-                <div className="flex items-center gap-1 mt-6 text-sm font-medium text-white/80 group-hover:text-white transition-colors">
-                  Lihat Detail Produk PDAM
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </div>
-              </div>
-            </div>
-          </Link>
-        </ScrollReveal>
+            <span className="mt-7 inline-flex items-center gap-2 font-body text-body-sm font-semibold text-brand-orange">
+              Lihat detail Solusi PDAM
+              <ArrowRight
+                size={15}
+                weight="bold"
+                className="transition-transform duration-200 group-hover:translate-x-1"
+              />
+            </span>
+          </div>
+        </Card>
+      </Reveal>
 
-        {/* Other products */}
-        <div className="grid md:grid-cols-3 gap-6">
-          {OTHER_PRODUCTS.map((product, i) => (
-            <ScrollReveal key={product.title} delay={i * 0.1}>
-              <Link href={product.href} className="block h-full">
-                <div className="group bg-white border border-border rounded-2xl p-6 h-full flex flex-col hover:border-brand-blue/30 hover:shadow-card-hover transition-all duration-300">
-                  <div className="w-11 h-11 rounded-xl bg-brand-blue/10 flex items-center justify-center mb-4">
-                    <product.icon className="text-brand-blue" size={22} />
-                  </div>
-                  <h3 className="font-heading font-bold text-base text-brand-dark mb-2">{product.title}</h3>
-                  <p className="text-sm text-text-secondary leading-relaxed flex-1">{product.description}</p>
-                  <div className="flex items-center gap-1 mt-4 text-sm text-brand-blue font-medium group-hover:gap-2 transition-all">
-                    Selengkapnya
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </div>
-                </div>
-              </Link>
-            </ScrollReveal>
-          ))}
-        </div>
+      {/* ── Produk lain ── */}
+      <div className="mt-5 grid gap-5 md:grid-cols-3">
+        {OTHER_PRODUCTS.map((p, i) => {
+          const Icon = p.icon
+          return (
+            <Reveal key={p.title} delay={i * 0.08}>
+              <FeatureCard
+                icon={<Icon size={21} />}
+                title={p.title}
+                description={p.description}
+                href={p.href}
+                className="h-full"
+              />
+            </Reveal>
+          )
+        })}
       </div>
-    </section>
+
+      <Reveal>
+        <p className="mt-8 font-body text-body-sm text-text-secondary">
+          Belum yakin mana yang sesuai?{' '}
+          <Link href="/products" className="link-inline font-semibold">
+            Bandingkan seluruh produk
+          </Link>
+          .
+        </p>
+      </Reveal>
+    </Section>
   )
 }

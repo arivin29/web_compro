@@ -1,48 +1,68 @@
 'use client'
 
-import ScrollReveal from '@/components/ui/ScrollReveal'
-import SectionHeading from '@/components/ui/SectionHeading'
+import { Reveal, Section, SectionHeading } from '@/components/ui'
 import { TIMELINE } from '@/lib/constants'
+
+/**
+ * Perjalanan perusahaan — blueprint §9.4.
+ *
+ * Desktop memakai layout alternating, mobile selalu satu kolom.
+ * Dot memakai tiga warna merek secara berurutan, dan tahun dibuat lebih
+ * dominan daripada dekorasi.
+ */
+const DOT_COLORS = ['bg-brand-blue', 'bg-brand-red', 'bg-brand-orange']
 
 export default function Timeline() {
   return (
-    <section className="py-20 md:py-28 bg-surface-alt">
-      <div className="max-w-4xl mx-auto px-6">
-        <ScrollReveal>
-          <SectionHeading title="Perjalanan Kami" />
-        </ScrollReveal>
+    <Section tone="soft" width="narrow">
+      <Reveal>
+        <SectionHeading
+          label="Perjalanan Kami"
+          title="Dari startup teknologi menjadi mitra digitalisasi"
+        />
+      </Reveal>
 
-        <div className="mt-12 relative">
-          {/* Vertical line */}
-          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-brand-blue/20 md:-translate-x-px" />
+      <ol className="relative mt-12">
+        {/* Garis vertikal */}
+        <span
+          aria-hidden
+          className="absolute bottom-0 left-[7px] top-2 w-px bg-border-strong md:left-1/2 md:-translate-x-px"
+        />
 
-          <div className="space-y-8">
-            {TIMELINE.map((item, index) => (
-              <ScrollReveal key={item.year} delay={index * 0.08}>
-                <div className="relative flex items-start gap-6 md:gap-0">
-                  {/* Dot */}
-                  <div className="absolute left-4 md:left-1/2 w-3 h-3 rounded-full bg-brand-blue border-2 border-white shadow-sm -translate-x-1.5 mt-1.5" />
+        {TIMELINE.map((item, i) => {
+          const alignRight = i % 2 === 0
+          return (
+            <li key={item.year} className="relative pb-8 last:pb-0">
+              <Reveal delay={i * 0.07}>
+                <span
+                  aria-hidden
+                  className={`absolute left-0 top-2 h-3.5 w-3.5 rounded-full border-2 border-surface-soft md:left-1/2 md:-translate-x-1/2 ${
+                    DOT_COLORS[i % DOT_COLORS.length]
+                  }`}
+                />
 
-                  {/* Content */}
-                  <div className={`ml-12 md:ml-0 md:w-1/2 ${index % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12 md:ml-auto'}`}>
-                    <div className={`bg-white border border-border rounded-xl p-4 shadow-sm ${index % 2 === 0 ? 'md:ml-auto md:mr-0' : ''}`}>
-                      <span className="inline-block font-heading font-bold text-brand-blue text-sm mb-1">
-                        {item.year}
-                      </span>
-                      <h3 className="font-heading font-semibold text-brand-dark">
-                        {item.title}
-                      </h3>
-                      <p className="text-sm text-text-secondary mt-1">
-                        {item.description}
-                      </p>
-                    </div>
+                <div
+                  className={`ml-8 md:ml-0 md:w-1/2 ${
+                    alignRight ? 'md:pr-10 md:text-right' : 'md:ml-auto md:pl-10'
+                  }`}
+                >
+                  <div className="rounded-lg border border-border bg-surface-white p-5 shadow-card">
+                    <span className="tabular block font-heading text-h3 font-bold text-brand-blue-strong">
+                      {item.year}
+                    </span>
+                    <h3 className="mt-1 font-heading text-h4 font-semibold text-text-primary">
+                      {item.title}
+                    </h3>
+                    <p className="mt-1.5 font-body text-body-sm leading-relaxed text-text-secondary">
+                      {item.description}
+                    </p>
                   </div>
                 </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
+              </Reveal>
+            </li>
+          )
+        })}
+      </ol>
+    </Section>
   )
 }

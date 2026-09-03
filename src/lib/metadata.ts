@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://devetek.com'
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://devetek-compro.web.app'
 
 export const seoConfig: Record<string, Metadata> = {
   home: {
@@ -26,6 +26,12 @@ export const seoConfig: Record<string, Metadata> = {
     description:
       'Sistem PDAM terintegrasi: billing, baca meter, WebGIS aset, hingga dashboard eksekutif dalam satu platform.',
     openGraph: { url: `${siteUrl}/products/pdam-suite` },
+  },
+  pdamAkuntansi: {
+    title: 'Akuntansi & Keuangan PDAM — Standar SAK EP',
+    description:
+      'Modul akuntansi PDAM berstandar SAK EP: transaksi mengalir sendiri dari billing, kas, dan gudang, diperiksa sebelum masuk buku besar, dan menghasilkan delapan laporan keuangan lengkap dengan PDF dan Excel.',
+    openGraph: { url: `${siteUrl}/products/pdam-suite/akuntansi` },
   },
   helios: {
     title: 'HELIOS — Platform IoT Monitoring',

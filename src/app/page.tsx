@@ -1,33 +1,46 @@
 import HeroSection from '@/components/sections/HeroSection'
-import StatsSection from '@/components/sections/StatsSection'
+import TrustBarSection from '@/components/sections/TrustBarSection'
+import ProblemSection from '@/components/sections/ProblemSection'
 import ProductsSection from '@/components/sections/ProductsSection'
 import EcosystemSection from '@/components/sections/EcosystemSection'
+import ProjectsSection from '@/components/sections/ProjectsSection'
 import ProcessSection from '@/components/sections/ProcessSection'
 import ClientsSection from '@/components/sections/ClientsSection'
 import TestimonialSection from '@/components/sections/TestimonialSection'
-import LocationSection from '@/components/sections/LocationSection'
 import CTASection from '@/components/sections/CTASection'
 
+/**
+ * Beranda — urutan mengikuti blueprint §17.
+ *
+ * Ritme background sengaja berselang (§5.4) agar halaman punya irama
+ * tanpa membuat tiap section terasa seperti halaman terpisah:
+ * dark → white → soft → white → dark → white → soft → white → soft → dark.
+ *
+ * Section lokasi kantor sengaja TIDAK ada di sini. Sesuai §17, informasi
+ * itu cukup diringkas di footer dan ditampilkan lengkap di halaman Contact.
+ */
 export default function Home() {
   return (
     <>
-      {/* 1. Siapa kita + apa yang kita lakukan */}
+      {/* 1. Positioning Devetek */}
       <HeroSection />
-      {/* 2. Bukti kredibilitas + kenapa pilih kami */}
-      <StatsSection />
-      {/* 3. Produk & layanan — apa yang kita tawarkan */}
+      {/* 2. Trust bar — pengalaman, klien, proyek */}
+      <TrustBarSection />
+      {/* 3. Masalah bisnis yang diselesaikan + cara Devetek menjawabnya */}
+      <ProblemSection />
+      {/* 4–5. Produk unggulan PDAM Suite dan layanan lainnya */}
       <ProductsSection />
-      {/* 4. Cara kerja ekosistem — bagaimana semua terhubung */}
+      {/* 6. Diagram ekosistem terintegrasi */}
       <EcosystemSection />
-      {/* 5. Proses kerja — bagaimana kami deliver */}
+      {/* 7. Bukti implementasi nyata */}
+      <ProjectsSection />
+      {/* 8. Proses kerja Devetek */}
       <ProcessSection />
-      {/* 6. Siapa yang sudah percaya */}
+      {/* 9. Klien dan mitra */}
       <ClientsSection />
-      {/* 7. Bukti nyata — testimoni */}
+      {/* 10. Testimoni */}
       <TestimonialSection />
-      {/* 8. Di mana menemukan kami */}
-      <LocationSection />
-      {/* 9. Ajak action */}
+      {/* 11. CTA konsultasi */}
       <CTASection />
     </>
   )

@@ -1,41 +1,53 @@
 'use client'
 
-import ScrollReveal from '@/components/ui/ScrollReveal'
-import { VISI, MISI } from '@/lib/constants'
+import { Compass, ListChecks } from '@phosphor-icons/react'
+import { Card, Reveal, Section, SectionHeading } from '@/components/ui'
+import { MISI, VISI } from '@/lib/constants'
 
+/** Visi dan misi — blueprint §18. */
 export default function VisiMisi() {
   return (
-    <section className="relative py-20 md:py-28 bg-gradient-to-br from-brand-blue-dark to-brand-blue overflow-hidden">
-      {/* Background pattern */}
-      <div aria-hidden className="absolute inset-0 opacity-[0.05]" style={{
-        backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0)',
-        backgroundSize: '40px 40px',
-      }} />
+    <Section tone="dark" pattern="grid">
+      <Reveal>
+        <SectionHeading label="Arah Kami" title="Visi dan misi" />
+      </Reveal>
 
-      <div className="relative max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
-          <ScrollReveal className="h-full">
-            <div className="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-8 h-full flex flex-col">
-              <h3 className="font-heading font-bold text-xl text-white mb-4">Visi</h3>
-              <p className="text-white/80 leading-relaxed flex-1 flex items-center">{VISI}</p>
-            </div>
-          </ScrollReveal>
+      <div className="mt-12 grid gap-5 md:grid-cols-2 md:items-stretch">
+        <Reveal className="h-full">
+          <Card tone="dark-soft" padding="lg" className="h-full">
+            <span
+              aria-hidden
+              className="mb-4 flex h-11 w-11 items-center justify-center rounded-md bg-white/10 text-brand-blue-soft"
+            >
+              <Compass size={22} />
+            </span>
+            <h3 className="font-heading text-h3 font-semibold text-text-inverse">Visi</h3>
+            <p className="mt-3 font-body text-body-lg leading-relaxed text-text-inverse-muted">
+              {VISI}
+            </p>
+          </Card>
+        </Reveal>
 
-          <ScrollReveal delay={0.1} className="h-full">
-            <div className="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-8 h-full">
-              <h3 className="font-heading font-bold text-xl text-white mb-4">Misi</h3>
-              <ul className="space-y-3">
-                {MISI.map((item) => (
-                  <li key={item} className="flex items-start gap-3">
-                    <span className="w-2 h-2 rounded-full bg-white/50 mt-2 shrink-0" />
-                    <span className="text-white/80 leading-relaxed">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </ScrollReveal>
-        </div>
+        <Reveal delay={0.1} className="h-full">
+          <Card tone="dark-soft" padding="lg" className="h-full">
+            <span
+              aria-hidden
+              className="mb-4 flex h-11 w-11 items-center justify-center rounded-md bg-white/10 text-brand-blue-soft"
+            >
+              <ListChecks size={22} />
+            </span>
+            <h3 className="font-heading text-h3 font-semibold text-text-inverse">Misi</h3>
+            <ul className="mt-3 space-y-3">
+              {MISI.map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rotate-45 bg-brand-orange" />
+                  <span className="font-body leading-relaxed text-text-inverse-muted">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </Card>
+        </Reveal>
       </div>
-    </section>
+    </Section>
   )
 }

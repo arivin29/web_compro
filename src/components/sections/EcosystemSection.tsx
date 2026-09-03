@@ -1,102 +1,103 @@
 'use client'
 
-import { Database, ArrowsLeftRight, ChartBar, CloudArrowUp, UsersThree } from '@phosphor-icons/react'
-import ScrollReveal from '@/components/ui/ScrollReveal'
+import { ArrowRight, ChartBar, CloudArrowUp, Database, UsersThree } from '@phosphor-icons/react'
+import { Reveal, Section, SectionHeading } from '@/components/ui'
 
-const FLOW_STEPS = [
+/**
+ * Alur data dari lapangan sampai meja direksi.
+ * Setiap tahap ditampilkan sebagai node yang jelas, dengan status dan
+ * hubungan sistem sebagai data — bukan ornamen palsu (blueprint §9.2).
+ */
+const FLOW = [
   {
     icon: UsersThree,
-    title: 'Data Lapangan',
-    desc: 'Petugas input via mobile app & sensor IoT',
-    color: 'bg-brand-red',
+    title: 'Data lapangan',
+    desc: 'Petugas menginput lewat aplikasi mobile, sensor HELIOS mengirim otomatis.',
+    systems: ['D-IBS Mobile', 'HELIOS'],
   },
   {
     icon: Database,
-    title: 'Database Terpusat',
-    desc: 'Semua data tersimpan aman di cloud',
-    color: 'bg-brand-blue',
+    title: 'Basis data terpusat',
+    desc: 'Seluruh transaksi dan telemetri masuk ke satu sumber kebenaran.',
+    systems: ['D-IBS Core', 'D-ASSET'],
   },
   {
     icon: CloudArrowUp,
-    title: 'Proses Otomatis',
-    desc: 'Billing, penagihan, analisa berjalan otomatis',
-    color: 'bg-brand-blue-light',
+    title: 'Proses otomatis',
+    desc: 'Perhitungan tagihan, penjadwalan penagihan, dan deteksi anomali berjalan sendiri.',
+    systems: ['Billing Engine'],
   },
   {
     icon: ChartBar,
-    title: 'Dashboard Eksekutif',
-    desc: 'Laporan real-time di meja direksi',
-    color: 'bg-brand-blue-dark',
+    title: 'Dashboard eksekutif',
+    desc: 'Manajemen membaca kondisi terkini tanpa menunggu rekap bulanan.',
+    systems: ['Executive Dashboard'],
   },
 ]
 
+/** Diagram ekosistem terintegrasi — blueprint §9.2 dan §17 poin 6. */
 export default function EcosystemSection() {
   return (
-    <section className="py-20 md:py-28 bg-white border-t-4 border-brand-blue/10">
-      <div className="max-w-7xl mx-auto px-6">
-        <ScrollReveal>
-          <div className="text-center mb-6">
-            <div className="flex items-center gap-3 mb-4 text-brand-blue text-sm uppercase tracking-widest font-medium justify-center">
-              <span className="w-8 h-px bg-brand-blue" />
-              CARA KERJA
-              <span className="w-8 h-px bg-brand-blue" />
-            </div>
-            <h2 className="font-heading font-bold text-3xl md:text-4xl text-brand-dark mb-4">
-              Dari Lapangan ke Meja Direksi
-            </h2>
-            <p className="text-base text-text-secondary max-w-2xl mx-auto">
-              Data mengalir seamless dari sensor & petugas di lapangan, diproses otomatis, 
-              hingga menjadi insight di dashboard eksekutif.
-            </p>
-          </div>
-        </ScrollReveal>
+    <Section tone="dark" pattern="grid">
+      <Reveal>
+        <SectionHeading
+          label="Cara Kerja Ekosistem"
+          title="Dari lapangan ke meja direksi, tanpa rekap manual"
+          subtitle="Empat tahap yang sama berlaku untuk billing, aset, maupun monitoring — karena semuanya memakai fondasi data yang sama."
+        />
+      </Reveal>
 
-        <ScrollReveal delay={0.2}>
-          <div className="mt-14 grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-0 relative">
-            {/* Connecting line (desktop) */}
-            <div aria-hidden className="hidden md:block absolute top-10 left-[12.5%] right-[12.5%] h-px bg-border z-0" />
-
-            {FLOW_STEPS.map((step, i) => (
-              <div key={step.title} className="relative flex flex-col items-center text-center px-4">
-                {/* Step number + icon */}
-                <div className={`relative z-10 w-20 h-20 rounded-2xl ${step.color} flex items-center justify-center mb-4 shadow-lg`}>
-                  <step.icon className="text-white" size={32} />
-                </div>
-                
-                {/* Arrow between steps (mobile) */}
-                {i < FLOW_STEPS.length - 1 && (
-                  <div className="md:hidden py-2">
-                    <ArrowsLeftRight className="text-brand-blue/30 rotate-90" size={20} />
-                  </div>
+      <ol className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        {FLOW.map((step, i) => {
+          const Icon = step.icon
+          return (
+            <Reveal key={step.title} delay={i * 0.08}>
+              <li className="relative h-full rounded-lg border border-white/12 bg-white/[0.05] p-5">
+                {/* Panah penghubung antar-node, hanya di desktop */}
+                {i < FLOW.length - 1 && (
+                  <ArrowRight
+                    aria-hidden
+                    size={16}
+                    weight="bold"
+                    className="absolute -right-[13px] top-1/2 hidden -translate-y-1/2 text-brand-orange lg:block"
+                  />
                 )}
 
-                <h3 className="font-heading font-bold text-sm text-brand-dark mb-1">{step.title}</h3>
-                <p className="text-xs text-text-muted leading-relaxed max-w-[180px]">{step.desc}</p>
-              </div>
-            ))}
-          </div>
-        </ScrollReveal>
+                <div className="flex items-center gap-3">
+                  <span
+                    aria-hidden
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-white/10 text-brand-blue-soft"
+                  >
+                    <Icon size={20} />
+                  </span>
+                  <span className="font-mono text-body-sm text-brand-orange">
+                    0{i + 1}
+                  </span>
+                </div>
 
-        {/* Bottom summary */}
-        <ScrollReveal delay={0.3}>
-          <div className="mt-14 bg-surface-alt rounded-2xl border border-border p-6 md:p-8">
-            <div className="grid md:grid-cols-3 gap-6 text-center">
-              <div>
-                <div className="font-heading font-bold text-lg text-brand-blue">D-IBS + D-ASSET + HELIOS</div>
-                <div className="text-sm text-text-muted mt-1">Tiga sistem, satu ekosistem</div>
-              </div>
-              <div>
-                <div className="font-heading font-bold text-lg text-brand-dark">Real-Time</div>
-                <div className="text-sm text-text-muted mt-1">Data update otomatis 24/7</div>
-              </div>
-              <div>
-                <div className="font-heading font-bold text-lg text-brand-dark">Zero Data Silo</div>
-                <div className="text-sm text-text-muted mt-1">Semua modul saling terhubung</div>
-              </div>
-            </div>
-          </div>
-        </ScrollReveal>
-      </div>
-    </section>
+                <h3 className="mt-4 font-heading text-h4 font-semibold text-text-inverse">
+                  {step.title}
+                </h3>
+                <p className="mt-2 font-body text-body-sm leading-relaxed text-text-inverse-muted">
+                  {step.desc}
+                </p>
+
+                <ul className="mt-4 flex flex-wrap gap-1.5">
+                  {step.systems.map((s) => (
+                    <li
+                      key={s}
+                      className="rounded-sm border border-white/12 bg-white/[0.06] px-2 py-1 font-mono text-[0.6875rem] text-white/70"
+                    >
+                      {s}
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            </Reveal>
+          )
+        })}
+      </ol>
+
+    </Section>
   )
 }

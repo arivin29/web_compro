@@ -1,294 +1,383 @@
 'use client'
 
-import Image from 'next/image'
-import Link from 'next/link'
-import { Drop, MapPin, WifiHigh, Receipt, Users, CurrencyDollar, Package, Headset, ChartLine, ArrowRight, CheckCircle, FileText, Gear, Database, Lightning, ShieldCheck } from '@phosphor-icons/react'
-import ScrollReveal from '@/components/ui/ScrollReveal'
-import SectionHeading from '@/components/ui/SectionHeading'
-import Badge from '@/components/ui/Badge'
+import {
+  ArrowRight,
+  ChartLine,
+  CurrencyDollar,
+  Database,
+  Drop,
+  Headset,
+  Lightning,
+  MapPinArea,
+  Package,
+  Receipt,
+  Users,
+  WifiHigh,
+} from '@phosphor-icons/react'
+import {
+  Badge,
+  BrowserFrame,
+  Button,
+  Card,
+  FeatureCard,
+  PageHero,
+  Reveal,
+  Section,
+  SectionHeading,
+} from '@/components/ui'
+import CTASection from '@/components/sections/CTASection'
 
 const CHALLENGES = [
-  { num: '01', title: 'Efisiensi Operasional Rendah', desc: 'Proses manual dan sistem yang tidak terintegrasi menyebabkan pemborosan waktu dan sumber daya, menurunkan produktivitas pegawai PDAM.' },
-  { num: '02', title: 'Data Pelanggan Tidak Akurat', desc: 'Pengelolaan data pelanggan yang tersebar di berbagai sistem berbeda sehingga sulit untuk dikonsolidasi dan divalidasi.' },
-  { num: '03', title: 'NRW (Non-Revenue Water) Tinggi', desc: 'Tingginya tingkat kebocoran air dan kesulitan dalam monitoring distribusi air secara real-time ke seluruh jaringan pipa.' },
+  {
+    num: '01',
+    title: 'Proses manual memakan waktu',
+    desc: 'Sistem yang tidak saling terhubung membuat pekerjaan berulang dan menurunkan produktivitas petugas.',
+  },
+  {
+    num: '02',
+    title: 'Data pelanggan tidak seragam',
+    desc: 'Data tersebar di beberapa sistem berbeda sehingga sulit dikonsolidasi dan divalidasi.',
+  },
+  {
+    num: '03',
+    title: 'Kebocoran sulit dilacak',
+    desc: 'Tanpa pemantauan distribusi yang berjalan terus-menerus, kehilangan air baru diketahui belakangan.',
+  },
 ]
 
 const MODULES = [
-  { title: 'Billing & Loket', icon: Receipt, desc: 'Dashboard monitoring pendapatan & penerimaan. Info detail dan riwayat pelanggan. Manajemen data master pelanggan. Pengolahan tagihan air & non-air. Fasilitas cicilan tagihan. Dukungan mutasi pelanggan.' },
-  { title: 'Penagihan Mobile', icon: Users, desc: 'Penagihan langsung ke pelanggan dengan thermal printer Bluetooth. Dashboard real-time penerimaan kolektor. Navigasi GPS ke lokasi pelanggan. Pencatatan pembayaran kolektor.' },
-  { title: 'Baca Meter Mobile', icon: ChartLine, desc: 'Semi-offline mode untuk area minim sinyal. Multi metode input: QR Code, pencarian manual, navigasi otomatis rute. Foto stand meter & geoposisi otomatis.' },
-  { title: 'Hubungan Langganan', icon: Headset, desc: 'Pelaporan pengaduan via app, web, atau petugas. Klasifikasi & eskalasi otomatis. Tracking status real-time. Dashboard monitoring SLA.' },
-  { title: 'Akuntansi & Keuangan', icon: CurrencyDollar, desc: 'Chart of Account berbasis SAKEP. Jurnal umum & khusus otomatis. Buku besar real-time. Laporan keuangan standar PDAM. Integrasi pembayaran multi-channel.' },
-  { title: 'HR Management', icon: Package, desc: 'Database pegawai digital. Absensi QR code atau GPS. Cuti & izin online. Integrasi payroll. Manajemen SK, jabatan, mutasi. Arsip digital terpusat.' },
+  {
+    title: 'Billing & Loket',
+    icon: Receipt,
+    desc: 'Pemantauan pendapatan, data master pelanggan, pengolahan tagihan air dan non-air, cicilan, serta mutasi pelanggan.',
+  },
+  {
+    title: 'Penagihan Mobile',
+    icon: Users,
+    desc: 'Penagihan langsung ke rumah pelanggan dengan printer thermal Bluetooth, navigasi GPS, dan rekap penerimaan kolektor.',
+  },
+  {
+    title: 'Baca Meter Mobile',
+    icon: ChartLine,
+    desc: 'Mode semi-offline untuk area minim sinyal, input lewat QR atau pencarian manual, foto stand meter dengan geoposisi.',
+  },
+  {
+    title: 'Hubungan Langganan',
+    icon: Headset,
+    desc: 'Pengaduan lewat aplikasi, web, atau petugas; klasifikasi dan eskalasi otomatis dengan pemantauan SLA.',
+  },
+  {
+    title: 'Akuntansi & Keuangan',
+    icon: CurrencyDollar,
+    desc: 'Chart of Account berbasis SAK EP. Transaksi dari billing, kas, dan gudang mengalir menjadi jurnal — diperiksa sebelum masuk buku besar.',
+    href: '/products/pdam-suite/akuntansi',
+  },
+  {
+    title: 'Manajemen SDM',
+    icon: Package,
+    desc: 'Basis data pegawai, absensi QR atau GPS, cuti dan izin daring, integrasi payroll, serta arsip SK terpusat.',
+  },
 ]
 
 const REPORTS = [
-  'Ringkasan data pelanggan dalam bentuk ikhtisar',
-  'Laporan Daftar Rekening Ditagih (DRD)',
-  'Laporan LPP (Laporan Penerimaan Pembayaran)',
-  'Analisis piutang berdasarkan tanggal batas (cut-off)',
-  'Analisis piutang berdasarkan umur tagihan',
-  'Efektivitas proses penagihan berdasarkan realisasi',
-  'Laporan aktivitas layanan pelanggan',
-  'Koreksi pemakaian air oleh pelanggan',
-  'Rekapitulasi pemakaian air pelanggan baru (Hublang)',
-  'Ringkasan dan rincian laporan penerimaan (LPP)',
+  'Ikhtisar data pelanggan',
+  'Daftar Rekening Ditagih (DRD)',
+  'Laporan Penerimaan Pembayaran (LPP)',
+  'Analisis piutang per tanggal batas',
+  'Analisis piutang per umur tagihan',
+  'Efektivitas penagihan berdasarkan realisasi',
+  'Aktivitas layanan pelanggan',
+  'Koreksi pemakaian air pelanggan',
+  'Rekapitulasi pemakaian pelanggan baru',
+  'Ringkasan dan rincian penerimaan',
 ]
 
 const ADVANTAGES = [
-  { icon: Lightning, title: 'Efisiensi 70%', desc: 'Otomatisasi proses billing dan penagihan mengurangi waktu kerja manual hingga 70%, meningkatkan produktivitas pegawai PDAM.' },
-  { icon: Database, title: 'Integrasi Data Terpusat', desc: 'Seluruh data pelanggan, pembayaran, dan operasional terintegrasi dalam satu sistem terpusat yang mudah diakses dari mana saja.' },
-  { icon: ChartLine, title: 'Pelaporan Real-Time', desc: 'Dashboard monitoring dan laporan otomatis memudahkan pengambilan keputusan berbasis data secara cepat dan akurat.' },
+  {
+    icon: Lightning,
+    title: 'Mengurangi pekerjaan manual',
+    desc: 'Billing dan penagihan berjalan otomatis, sehingga waktu petugas berpindah dari rekap ke pelayanan.',
+  },
+  {
+    icon: Database,
+    title: 'Satu basis data terpusat',
+    desc: 'Data pelanggan, pembayaran, dan operasional berada di satu tempat dan bisa diakses dari mana saja.',
+  },
+  {
+    icon: ChartLine,
+    title: 'Laporan tanpa menunggu rekap',
+    desc: 'Dashboard dan laporan tersusun otomatis, sehingga keputusan tidak menunggu tutup bulan.',
+  },
 ]
 
+const DASSET_POINTS = [
+  'Pemetaan aset infrastruktur: pipa, valve, meter induk, dan reservoir',
+  'Manajemen data pelanggan berbasis lokasi spasial',
+  'Survei lapangan digital dengan GPS dan foto bergeotag',
+  'Penelusuran jaringan untuk menemukan sumber gangguan',
+]
+
+const HELIOS_HW = [
+  { type: 'Type A', name: 'Universal Logger', desc: 'Multi-sensor untuk berbagai kebutuhan pemantauan' },
+  { type: 'Type B', name: 'Pipeline Logger', desc: 'Khusus pemantauan pipa dan jalur distribusi' },
+  { type: 'Type C', name: 'Custom Solution', desc: 'Dirakit menyesuaikan kondisi lapangan tertentu' },
+]
+
+/**
+ * Solusi PDAM (D-IBS + D-ASSET + HELIOS) — blueprint §18.
+ *
+ * CATATAN: versi sebelumnya mengklaim "Efisiensi 70%" tanpa sumber atau
+ * konteks. Blueprint §8.4 mensyaratkan angka publik punya rujukan yang bisa
+ * diverifikasi, jadi klaim itu diganti pernyataan kualitatif. Kembalikan
+ * angkanya bila ada data pengukuran yang bisa dirujuk.
+ */
 export default function PDAMSuitePage() {
   return (
-    <main>
-      {/* Hero */}
-      <section className="relative pt-[72px] bg-gradient-to-br from-brand-blue-dark to-brand-blue overflow-hidden">
-        <div aria-hidden className="absolute inset-0 opacity-[0.05]" style={{
-          backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0)',
-          backgroundSize: '40px 40px',
-        }} />
-        <div className="relative max-w-7xl mx-auto px-6 py-20 md:py-28">
-          <ScrollReveal>
-            <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-medium bg-white/10 text-white/80 border border-white/20 mb-6">
-              D-IBS
-            </span>
-            <h1 className="font-heading font-extrabold text-4xl md:text-5xl tracking-tight leading-[1.1] text-white">
-              Sistem PDAM Terintegrasi
-            </h1>
-            <p className="mt-4 text-lg text-white/70 max-w-3xl">
-              Pendekatan total: Teknologi + SDM + Tata Kelola. Membuat tata kelola PDAM kecil setara dengan yang besar secara teknologi.
-            </p>
-          </ScrollReveal>
-        </div>
-      </section>
+    <>
+      <PageHero
+        eyebrow="Solusi PDAM"
+        title="Sistem PDAM terintegrasi"
+        description="Pendekatan menyeluruh — teknologi, pendampingan SDM, dan tata kelola — supaya PDAM berskala kecil bisa beroperasi setertib yang besar."
+        breadcrumb={[
+          { label: 'Beranda', href: '/' },
+          { label: 'Produk', href: '/products' },
+          { label: 'Solusi PDAM' },
+        ]}
+        actions={
+          <>
+            <Button href="/contact">
+              Minta Demo
+              <ArrowRight size={16} weight="bold" />
+            </Button>
+            <Button href="/products/pdam-suite/akuntansi" variant="secondary">
+              Modul Akuntansi
+            </Button>
+          </>
+        }
+        media={
+          <BrowserFrame
+            src="/images/projects/d-ibs-dashboard.png"
+            alt="Dashboard D-IBS menampilkan ringkasan billing dan pelanggan"
+            label="d-ibs.devetek.com"
+          />
+        }
+      />
 
-      {/* Tantangan */}
-      <section className="py-16 md:py-24 bg-surface-alt">
-        <div className="max-w-7xl mx-auto px-6">
-          <ScrollReveal>
-            <SectionHeading title="Permasalahan BUMD Air Minum" subtitle="Tantangan yang kami pecahkan setiap hari" />
-          </ScrollReveal>
-          <div className="mt-12 grid md:grid-cols-3 gap-8">
-            {CHALLENGES.map((item, i) => (
-              <ScrollReveal key={item.title} delay={i * 0.1}>
-                <div className="bg-white border border-border rounded-2xl shadow-sm p-6 h-full">
-                  <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-brand-blue text-white font-heading font-bold text-sm mb-4">
-                    {item.num}
-                  </span>
-                  <h3 className="font-heading font-bold text-brand-dark">{item.title}</h3>
-                  <p className="mt-2 text-sm text-text-secondary leading-relaxed">{item.desc}</p>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
+      <Section tone="white">
+        <Reveal>
+          <SectionHeading
+            label="Permasalahan"
+            title="Tiga hambatan yang paling sering kami temui"
+            subtitle="Tiga hal ini hampir selalu muncul sebelum digitalisasi dimulai."
+          />
+        </Reveal>
+        <div className="mt-12 grid gap-5 md:grid-cols-3">
+          {CHALLENGES.map((c, i) => (
+            <Reveal key={c.num} delay={i * 0.08}>
+              <Card padding="lg" accent="orange" interactive={false} className="h-full">
+                <span className="font-mono text-body-sm text-brand-orange">{c.num}</span>
+                <h3 className="mt-2 font-heading text-h3 font-semibold text-text-primary">
+                  {c.title}
+                </h3>
+                <p className="mt-2 font-body text-body-sm leading-relaxed text-text-secondary">
+                  {c.desc}
+                </p>
+              </Card>
+            </Reveal>
+          ))}
         </div>
-      </section>
+      </Section>
 
-      {/* Modul D-IBS */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <ScrollReveal>
-            <SectionHeading title="Modul D-IBS" subtitle="D-IBS tidak hanya sistem, tetapi pendekatan total: Teknologi + SDM + Tata Kelola" />
-          </ScrollReveal>
-          <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {MODULES.map((mod, i) => {
-              const Icon = mod.icon
-              return (
-                <ScrollReveal key={mod.title} delay={i * 0.08}>
-                  <div className="bg-white border border-border rounded-2xl shadow-sm p-6 h-full">
-                    <div className="w-12 h-12 rounded-lg bg-blue-50 flex items-center justify-center mb-4">
-                      <Icon size={24} weight="bold" className="text-brand-blue" />
-                    </div>
-                    <h4 className="font-heading font-semibold text-brand-dark">{mod.title}</h4>
-                    <p className="mt-2 text-sm text-text-secondary leading-relaxed">{mod.desc}</p>
-                  </div>
-                </ScrollReveal>
-              )
-            })}
-          </div>
+      <Section tone="soft">
+        <Reveal>
+          <SectionHeading
+            label="Modul D-IBS"
+            title="Enam modul yang saling terhubung"
+            subtitle="Bukan sekadar sistem — kami dampingi teknologinya, orangnya, dan tata kelolanya."
+          />
+        </Reveal>
+        <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {MODULES.map((m, i) => {
+            const ModuleIcon = m.icon
+            return (
+              <Reveal key={m.title} delay={i * 0.07}>
+                <FeatureCard
+                  icon={<ModuleIcon size={21} />}
+                  title={m.title}
+                  description={m.desc}
+                  href={m.href}
+                  linkLabel="Lihat modul"
+                  className="h-full"
+                />
+              </Reveal>
+            )
+          })}
         </div>
-      </section>
+      </Section>
 
-      {/* Billing Screenshot + Laporan */}
-      <section className="relative py-16 md:py-24 bg-gradient-to-br from-brand-blue-dark to-brand-blue overflow-hidden">
-        <div aria-hidden className="absolute inset-0 opacity-[0.05]" style={{
-          backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0)',
-          backgroundSize: '40px 40px',
-        }} />
-        <div className="relative max-w-7xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <ScrollReveal>
-              <div className="rounded-2xl overflow-hidden border border-white/15 shadow-lg">
-                <img src="/images/projects/pdam-billing.png" alt="D-IBS Billing Dashboard" className="w-full object-cover" />
-              </div>
-            </ScrollReveal>
-            <ScrollReveal delay={0.2}>
-              <h2 className="font-heading font-bold text-2xl md:text-3xl text-white mb-6">
-                Laporan-Laporan Utama yang Tersedia
+      <Section tone="white">
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+          <Reveal>
+            <div>
+              <Badge variant="brand">D-ASSET</Badge>
+              <h2 className="mt-4 font-heading text-h2 font-bold text-text-primary">
+                Aset jaringan di atas satu peta
               </h2>
-              <ul className="space-y-3">
-                {REPORTS.map((item) => (
-                  <li key={item} className="flex items-start gap-3">
-                    <CheckCircle size={18} weight="bold" className="text-green-400 flex-shrink-0 mt-0.5" />
-                    <span className="text-sm text-white/80 leading-relaxed">{item}</span>
+              <p className="measure mt-4 font-body leading-relaxed text-text-secondary">
+                Manajemen aset berbasis WebGIS untuk memetakan, memantau, dan menelusuri seluruh
+                infrastruktur jaringan — dari pipa distribusi sampai titik pelanggan.
+              </p>
+              <ul className="mt-6 space-y-2.5">
+                {DASSET_POINTS.map((p) => (
+                  <li key={p} className="flex items-start gap-2.5">
+                    <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rotate-45 bg-brand-orange" />
+                    <span className="font-body text-body-sm text-text-secondary">{p}</span>
                   </li>
                 ))}
               </ul>
-            </ScrollReveal>
-          </div>
-        </div>
-      </section>
+            </div>
+          </Reveal>
 
-      {/* D-ASSET */}
-      <section className="py-16 md:py-24 bg-surface-alt">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <ScrollReveal>
-              <Badge>D-ASSET</Badge>
-              <h2 className="mt-4 text-3xl font-heading font-bold text-brand-dark">
-                WebGIS Pengelolaan Aset PDAM
+          <Reveal delay={0.1}>
+            <BrowserFrame
+              src="/images/projects/d-asset-webgis.png"
+              alt="Peta jaringan pipa dan aset pada D-ASSET WebGIS"
+              label="d-asset.devetek.com"
+            />
+          </Reveal>
+        </div>
+      </Section>
+
+      <Section tone="dark" pattern="grid">
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+          <Reveal>
+            <BrowserFrame
+              src="/images/projects/helios-dashboard.jpg"
+              alt="Dashboard pemantauan sensor HELIOS"
+              label="helios.devetek.com"
+            />
+          </Reveal>
+
+          <Reveal delay={0.1}>
+            <div>
+              <Badge variant="inverse">HELIOS</Badge>
+              <h2 className="mt-4 font-heading text-h2 font-bold text-text-inverse">
+                Sensor di lapangan, angkanya di layar
               </h2>
-              <p className="mt-4 text-text-secondary leading-relaxed">
-                Kelola aset PDAM dalam satu peta interaktif. Pemetaan, manajemen pelanggan, survey lapangan, dan monitoring — terintegrasi dengan DEVETEK HELIOS.
+              <p className="measure mt-4 font-body leading-relaxed text-text-inverse-muted">
+                Perangkat sensor tangguh di titik-titik jaringan, dipasangkan dengan platform cloud
+                untuk membaca tekanan dan aliran secara terus-menerus.
               </p>
               <ul className="mt-6 space-y-3">
-                {['Pemetaan aset infrastruktur', 'Manajemen data pelanggan spasial', 'Survey lapangan digital', 'Monitoring jaringan real-time'].map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-sm text-text-secondary">
-                    <CheckCircle size={20} weight="bold" className="text-green-500 flex-shrink-0" />
-                    {item}
+                {HELIOS_HW.map((hw) => (
+                  <li
+                    key={hw.type}
+                    className="flex items-start gap-3 rounded-md border border-white/12 bg-white/[0.05] px-4 py-3"
+                  >
+                    <span className="shrink-0 font-mono text-body-sm text-brand-orange">{hw.type}</span>
+                    <span>
+                      <span className="block font-heading text-body-sm font-semibold text-text-inverse">
+                        {hw.name}
+                      </span>
+                      <span className="mt-0.5 block font-body text-body-sm text-text-inverse-muted">
+                        {hw.desc}
+                      </span>
+                    </span>
                   </li>
                 ))}
               </ul>
-              <a href="https://webgis-pdam.devetek.app" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 mt-6 text-brand-blue font-medium hover:underline">
-                Lihat demo <ArrowRight size={16} />
-              </a>
-            </ScrollReveal>
-            <ScrollReveal delay={0.2}>
-              <div className="rounded-2xl border border-border bg-white overflow-hidden shadow-sm">
-                <img src="/images/projects/pdam-dashboard.png" alt="D-ASSET WebGIS Dashboard" className="w-full h-64 object-cover" />
-              </div>
-            </ScrollReveal>
-          </div>
+            </div>
+          </Reveal>
         </div>
-      </section>
+      </Section>
 
-      {/* HELIOS */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <ScrollReveal delay={0.2}>
-              <div className="rounded-2xl border border-border bg-white overflow-hidden shadow-sm">
-                <img src="/images/projects/helios-dashboard.jpg" alt="HELIOS IoT Platform" className="w-full h-64 object-cover" />
+      <Section tone="white">
+        <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr]">
+          <Reveal>
+            <div>
+              <SectionHeading label="Keunggulan" title="Kenapa memilih Solusi PDAM Devetek" />
+              <div className="mt-8 space-y-4">
+                {ADVANTAGES.map((a) => {
+                  const AdvIcon = a.icon
+                  return (
+                    <Card key={a.title} padding="sm" interactive={false}>
+                      <div className="flex items-start gap-3.5">
+                        <span
+                          aria-hidden
+                          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-accent-light text-brand-blue-strong"
+                        >
+                          <AdvIcon size={19} />
+                        </span>
+                        <span>
+                          <span className="block font-heading text-h4 font-semibold text-text-primary">
+                            {a.title}
+                          </span>
+                          <span className="mt-1 block font-body text-body-sm leading-relaxed text-text-secondary">
+                            {a.desc}
+                          </span>
+                        </span>
+                      </div>
+                    </Card>
+                  )
+                })}
               </div>
-            </ScrollReveal>
-            <ScrollReveal>
-              <Badge>DEVETEK HELIOS</Badge>
-              <h2 className="mt-4 text-3xl font-heading font-bold text-brand-dark">
-                Monitor. Analisa. Kendalikan.
-              </h2>
-              <p className="mt-4 text-text-secondary leading-relaxed">
-                Platform IoT end-to-end untuk infrastruktur kritis. Cloud platform cerdas + hardware sensor tangguh — visibilitas penuh atas seluruh operasi Anda.
-              </p>
-              <div className="mt-6 space-y-4">
-                {[
-                  { type: 'Type A', name: 'Universal Logger', desc: 'Multi-sensor untuk berbagai kebutuhan' },
-                  { type: 'Type B', name: 'Pipeline Logger', desc: 'Khusus monitoring pipa dan distribusi' },
-                  { type: 'Type C', name: 'Custom Solution', desc: 'Disesuaikan dengan kebutuhan spesifik' },
-                ].map((hw) => (
-                  <div key={hw.type} className="p-4 rounded-lg bg-blue-50 border border-blue-100">
-                    <p className="text-xs font-semibold text-brand-blue">{hw.type}</p>
-                    <p className="font-heading font-semibold text-brand-dark">{hw.name}</p>
-                    <p className="text-sm text-text-secondary">{hw.desc}</p>
-                  </div>
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.1}>
+            <div>
+              <SectionHeading label="Pelaporan" title="Laporan yang tersedia" as="h2" />
+              <ul className="mt-8 grid gap-2 sm:grid-cols-2">
+                {REPORTS.map((r) => (
+                  <li
+                    key={r}
+                    className="flex items-start gap-2.5 rounded-md border border-border bg-surface-soft px-3.5 py-2.5"
+                  >
+                    <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rotate-45 bg-brand-blue" />
+                    <span className="font-body text-body-sm text-text-secondary">{r}</span>
+                  </li>
                 ))}
-              </div>
-              <a href="https://iot.devetek.app" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 mt-6 text-brand-blue font-medium hover:underline">
-                Lihat demo <ArrowRight size={16} />
-              </a>
-            </ScrollReveal>
-          </div>
-        </div>
-      </section>
-
-      {/* Keunggulan */}
-      <section className="py-16 md:py-24 bg-surface-alt">
-        <div className="max-w-7xl mx-auto px-6">
-          <ScrollReveal>
-            <SectionHeading title="Service D-IBS" subtitle="Kenapa memilih Solusi PDAM Devetek?" />
-          </ScrollReveal>
-          <div className="mt-12 grid md:grid-cols-3 gap-8">
-            {ADVANTAGES.map((adv, i) => {
-              const Icon = adv.icon
-              return (
-                <ScrollReveal key={adv.title} delay={i * 0.1}>
-                  <div className="bg-white border border-border rounded-2xl shadow-sm p-8 h-full text-center">
-                    <div className="w-14 h-14 rounded-xl bg-brand-blue/10 flex items-center justify-center mx-auto mb-5">
-                      <Icon size={28} weight="bold" className="text-brand-blue" />
-                    </div>
-                    <h3 className="text-xl font-heading font-bold text-brand-blue">{adv.title}</h3>
-                    <p className="mt-3 text-sm text-text-secondary leading-relaxed">{adv.desc}</p>
-                  </div>
-                </ScrollReveal>
-              )
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Integration */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <ScrollReveal>
-            <SectionHeading title="Integrasi Penuh" subtitle="Tiga sistem, satu ekosistem terpadu" />
-            <div className="mt-12 flex flex-col md:flex-row items-center justify-center gap-4">
-              <div className="p-5 rounded-xl bg-blue-50 border border-blue-200 text-center min-w-[140px]">
-                <Drop size={32} weight="bold" className="text-blue-600 mx-auto mb-2" />
-                <p className="font-heading font-bold text-sm">D-IBS</p>
-                <p className="text-xs text-text-muted">Billing</p>
-              </div>
-              <div className="text-2xl text-text-muted hidden md:block">↔</div>
-              <div className="text-2xl text-text-muted md:hidden">↕</div>
-              <div className="p-5 rounded-xl bg-green-50 border border-green-200 text-center min-w-[140px]">
-                <MapPin size={32} weight="bold" className="text-green-600 mx-auto mb-2" />
-                <p className="font-heading font-bold text-sm">D-ASSET</p>
-                <p className="text-xs text-text-muted">WebGIS</p>
-              </div>
-              <div className="text-2xl text-text-muted hidden md:block">↔</div>
-              <div className="text-2xl text-text-muted md:hidden">↕</div>
-              <div className="p-5 rounded-xl bg-orange-50 border border-orange-200 text-center min-w-[140px]">
-                <WifiHigh size={32} weight="bold" className="text-orange-600 mx-auto mb-2" />
-                <p className="font-heading font-bold text-sm">HELIOS</p>
-                <p className="text-xs text-text-muted">IoT</p>
-              </div>
+              </ul>
             </div>
-          </ScrollReveal>
+          </Reveal>
         </div>
-      </section>
+      </Section>
 
-      {/* CTA */}
-      <section className="py-16 md:py-24 bg-surface-alt">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <ScrollReveal>
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-brand-dark">
-              Tertarik dengan Solusi PDAM Kami?
-            </h2>
-            <p className="mt-4 text-text-secondary text-lg">
-              Jadwalkan demo gratis dan lihat bagaimana D-IBS dapat mengoptimalkan operasional PDAM Anda.
-            </p>
-            <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contact" className="inline-flex items-center justify-center px-8 py-3 rounded-xl bg-brand-blue text-white font-semibold hover:bg-brand-blue-dark hover:shadow-lg transition-all">
-                Jadwalkan Demo
-              </Link>
-              <a href="https://wa.me/628562302229?text=Halo%20Devetek%2C%20saya%20tertarik%20dengan%20solusi%20PDAM." target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-8 py-3 rounded-xl border-2 border-brand-blue text-brand-blue font-semibold hover:bg-brand-blue/5 transition-colors">
-                WhatsApp Langsung
-              </a>
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
-    </main>
+      <Section tone="soft">
+        <Reveal>
+          <SectionHeading
+            align="center"
+            label="Integrasi"
+            title="Tiga sistem, satu ekosistem"
+            subtitle="Ketiganya menulis dan membaca basis data yang sama, sehingga angka di billing, peta, dan sensor tidak pernah berbeda."
+          />
+        </Reveal>
+        <ul className="mx-auto mt-12 grid max-w-3xl gap-4 sm:grid-cols-3">
+          {[
+            { icon: Drop, name: 'D-IBS', role: 'Billing' },
+            { icon: MapPinArea, name: 'D-ASSET', role: 'WebGIS' },
+            { icon: WifiHigh, name: 'HELIOS', role: 'IoT' },
+          ].map((s) => {
+            const SysIcon = s.icon
+            return (
+              <li key={s.name}>
+                <Card padding="lg" interactive={false} className="h-full text-center">
+                  <span
+                    aria-hidden
+                    className="mx-auto flex h-12 w-12 items-center justify-center rounded-md bg-accent-light text-brand-blue-strong"
+                  >
+                    <SysIcon size={24} />
+                  </span>
+                  <p className="mt-3 font-heading text-h4 font-bold text-text-primary">{s.name}</p>
+                  <p className="mt-1 font-body text-body-sm text-text-muted">{s.role}</p>
+                </Card>
+              </li>
+            )
+          })}
+        </ul>
+      </Section>
+
+      <CTASection />
+    </>
   )
 }

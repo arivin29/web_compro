@@ -1,16 +1,38 @@
 'use client'
 
 import Image from 'next/image'
-import Link from 'next/link'
 import {
-  WifiHigh, CloudArrowUp, Cpu, Bell, ChartLine, Shield,
-  CheckCircle, ArrowRight, MapPin, Robot, FileText,
-  HardDrives, PlugsConnected, Broadcast, ArrowsClockwise,
-  Brain, Handshake, Gauge, TrendUp, Drop, Factory,
-  Plant, Lightning, ArrowCircleRight,
+  ArrowRight,
+  ArrowsClockwise,
+  ArrowSquareOut,
+  Bell,
+  Brain,
+  Broadcast,
+  ChartLine,
+  CloudArrowUp,
+  Drop,
+  Factory,
+  FileText,
+  HardDrives,
+  Lightning,
+  MapPin,
+  Plant,
+  PlugsConnected,
+  Robot,
+  WifiHigh,
 } from '@phosphor-icons/react'
-import ScrollReveal from '@/components/ui/ScrollReveal'
-import SectionHeading from '@/components/ui/SectionHeading'
+import {
+  Badge,
+  Button,
+  Card,
+  FeatureCard,
+  PageHero,
+  ProcessCard,
+  Reveal,
+  Section,
+  SectionHeading,
+} from '@/components/ui'
+import CTASection from '@/components/sections/CTASection'
 
 const PLATFORM_FEATURES = [
   {
@@ -150,461 +172,305 @@ const SCREENSHOTS = [
   { src: 'https://iot.devetek.app/img/screenshots/mockup-7-thumb.jpg', label: 'Report Preview & Export' },
 ]
 
+/**
+ * DEVETEK HELIOS — blueprint §18.
+ *
+ * CATATAN: angka pada bagian "Spesifikasi platform" (respons API, throughput,
+ * uptime) adalah target rancangan, bukan hasil pengukuran yang dipublikasikan.
+ * Penyebutannya sengaja dibingkai sebagai spesifikasi, sesuai blueprint §8.4
+ * yang mensyaratkan konteks untuk angka yang bersifat publik. Ganti dengan
+ * hasil pengukuran begitu tersedia.
+ */
 export default function HeliosPage() {
   return (
-    <main>
-      {/* ─── Hero ─────────────────────────────────────────────────────── */}
-      <section className="relative pt-[72px] bg-gradient-to-br from-brand-blue-dark to-brand-blue overflow-hidden">
-        <div aria-hidden className="absolute inset-0 opacity-[0.05]" style={{
-          backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0)',
-          backgroundSize: '40px 40px',
-        }} />
-        <div className="relative max-w-7xl mx-auto px-6 pt-20 pb-0 md:pt-24">
-          <div className="grid lg:grid-cols-2 gap-10 items-end">
-            <ScrollReveal>
-              <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase bg-white/10 text-white/80 border border-white/20 mb-5">
-                DEVETEK HELIOS — Platform IoT
-              </span>
-              <h1 className="font-heading font-extrabold text-4xl md:text-5xl lg:text-[3.25rem] tracking-tight leading-[1.1] text-white">
-                Monitor. Analisa.<br />Kendalikan.
-              </h1>
-              <p className="mt-5 text-lg text-white/70 max-w-xl leading-relaxed">
-                Platform IoT end-to-end untuk infrastruktur kritis. Koneksikan device apapun via HTTP, TCP, atau MQTT — tidak terkunci vendor tertentu.
-              </p>
-              {/* stat badges */}
-              <div className="mt-6 flex flex-wrap gap-2">
-                {['30+ Fitur', '6+ Tipe Widget', '34 Entitas', '3 Arsitektur Layanan'].map((b) => (
-                  <span key={b} className="px-3 py-1 rounded-full text-xs font-semibold bg-white/10 text-white/80 border border-white/20">{b}</span>
-                ))}
-              </div>
-              <div className="mt-8 flex flex-col sm:flex-row gap-3">
-                <Link href="/contact" className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-xl bg-white text-brand-blue font-bold hover:bg-white/90 transition-colors shadow-sm">
-                  Jadwalkan Demo <ArrowRight size={16} weight="bold" />
-                </Link>
-                <a href="https://iot.devetek.app" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-xl bg-white/10 border border-white/20 text-white font-semibold hover:bg-white/20 transition-colors">
-                  Coba Live Demo
-                </a>
-              </div>
-            </ScrollReveal>
-            <ScrollReveal delay={0.15} className="hidden lg:block">
-              <Image
-                src="https://iot.devetek.app/img/hero/dashboard.jpg"
-                alt="Devetek Helios Dashboard"
-                width={700}
-                height={420}
-                className="w-full rounded-t-2xl shadow-2xl object-cover"
-                priority
-                unoptimized
-              />
-            </ScrollReveal>
-          </div>
-        </div>
-      </section>
-
-      {/* ─── Dua Pilar ────────────────────────────────────────────────── */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <ScrollReveal>
-            <p className="text-xs font-bold tracking-widest uppercase text-brand-blue mb-2">Ekosistem Devetek</p>
-            <SectionHeading
-              title="Dua Pilar. Satu Solusi."
-              subtitle="DEVETEK menggabungkan kekuatan hardware di lapangan dengan platform cloud cerdas — memberikan Anda visibilitas penuh atas seluruh infrastruktur."
-            />
-          </ScrollReveal>
-          <div className="mt-14 grid md:grid-cols-2 gap-8">
-            {/* Cloud */}
-            <ScrollReveal delay={0.05}>
-              <div className="h-full border border-brand-blue/20 rounded-2xl p-8 bg-blue-50/40 flex flex-col">
-                <div className="flex items-center gap-3 mb-1">
-                  <div className="w-10 h-10 rounded-lg bg-brand-blue/10 flex items-center justify-center">
-                    <CloudArrowUp size={22} weight="bold" className="text-brand-blue" />
-                  </div>
-                  <div>
-                    <p className="text-[11px] font-bold tracking-widest uppercase text-brand-blue">Cloud Platform</p>
-                    <h3 className="font-heading font-bold text-brand-dark text-xl leading-tight">DEVETEK HELIOS</h3>
-                  </div>
-                </div>
-                <p className="text-xs text-text-secondary mt-1 mb-5">Subscription per Node</p>
-                <ul className="space-y-3 flex-1">
-                  {[
-                    'Dashboard custom & widget builder',
-                    'WebGIS dengan OpenLayers + PostGIS',
-                    'AI Analytics & Early Warning System',
-                    'Smart Alert via WhatsApp, Email, Telegram',
-                    'Laporan otomatis PDF/Excel',
-                    'Integrasi server pelanggan (Webhook, API)',
-                  ].map((item) => (
-                    <li key={item} className="flex items-start gap-2.5 text-sm text-text-secondary">
-                      <CheckCircle size={16} weight="fill" className="text-brand-blue mt-0.5 shrink-0" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-                <a href="https://iot.devetek.app/features.html" target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-blue hover:underline">
-                  Pelajari Platform <ArrowRight size={14} weight="bold" />
-                </a>
-              </div>
-            </ScrollReveal>
-            {/* Hardware */}
-            <ScrollReveal delay={0.1}>
-              <div className="h-full border border-border rounded-2xl p-8 bg-surface-alt flex flex-col">
-                <div className="flex items-center gap-3 mb-1">
-                  <div className="w-10 h-10 rounded-lg bg-brand-dark/10 flex items-center justify-center">
-                    <Cpu size={22} weight="bold" className="text-brand-dark" />
-                  </div>
-                  <div>
-                    <p className="text-[11px] font-bold tracking-widest uppercase text-text-secondary">Hardware</p>
-                    <h3 className="font-heading font-bold text-brand-dark text-xl leading-tight">DEVETEK IoT Node</h3>
-                  </div>
-                </div>
-                <p className="text-xs text-text-secondary mt-1 mb-5">Mata & Tangan di Lapangan</p>
-                <ul className="space-y-3 flex-1">
-                  {[
-                    'Konektivitas GSM 4G / 2G + BLE 5.0',
-                    'Solar powered 20WP + baterai LiFePO4',
-                    'RS485 Modbus RTU + Analog 4-20mA',
-                    'Enclosure IP65 weatherproof',
-                    'Penyimpanan offline (SD Card 32GB)',
-                    '3 varian: Type A, B, C',
-                  ].map((item) => (
-                    <li key={item} className="flex items-start gap-2.5 text-sm text-text-secondary">
-                      <CheckCircle size={16} weight="fill" className="text-text-secondary mt-0.5 shrink-0" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-                <a href="https://iot.devetek.app/hardware.html" target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-dark hover:underline">
-                  Lihat Hardware <ArrowRight size={14} weight="bold" />
-                </a>
-              </div>
-            </ScrollReveal>
-          </div>
-        </div>
-      </section>
-
-      {/* ─── 3-Step Value Prop ────────────────────────────────────────── */}
-      <section className="py-16 md:py-24 bg-surface-alt">
-        <div className="max-w-7xl mx-auto px-6">
-          <ScrollReveal>
-            <p className="text-xs font-bold tracking-widest uppercase text-brand-blue mb-2">Tiga Pilar</p>
-            <SectionHeading
-              title="Platform Monitoring yang Terintegrasi"
-              subtitle="Dari data mentah sensor hingga keputusan operasional — semua dalam satu ekosistem."
-            />
-          </ScrollReveal>
-          <div className="mt-14 grid md:grid-cols-3 gap-8">
-            {[
-              { icon: Gauge, title: 'Pantau Segalanya', desc: 'Data real-time dari sensor, node & gateway dalam satu dashboard. Tidak ada area gelap dalam operasi Anda.' },
-              { icon: Brain, title: 'Analisa Secara Cerdas', desc: 'Deteksi anomali berbasis ML & prediksi untuk wawasan prediktif. Tahu sebelum masalah terjadi.' },
-              { icon: Broadcast, title: 'Bertindak Seketika', desc: 'Alert otomatis, perintah device, dan pembuatan laporan untuk respons cepat. Kendalikan dari mana saja.' },
-            ].map((item, i) => {
-              const Icon = item.icon
-              return (
-                <ScrollReveal key={item.title} delay={i * 0.1}>
-                  <div className="bg-white rounded-2xl border border-border p-8 h-full">
-                    <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center mb-5">
-                      <Icon size={26} weight="bold" className="text-brand-blue" />
-                    </div>
-                    <h3 className="font-heading font-bold text-xl text-brand-dark">{item.title}</h3>
-                    <p className="mt-3 text-sm text-text-secondary leading-relaxed">{item.desc}</p>
-                  </div>
-                </ScrollReveal>
-              )
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* ─── 6 Platform Features ─────────────────────────────────────── */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <ScrollReveal>
-            <p className="text-xs font-bold tracking-widest uppercase text-brand-blue mb-2">Fitur Platform</p>
-            <SectionHeading
-              title="Fitur Unggulan"
-              subtitle="Toolkit lengkap untuk monitoring, analisis, dan pengendalian infrastruktur IoT Anda."
-            />
-          </ScrollReveal>
-          <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {PLATFORM_FEATURES.map((feat, i) => {
-              const Icon = feat.icon
-              return (
-                <ScrollReveal key={feat.title} delay={i * 0.07}>
-                  <a href={feat.href} target="_blank" rel="noopener noreferrer" className="group block h-full bg-white border border-border rounded-2xl shadow-sm p-6 hover:border-brand-blue/40 hover:shadow-md transition-all">
-                    <div className="w-11 h-11 rounded-lg bg-blue-50 flex items-center justify-center mb-4 group-hover:bg-brand-blue/10 transition-colors">
-                      <Icon size={22} weight="bold" className="text-brand-blue" />
-                    </div>
-                    <h4 className="font-heading font-semibold text-brand-dark">{feat.title}</h4>
-                    <p className="mt-2 text-sm text-text-secondary leading-relaxed">{feat.desc}</p>
-                    <span className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-brand-blue opacity-0 group-hover:opacity-100 transition-opacity">
-                      Selengkapnya <ArrowRight size={12} weight="bold" />
-                    </span>
-                  </a>
-                </ScrollReveal>
-              )
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* ─── Screenshots ─────────────────────────────────────────────── */}
-      <section className="py-16 md:py-24 bg-surface-alt">
-        <div className="max-w-7xl mx-auto px-6">
-          <ScrollReveal>
-            <p className="text-xs font-bold tracking-widest uppercase text-brand-blue mb-2">Tampilan Platform</p>
-            <SectionHeading
-              title="Lihat Helios Beraksi"
-              subtitle="Screenshot langsung dari platform — dashboard, peta, laporan, dan lainnya."
-            />
-          </ScrollReveal>
-          <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
-            {SCREENSHOTS.map((ss, i) => (
-              <ScrollReveal key={ss.label} delay={i * 0.07}>
-                <a href="https://iot.devetek.app/screenshots.html" target="_blank" rel="noopener noreferrer" className="group flex flex-col rounded-xl overflow-hidden border border-border shadow-sm hover:shadow-md transition-shadow bg-white">
-                  <div className="relative w-full h-44 overflow-hidden bg-surface-alt">
-                    <Image
-                      src={ss.src}
-                      alt={ss.label}
-                      fill
-                      sizes="(max-width: 768px) 50vw, 25vw"
-                      className="object-cover group-hover:scale-105 transition-transform duration-300"
-                      unoptimized
-                    />
-                  </div>
-                  <div className="px-4 py-2.5">
-                    <p className="text-xs font-medium text-brand-dark truncate">{ss.label}</p>
-                  </div>
-                </a>
-              </ScrollReveal>
+    <>
+      <PageHero
+        eyebrow="Devetek Helios"
+        title="Pantau, analisa, kendalikan dari satu layar"
+        description="Perangkat sensor tangguh di lapangan dipasangkan dengan platform cloud — sehingga kondisi infrastruktur terbaca terus-menerus, bukan hanya saat ada laporan."
+        breadcrumb={[
+          { label: 'Beranda', href: '/' },
+          { label: 'Produk', href: '/products' },
+          { label: 'HELIOS' },
+        ]}
+        actions={
+          <>
+            <Button href="/contact">
+              Minta Demo
+              <ArrowRight size={16} weight="bold" />
+            </Button>
+            <Button href="https://iot.devetek.app" variant="secondary" target="_blank" rel="noopener noreferrer">
+              Situs Produk
+              <ArrowSquareOut size={15} weight="bold" />
+            </Button>
+          </>
+        }
+        media={
+          <ul className="flex flex-wrap gap-2">
+            {['MQTT', 'TCP/IP', 'HTTP', 'WebGIS', 'ML Analitik'].map((b) => (
+              <li key={b}>
+                <Badge variant="inverse">{b}</Badge>
+              </li>
             ))}
-          </div>
-          <div className="mt-6 text-center">
-            <a href="https://iot.devetek.app/screenshots.html" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-blue hover:underline">
-              Lihat Semua Screenshot <ArrowRight size={14} weight="bold" />
-            </a>
-          </div>
-        </div>
-      </section>
+          </ul>
+        }
+      />
 
-      {/* ─── Industries ──────────────────────────────────────────────── */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <ScrollReveal>
-            <p className="text-xs font-bold tracking-widest uppercase text-brand-blue mb-2">Solusi Industri</p>
-            <SectionHeading
-              title="Dibangun untuk Industri Kritis"
-              subtitle="Devetek Helios beradaptasi dengan kebutuhan monitoring dan kontrol unik setiap industri."
-            />
-          </ScrollReveal>
-          <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {INDUSTRIES.map((ind, i) => {
-              const Icon = ind.icon
-              return (
-                <ScrollReveal key={ind.title} delay={i * 0.08}>
-                  {ind.active ? (
-                    <a href={ind.href} target="_blank" rel="noopener noreferrer" className="group flex flex-col h-full bg-white border-2 border-brand-blue rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
-                      <div className="w-11 h-11 rounded-lg bg-blue-50 flex items-center justify-center mb-4">
-                        <Icon size={22} weight="bold" className="text-brand-blue" />
-                      </div>
-                      <h4 className="font-heading font-semibold text-brand-dark">{ind.title}</h4>
-                      <p className="mt-2 text-sm text-text-secondary leading-relaxed flex-1">{ind.desc}</p>
-                      <span className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-brand-blue">
-                        Jelajahi Solusi <ArrowCircleRight size={14} weight="bold" />
-                      </span>
-                    </a>
-                  ) : (
-                    <div className="flex flex-col h-full bg-surface-alt border border-border rounded-2xl p-6 opacity-70">
-                      <div className="w-11 h-11 rounded-lg bg-white border border-border flex items-center justify-center mb-4">
-                        <Icon size={22} weight="bold" className="text-text-secondary" />
-                      </div>
-                      <h4 className="font-heading font-semibold text-brand-dark">{ind.title}</h4>
-                      <p className="mt-2 text-sm text-text-secondary leading-relaxed flex-1">{ind.desc}</p>
-                      <span className="mt-4 inline-block px-3 py-1 rounded-full text-xs font-bold bg-white border border-border text-text-secondary w-fit">
-                        Segera Hadir
-                      </span>
-                    </div>
-                  )}
-                </ScrollReveal>
-              )
-            })}
-          </div>
+      <Section tone="white">
+        <Reveal>
+          <SectionHeading
+            label="Dua Pilar"
+            title="Perangkat keras di lapangan, platform di cloud"
+            subtitle="Keduanya dirancang bersama, sehingga data sensor tidak perlu diterjemahkan lagi sebelum bisa dipakai."
+          />
+        </Reveal>
+        <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {PLATFORM_FEATURES.map((f, i) => {
+            const FeatIcon = f.icon
+            return (
+              <Reveal key={f.title} delay={i * 0.07}>
+                <FeatureCard
+                  icon={<FeatIcon size={21} />}
+                  title={f.title}
+                  description={f.desc}
+                  href={f.href}
+                  linkLabel="Detail fitur"
+                  className="h-full"
+                />
+              </Reveal>
+            )
+          })}
         </div>
-      </section>
+      </Section>
 
-      {/* ─── 4-Step Pipeline ──────────────────────────────────────────── */}
-      <section className="py-16 md:py-24 bg-surface-alt">
-        <div className="max-w-7xl mx-auto px-6">
-          <ScrollReveal>
-            <p className="text-xs font-bold tracking-widest uppercase text-brand-blue mb-2">Cara Kerja</p>
-            <SectionHeading
-              title="Dari Sensor ke Insight dalam 4 Langkah"
-              subtitle=""
-            />
-          </ScrollReveal>
-          <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {PIPELINE_STEPS.map((step, i) => {
-              const Icon = step.icon
-              return (
-                <ScrollReveal key={step.title} delay={i * 0.1}>
-                  <div className="relative bg-white border border-border rounded-2xl p-6 h-full">
-                    <span className="absolute top-5 right-5 text-4xl font-extrabold text-brand-blue/10 font-heading leading-none">{step.num}</span>
-                    <div className="w-11 h-11 rounded-lg bg-blue-50 flex items-center justify-center mb-4">
-                      <Icon size={22} weight="bold" className="text-brand-blue" />
-                    </div>
-                    <h4 className="font-heading font-bold text-lg text-brand-dark">{step.title}</h4>
-                    <p className="mt-2 text-sm text-text-secondary leading-relaxed">{step.desc}</p>
-                  </div>
-                </ScrollReveal>
-              )
-            })}
-          </div>
-        </div>
-      </section>
+      <Section tone="soft">
+        <Reveal>
+          <SectionHeading
+            label="Alur Data"
+            title="Dari sensor ke tindakan dalam empat langkah"
+          />
+        </Reveal>
+        <ol className="mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
+          {PIPELINE_STEPS.map((s, i) => {
+            const StepIcon = s.icon
+            return (
+              <li key={s.num}>
+                <Reveal delay={i * 0.07}>
+                  <ProcessCard
+                    step={`0${s.num}`}
+                    title={s.title}
+                    description={s.desc}
+                    icon={<StepIcon size={24} />}
+                    last={i === PIPELINE_STEPS.length - 1}
+                  />
+                </Reveal>
+              </li>
+            )
+          })}
+        </ol>
+      </Section>
 
-      {/* ─── Open Connectivity ───────────────────────────────────────── */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <ScrollReveal>
-            <p className="text-xs font-bold tracking-widest uppercase text-brand-blue mb-2">Konektivitas Terbuka</p>
-            <SectionHeading
-              title="Apapun Device-nya, Helios Siap Terima"
-              subtitle="Tidak terkunci vendor tertentu. Selama device Anda support HTTP, TCP, atau MQTT — langsung konek ke Helios."
-            />
-          </ScrollReveal>
-          <div className="mt-12 grid md:grid-cols-3 gap-8">
-            {CONNECTIVITY.map((c, i) => {
-              const Icon = c.icon
-              return (
-                <ScrollReveal key={c.proto} delay={i * 0.1}>
-                  <div className="bg-surface-alt border border-border rounded-2xl p-7 h-full">
-                    <div className="w-12 h-12 rounded-xl bg-white border border-border flex items-center justify-center mb-5 shadow-sm">
-                      <Icon size={24} weight="bold" className="text-brand-blue" />
-                    </div>
-                    <h3 className="font-heading font-bold text-xl text-brand-dark">{c.proto}</h3>
-                    <p className="mt-3 text-sm text-text-secondary leading-relaxed">{c.desc}</p>
-                    <div className="mt-5 flex flex-wrap gap-2">
-                      {c.tags.map((t) => (
-                        <span key={t} className="px-2.5 py-1 rounded-full text-xs font-medium bg-white border border-border text-brand-dark">{t}</span>
-                      ))}
-                    </div>
-                  </div>
-                </ScrollReveal>
-              )
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* ─── Device Compatibility ────────────────────────────────────── */}
-      <section className="py-14 md:py-20 bg-surface-alt border-y border-border">
-        <div className="max-w-7xl mx-auto px-6">
-          <ScrollReveal>
-            <p className="text-xs font-bold tracking-widest uppercase text-brand-blue mb-5 text-center">Kompatibilitas</p>
-            <p className="text-center font-heading font-bold text-xl text-brand-dark mb-8">Device & Tools yang Didukung</p>
-            <div className="flex flex-wrap gap-2.5 justify-center">
-              {COMPATIBILITY.map((tag) => (
-                <span key={tag} className="px-3 py-1.5 rounded-full text-xs font-medium bg-white border border-border text-brand-dark shadow-sm">
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* ─── Performance Stats ───────────────────────────────────────── */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <ScrollReveal>
-            <p className="text-xs font-bold tracking-widest uppercase text-brand-blue mb-2 text-center">Performa</p>
-            <p className="text-center font-heading font-extrabold text-3xl md:text-4xl text-brand-dark mb-12">Angka yang Berbicara</p>
-          </ScrollReveal>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {STATS.map((s, i) => (
-              <ScrollReveal key={s.label} delay={i * 0.08}>
-                <div className="text-center p-8 rounded-2xl bg-surface-alt border border-border">
-                  <p className="font-heading font-extrabold text-3xl md:text-4xl text-brand-blue">{s.value}</p>
-                  <p className="mt-2 text-xs font-bold uppercase tracking-wider text-text-secondary">{s.label}</p>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ─── Testimonial ─────────────────────────────────────────────── */}
-      <section className="py-16 md:py-24 bg-surface-alt">
-        <div className="max-w-3xl mx-auto px-6 text-center">
-          <ScrollReveal>
-            <p className="text-xs font-bold tracking-widest uppercase text-brand-blue mb-6">Testimoni</p>
-            <Handshake size={40} weight="duotone" className="text-brand-blue mx-auto mb-6 opacity-60" />
-            <blockquote className="text-xl md:text-2xl font-heading font-medium text-brand-dark leading-relaxed">
-              &ldquo;Devetek Helios membantu kami memantau 200+ node tersebar di 5 DMA dengan real-time dashboard yang intuitif dan alert system yang responsif.&rdquo;
-            </blockquote>
-            <p className="mt-6 text-sm font-semibold text-text-secondary">— Tim Teknis, PT Bakti Air Indonesia</p>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* ─── Hardware Lineup ─────────────────────────────────────────── */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <ScrollReveal>
-            <p className="text-xs font-bold tracking-widest uppercase text-brand-blue mb-2">Hardware</p>
-            <SectionHeading
-              title="Hardware Lineup"
-              subtitle="Sensor tangguh untuk berbagai kebutuhan lapangan."
-            />
-          </ScrollReveal>
-          <div className="mt-12 grid md:grid-cols-3 gap-8">
-            {HARDWARE.map((hw, i) => (
-              <ScrollReveal key={hw.type} delay={i * 0.1}>
-                <div className="bg-white border border-border border-t-4 border-t-brand-blue rounded-2xl shadow-sm p-8 h-full flex flex-col">
-                  <span className="text-xs font-extrabold text-brand-blue uppercase tracking-wider">{hw.type}</span>
-                  <h3 className="mt-2 text-xl font-heading font-bold text-brand-dark">{hw.name}</h3>
-                  <p className="mt-3 text-sm text-text-secondary flex-1">{hw.desc}</p>
-                  <ul className="mt-5 space-y-2">
-                    {hw.specs.map((spec) => (
-                      <li key={spec} className="flex items-center gap-2 text-sm text-text-secondary">
-                        <CheckCircle size={16} weight="fill" className="text-green-500 shrink-0" />
-                        {spec}
+      <Section tone="dark" pattern="grid">
+        <Reveal>
+          <SectionHeading
+            label="Konektivitas"
+            title="Tidak terkunci pada satu vendor"
+            subtitle="Selama perangkat Anda mendukung HTTP, TCP, atau MQTT, HELIOS bisa menerimanya."
+          />
+        </Reveal>
+        <div className="mt-12 grid gap-5 md:grid-cols-3">
+          {CONNECTIVITY.map((c, i) => {
+            const ConnIcon = c.icon
+            return (
+              <Reveal key={c.proto} delay={i * 0.08}>
+                <Card tone="dark-soft" padding="lg" interactive={false} className="h-full">
+                  <span
+                    aria-hidden
+                    className="mb-4 flex h-11 w-11 items-center justify-center rounded-md bg-white/10 text-brand-blue-soft"
+                  >
+                    <ConnIcon size={21} />
+                  </span>
+                  <h3 className="font-mono text-h3 font-bold text-text-inverse">{c.proto}</h3>
+                  <p className="mt-2 font-body text-body-sm leading-relaxed text-text-inverse-muted">
+                    {c.desc}
+                  </p>
+                  <ul className="mt-4 flex flex-wrap gap-1.5">
+                    {c.tags.map((t) => (
+                      <li key={t}>
+                        <Badge variant="inverse">{t}</Badge>
                       </li>
                     ))}
                   </ul>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-          <div className="mt-8 text-center">
-            <a href="https://iot.devetek.app/hardware.html" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-blue hover:underline">
-              Spesifikasi lengkap hardware <ArrowRight size={14} weight="bold" />
-            </a>
-          </div>
+                </Card>
+              </Reveal>
+            )
+          })}
         </div>
-      </section>
 
-      {/* ─── CTA ─────────────────────────────────────────────────────── */}
-      <section className="py-20 md:py-28 bg-gradient-to-br from-brand-blue-dark to-brand-blue">
-        <div className="max-w-3xl mx-auto px-6 text-center">
-          <ScrollReveal>
-            <TrendUp size={44} weight="duotone" className="text-white/50 mx-auto mb-6" />
-            <h2 className="text-3xl md:text-4xl font-heading font-extrabold text-white leading-tight">
-              Siap Mentransformasi<br />Operasi IoT Anda?
-            </h2>
-            <p className="mt-5 text-white/70 text-lg">
-              Jadwalkan demo gratis dan lihat bagaimana Devetek Helios dapat mengoptimalkan infrastruktur Anda.
-            </p>
-            <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contact" className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-white text-brand-blue font-bold hover:bg-white/90 transition-colors shadow-sm">
-                Jadwalkan Demo Gratis <ArrowRight size={16} weight="bold" />
-              </Link>
-              <a href="https://wa.me/628562302229?text=Halo%20Devetek%2C%20saya%20tertarik%20dengan%20HELIOS%20IoT%20Platform." target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl border-2 border-white/40 text-white font-semibold hover:bg-white/10 transition-colors">
-                WhatsApp Langsung
+        <Reveal delay={0.15}>
+          <div className="mt-8 rounded-lg border border-white/12 bg-white/[0.04] p-6">
+            <h3 className="label-section mb-4 text-brand-blue-soft">Kompatibilitas</h3>
+            <ul className="flex flex-wrap gap-1.5">
+              {COMPATIBILITY.map((c) => (
+                <li
+                  key={c}
+                  className="rounded-sm border border-white/12 bg-white/[0.06] px-2.5 py-1 font-mono text-[0.6875rem] text-white/70"
+                >
+                  {c}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Reveal>
+      </Section>
+
+      <Section tone="white">
+        <Reveal>
+          <SectionHeading
+            label="Tampilan Platform"
+            title="Cuplikan langsung dari HELIOS"
+            subtitle="Dashboard, peta, pembangun widget, dan pratinjau laporan."
+          />
+        </Reveal>
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {SCREENSHOTS.map((ss, i) => (
+            <Reveal key={ss.label} delay={i * 0.07}>
+              <a
+                href="https://iot.devetek.app/screenshots.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-surface-white shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-brand-blue/50 hover:shadow-card-hover"
+              >
+                <span className="relative block aspect-[16/10] w-full overflow-hidden bg-surface-soft">
+                  <Image
+                    src={ss.src}
+                    alt={`Tampilan ${ss.label} pada platform HELIOS`}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    className="object-cover transition-transform duration-500 ease-forward group-hover:scale-[1.03]"
+                    unoptimized
+                  />
+                </span>
+                <span className="flex items-center justify-between gap-2 p-4">
+                  <span className="font-body text-body-sm font-medium text-text-primary">
+                    {ss.label}
+                  </span>
+                  <ArrowSquareOut
+                    size={14}
+                    weight="bold"
+                    aria-hidden
+                    className="shrink-0 text-brand-blue-strong"
+                  />
+                </span>
               </a>
-            </div>
-          </ScrollReveal>
+            </Reveal>
+          ))}
         </div>
-      </section>
-    </main>
+      </Section>
+
+      <Section tone="soft">
+        <Reveal>
+          <SectionHeading
+            label="Perangkat Keras"
+            title="Tiga jenis logger untuk kondisi lapangan berbeda"
+          />
+        </Reveal>
+        <div className="mt-12 grid gap-5 md:grid-cols-3">
+          {HARDWARE.map((hw, i) => (
+            <Reveal key={hw.type} delay={i * 0.08}>
+              <Card padding="lg" accent="orange" interactive={false} className="h-full">
+                <span className="font-mono text-body-sm text-brand-orange">{hw.type}</span>
+                <h3 className="mt-2 font-heading text-h3 font-semibold text-text-primary">
+                  {hw.name}
+                </h3>
+                <p className="mt-2 font-body text-body-sm leading-relaxed text-text-secondary">
+                  {hw.desc}
+                </p>
+                <ul className="mt-4 space-y-1.5">
+                  {hw.specs.map((s) => (
+                    <li key={s} className="flex items-start gap-2">
+                      <span aria-hidden className="mt-[0.45rem] h-1.5 w-1.5 shrink-0 rotate-45 bg-brand-blue" />
+                      <span className="font-body text-body-sm text-text-secondary">{s}</span>
+                    </li>
+                  ))}
+                </ul>
+              </Card>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
+      <Section tone="white">
+        <div className="grid gap-12 lg:grid-cols-[1.1fr_1fr]">
+          <Reveal>
+            <div>
+              <SectionHeading
+                label="Industri"
+                title="Dibangun untuk infrastruktur kritis"
+                subtitle="Sektor air minum sudah berjalan; sisanya memakai fondasi platform yang sama."
+              />
+              <ul className="mt-8 space-y-3">
+                {INDUSTRIES.map((ind) => {
+                  const IndIcon = ind.icon
+                  return (
+                    <li key={ind.title}>
+                      <Card padding="sm" interactive={Boolean(ind.href)} href={ind.href}>
+                        <div className="flex items-start gap-3.5">
+                          <span
+                            aria-hidden
+                            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-accent-light text-brand-blue-strong"
+                          >
+                            <IndIcon size={19} />
+                          </span>
+                          <span className="min-w-0 flex-1">
+                            <span className="flex flex-wrap items-center gap-2">
+                              <span className="font-heading text-h4 font-semibold text-text-primary">
+                                {ind.title}
+                              </span>
+                              <Badge variant={ind.active ? 'success' : 'neutral'} dot>
+                                {ind.active ? 'Berjalan' : 'Dalam pengembangan'}
+                              </Badge>
+                            </span>
+                            <span className="mt-1 block font-body text-body-sm leading-relaxed text-text-secondary">
+                              {ind.desc}
+                            </span>
+                          </span>
+                        </div>
+                      </Card>
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.1}>
+            <div>
+              <SectionHeading label="Spesifikasi Platform" title="Target rancangan" as="h2" />
+              <p className="measure mt-3 font-body text-body-sm text-text-muted">
+                Angka berikut adalah target rancangan platform, bukan hasil pengukuran yang
+                dipublikasikan.
+              </p>
+              <dl className="mt-8 grid grid-cols-2 gap-4">
+                {STATS.map((s) => (
+                  <div key={s.label} className="rounded-md border border-border bg-surface-soft p-5">
+                    <div className="flex flex-col-reverse">
+                      <dt className="mt-1.5 font-body text-body-sm text-text-secondary">
+                        {s.label}
+                      </dt>
+                      <dd className="tabular font-heading text-h2 font-bold text-brand-blue-strong">
+                        {s.value}
+                      </dd>
+                    </div>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </Reveal>
+        </div>
+      </Section>
+
+      <CTASection />
+    </>
   )
 }

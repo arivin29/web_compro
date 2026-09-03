@@ -2,68 +2,225 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─────────────────────────────────────────────────────────────
+   DEVETEK FORWARD — BASE LAYER
+   Token mentah diekspos sebagai CSS variable supaya bisa dipakai
+   di inline style, SVG, dan iframe wrapper.
+   ───────────────────────────────────────────────────────────── */
+
 @layer base {
+  :root {
+    --brand-red: #e5301e;
+    --brand-orange: #f0701f;
+    --brand-blue: #4479b3;
+    --brand-blue-strong: #356399;
+    --brand-navy: #101a28;
+    --brand-navy-soft: #17273a;
+
+    --surface-page: #f6f8fb;
+    --surface-soft: #eef3f8;
+    --border-default: #dce4ec;
+
+    --header-h: 68px;
+  }
+
+  @media (min-width: 1024px) {
+    :root {
+      --header-h: 76px;
+    }
+  }
+
   html {
     scroll-behavior: smooth;
+    /* Anchor tidak tertutup header fixed */
+    scroll-padding-top: calc(var(--header-h) + 16px);
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
-    @apply bg-white text-text-primary font-body antialiased;
+    @apply bg-surface-page font-body text-body text-text-secondary antialiased;
+    /* Blueprint §16 — tidak boleh ada horizontal scroll di 320px */
+    overflow-x: hidden;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-heading text-brand-dark;
-    letter-spacing: -0.02em;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading text-text-primary;
+    text-wrap: balance;
+  }
+
+  h1 {
+    @apply text-h1 font-bold;
+  }
+  h2 {
+    @apply text-h2 font-bold;
+  }
+  h3 {
+    @apply text-h3 font-semibold;
+  }
+  h4 {
+    @apply text-h4 font-semibold;
   }
 
   p {
     @apply text-text-secondary;
+    text-wrap: pretty;
+  }
+
+  /* Blueprint §16 — focus indicator selalu terlihat */
+  :focus-visible {
+    outline: 2px solid var(--brand-blue-strong);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Focus ring versi terang untuk permukaan navy */
+  .on-dark :focus-visible,
+  .on-dark:focus-visible {
+    outline-color: #7fb0e6;
+  }
+
+  ::selection {
+    background: var(--brand-orange);
+    color: #fff;
+  }
+
+  /* Angka tabular untuk counter & data teknis */
+  .tabular {
+    font-variant-numeric: tabular-nums;
   }
 }
 
 @layer components {
-  .glass-card {
-    @apply bg-white border border-border rounded-2xl shadow-card transition-all duration-300;
+  /* Lebar & padding container standar — blueprint §5.1 */
+  .container-devetek {
+    @apply mx-auto w-full max-w-container px-5 md:px-6 lg:px-8;
   }
 
-  .glass-card:hover {
-    @apply shadow-lg border-accent/20;
+  /* Label section uppercase — blueprint §4.3 */
+  .label-section {
+    @apply font-body text-label font-semibold uppercase;
   }
 
-  .gradient-text {
-    @apply bg-gradient-accent bg-clip-text text-transparent;
+  /* Garis signature tiga warna — blueprint §12 */
+  .signature-line {
+    @apply h-1 w-full bg-gradient-signature;
   }
 
-  .glow-border {
-    @apply border-accent/30 shadow-glow;
+  /* Link inline — blueprint §7.4 */
+  .link-inline {
+    @apply text-brand-blue-strong underline-offset-4 transition-colors hover:underline;
   }
 
-  .section-padding {
-    @apply py-24 md:py-32;
+  .on-dark .link-inline {
+    @apply text-brand-blue-soft;
   }
 
-  .card-lift {
-    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
+  /* Grid teknis halus untuk permukaan gelap — blueprint §11.1 */
+  .pattern-grid {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+    background-size: 64px 64px;
   }
+
+  .pattern-dots {
+    background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.16) 1px, transparent 0);
+    background-size: 40px 40px;
+  }
+
+  .pattern-dots-light {
+    background-image: radial-gradient(circle at 1px 1px, rgba(16, 26, 40, 0.09) 1px, transparent 0);
+    background-size: 32px 32px;
+  }
+
+  /**
+   * Teks panjang yang mengalir — halaman legal, kebijakan, artikel.
+   * Dipakai dengan <Section width="prose">, sehingga halaman cukup
+   * menulis HTML semantik tanpa memberi class pada tiap elemen.
+   *
+   * Menggantikan `prose prose-slate` dari @tailwindcss/typography yang
+   * TIDAK terpasang di project ini, sehingga class itu tidak pernah
+   * menghasilkan gaya apa pun.
+   */
+  .prose-devetek > * + * {
+    @apply mt-4;
+  }
+
+  .prose-devetek h2 {
+    @apply mt-10 font-heading text-h3 font-semibold text-text-primary;
+  }
+
+  .prose-devetek h3 {
+    @apply mt-8 font-heading text-h4 font-semibold text-text-primary;
+  }
+
+  .prose-devetek p,
+  .prose-devetek li {
+    @apply font-body text-body leading-relaxed text-text-secondary;
+  }
+
+  .prose-devetek ul {
+    @apply space-y-2 pl-1;
+  }
+
+  .prose-devetek ul > li {
+    @apply relative pl-6;
+  }
+
+  .prose-devetek ul > li::before {
+    content: '';
+    @apply absolute left-0 top-[0.6em] h-1.5 w-1.5 rotate-45 bg-brand-orange;
+  }
+
+  .prose-devetek strong {
+    @apply font-semibold text-text-primary;
+  }
+
+  .prose-devetek a {
+    @apply text-brand-blue-strong underline-offset-4 transition-colors hover:underline;
+  }
+
+  .prose-devetek > section + section {
+    @apply mt-0;
+  }
+
 }
 
 @layer utilities {
-  .animate-fade-in {
-    animation: fadeIn 0.5s ease-out forwards;
+  /* Panjang baris nyaman dibaca — blueprint §4.3 (65–75 karakter) */
+  .measure {
+    max-width: 68ch;
+  }
+  .measure-tight {
+    max-width: 54ch;
   }
 
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  /* Blueprint §16 — target sentuh minimum 44×44px */
+  .tap-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Blueprint §15 — seluruh animasi non-esensial dimatikan
+   ketika pengguna memilih prefers-reduced-motion.
+   ───────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 
-  .animate-pulse-slow {
-    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

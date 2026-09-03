@@ -1,163 +1,113 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { ArrowRight, Shield, Users, Briefcase } from 'lucide-react'
-import Button from '@/components/ui/Button'
+import { motion, useReducedMotion } from 'framer-motion'
+import { ArrowRight } from '@phosphor-icons/react'
+import { BrowserFrame, Button, Container, ForwardLayers } from '@/components/ui'
+import { COMPANY } from '@/lib/constants'
 
-const HERO_STATS = [
-  { icon: Briefcase, value: '12+', label: 'Tahun Pengalaman' },
-  { icon: Users, value: '50+', label: 'Klien Terpercaya' },
-  { icon: Shield, value: '100+', label: 'Proyek Selesai' },
-]
-
+/**
+ * Hero beranda — blueprint §11.1.
+ *
+ * Dua kolom: kiri berisi label, headline, deskripsi, dan CTA; kanan berisi
+ * visual implementasi nyata (screenshot dashboard D-IBS), bukan ilustrasi
+ * generik (§14).
+ *
+ * Angka pencapaian sengaja TIDAK ada di sini. Sebelumnya hero memuat
+ * 12+/50+/100+ yang persis diulang oleh TrustBarSection satu section
+ * di bawahnya.
+ */
 export default function HeroSection() {
+  const reduce = useReducedMotion()
+
+  const rise = (delay: number) =>
+    reduce
+      ? {}
+      : {
+          initial: { opacity: 0, y: 20 },
+          animate: { opacity: 1, y: 0 },
+          transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] as const, delay },
+        }
+
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden pt-[72px] bg-gradient-to-br from-surface-blue via-brand-blue to-surface-blue-light">
-      {/* Background pattern */}
-      <div
-        aria-hidden
-        className="absolute inset-0 opacity-[0.04]"
-        style={{
-          backgroundImage:
-            'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0)',
-          backgroundSize: '40px 40px',
-        }}
+    <section className="on-dark relative overflow-hidden bg-gradient-hero pt-[var(--header-h)] text-text-inverse-muted">
+      <div aria-hidden className="pattern-grid absolute inset-0" />
+
+      {/* Satu elemen Forward Layers dominan per viewport — blueprint §2.3 */}
+      <ForwardLayers
+        tone="mono"
+        opacity={0.08}
+        className="absolute -left-24 top-1/3 h-[460px] w-[460px] text-white"
       />
 
-      {/* Decorative elements */}
-      <div aria-hidden className="absolute top-20 right-0 w-[500px] h-[500px] rounded-full bg-white/5 blur-3xl" />
-      <div aria-hidden className="absolute -bottom-20 -left-20 w-[400px] h-[400px] rounded-full bg-brand-blue-dark/30 blur-3xl" />
-
-      <div className="relative max-w-7xl mx-auto px-6 py-16 md:py-24 w-full">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left — Content */}
+      <Container className="relative py-16 md:py-20 lg:py-24">
+        <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
+          {/* ── Kolom kiri: pesan utama ── */}
           <div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="mb-5"
-            >
-              <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-medium bg-white/15 text-white border border-white/20 backdrop-blur-sm">
-                Devetek — Berdiri sejak 2012
-              </span>
-            </motion.div>
+            <motion.p {...rise(0)} className="label-section flex items-center gap-2.5 text-brand-orange">
+              <span aria-hidden className="h-2 w-2 rotate-45 bg-brand-orange" />
+              {COMPANY.tagline}
+            </motion.p>
 
             <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="font-heading font-extrabold text-3xl md:text-4xl lg:text-5xl xl:text-6xl tracking-tight leading-[1.1] mb-6 text-white"
+              {...rise(0.08)}
+              className="mt-5 font-heading text-display font-bold text-text-inverse"
             >
-              Solusi Teknologi
-              <br />
-              End-to-End untuk
-              <br />
-              <span className="text-white/90">PDAM & Enterprise</span>
+              Teknologi yang Membuat{' '}
+              <span className="text-brand-blue-soft">Operasional Bergerak</span> Lebih Baik
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="font-body text-base md:text-lg text-white/75 max-w-lg mb-8 leading-relaxed"
+              {...rise(0.16)}
+              className="measure mt-6 font-body text-body-lg text-text-inverse-muted"
             >
-              Dari sistem billing, IoT monitoring, hingga ERP — kami membangun 
-              dan mengintegrasikan teknologi yang benar-benar bekerja untuk 
-              sektor publik dan swasta di Indonesia.
+              Devetek membangun dan mengintegrasikan sistem billing, monitoring IoT, manajemen
+              aset, hingga ERP untuk PDAM, pemerintahan, dan perusahaan swasta di Indonesia.
             </motion.p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="flex flex-col sm:flex-row items-start gap-3 mb-12"
-            >
-              <Button href="/contact" size="large" className="bg-white text-brand-blue hover:bg-white/90 shadow-lg">
-                Hubungi Kami
+            <motion.div {...rise(0.24)} className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <Button href="/contact" size="lg">
+                Mulai Diskusi
               </Button>
-              <Button href="/products" variant="secondary" size="large" className="border-white/30 text-white hover:bg-white/10 hover:border-white/50">
+              <Button href="/products" variant="secondary" size="lg">
                 Lihat Produk
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight size={17} weight="bold" />
               </Button>
-            </motion.div>
-
-            {/* Inline stats */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="flex gap-6 md:gap-10"
-            >
-              {HERO_STATS.map((stat) => (
-                <div key={stat.label} className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center">
-                    <stat.icon className="w-5 h-5 text-white/80" />
-                  </div>
-                  <div>
-                    <div className="font-heading font-bold text-xl text-white">{stat.value}</div>
-                    <div className="text-xs text-white/60">{stat.label}</div>
-                  </div>
-                </div>
-              ))}
             </motion.div>
           </div>
 
-          {/* Right — Visual / Trust indicators */}
+          {/* ── Kolom kanan: bukti implementasi ── */}
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="hidden lg:block"
+            {...(reduce
+              ? {}
+              : {
+                  initial: { opacity: 0, y: 28 },
+                  animate: { opacity: 1, y: 0 },
+                  transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const, delay: 0.2 },
+                })}
+            className="relative"
           >
-            <div className="relative">
-              {/* Main card */}
-              <div className="bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 p-8">
-                <div className="text-sm font-medium text-white/60 uppercase tracking-wider mb-6">Ekosistem Devetek</div>
-                
-                <div className="space-y-4">
-                  {[
-                    { name: 'D-IBS', desc: 'Billing & Manajemen PDAM', color: 'bg-white/20' },
-                    { name: 'D-ASSET', desc: 'WebGIS Pengelolaan Aset', color: 'bg-white/15' },
-                    { name: 'HELIOS', desc: 'IoT Sensor & Monitoring', color: 'bg-white/15' },
-                    { name: 'ERP', desc: 'Enterprise Resource Planning', color: 'bg-white/10' },
-                  ].map((item) => (
-                    <div key={item.name} className={`${item.color} rounded-xl px-5 py-4 flex items-center justify-between`}>
-                      <div>
-                        <div className="font-heading font-bold text-white text-sm">{item.name}</div>
-                        <div className="text-xs text-white/60">{item.desc}</div>
-                      </div>
-                      <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                    </div>
-                  ))}
-                </div>
+            <BrowserFrame
+              src="/images/projects/d-ibs-dashboard.png"
+              alt="Dashboard D-IBS menampilkan ringkasan billing dan pelanggan PDAM"
+              label="d-ibs.devetek.com"
+              priority
+            />
 
-                <div className="mt-6 pt-5 border-t border-white/10 flex items-center justify-between">
-                  <div className="text-xs text-white/50">Semua sistem terintegrasi</div>
-                  <div className="flex -space-x-1">
-                    {[1,2,3].map((i) => (
-                      <div key={i} className="w-6 h-6 rounded-full bg-white/20 border-2 border-brand-blue flex items-center justify-center text-[8px] text-white font-bold">
-                        {i}
-                      </div>
-                    ))}
-                  </div>
-                </div>
+            {/* Kartu penanda status — menyampaikan data, bukan ornamen */}
+            <div className="mt-4 rounded-lg border border-white/12 bg-surface-dark-soft p-4 shadow-dropdown lg:absolute lg:-bottom-7 lg:-left-7 lg:mt-0 lg:w-60">
+              <div className="flex items-center gap-2">
+                <span aria-hidden className="h-2 w-2 rounded-full bg-state-success" />
+                <span className="font-body text-body-sm font-semibold text-white">
+                  Terpasang &amp; berjalan
+                </span>
               </div>
-
-              {/* Floating badge */}
-              <div className="absolute -bottom-4 -left-4 bg-white rounded-xl shadow-lg px-4 py-3 flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
-                  <Shield className="w-4 h-4 text-green-600" />
-                </div>
-                <div>
-                  <div className="text-xs font-semibold text-brand-dark">Terpercaya</div>
-                  <div className="text-[10px] text-text-muted">Sejak 2012</div>
-                </div>
-              </div>
+              <p className="mt-1.5 font-body text-body-sm text-text-inverse-muted">
+                Sistem billing dan monitoring aktif di puluhan PDAM.
+              </p>
             </div>
           </motion.div>
         </div>
-      </div>
+      </Container>
     </section>
   )
 }

@@ -1,7 +1,7 @@
 'use client'
 
-import { Buildings, Drop, Lightning } from '@phosphor-icons/react'
-import ScrollReveal from '@/components/ui/ScrollReveal'
+import { Buildings, Drop, Factory } from '@phosphor-icons/react'
+import { Card, Reveal, Section, SectionHeading } from '@/components/ui'
 
 const SECTORS = [
   {
@@ -20,74 +20,66 @@ const SECTORS = [
   {
     icon: Buildings,
     sector: 'Pemerintah & BUMN',
-    clients: [
-      'Kementerian PUPR',
-      'PT Bakti Air Indonesia',
-    ],
+    clients: ['Kementerian PUPR', 'PT Bakti Air Indonesia'],
   },
   {
-    icon: Lightning,
+    icon: Factory,
     sector: 'Swasta',
-    clients: [
-      'PT Derazona Air Service',
-      'PT Best Agro',
-      'PT BMT Asia Indonesia',
-    ],
+    clients: ['PT Derazona Air Service', 'PT Best Agro', 'PT BMT Asia Indonesia'],
   },
 ]
 
+/** Klien & mitra — blueprint §17 poin 9. */
 export default function ClientsSection() {
   return (
-    <section className="relative py-20 md:py-28 bg-gradient-to-br from-brand-blue-dark to-brand-blue overflow-hidden">
-      {/* Background pattern */}
-      <div aria-hidden className="absolute inset-0 opacity-[0.05]" style={{
-        backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0)',
-        backgroundSize: '40px 40px',
-      }} />
+    <Section tone="white">
+      <Reveal>
+        <SectionHeading
+          label="Dipercaya Oleh"
+          title="Klien dan mitra di berbagai sektor"
+          subtitle="Melayani PDAM, instansi pemerintah, BUMN, dan perusahaan swasta di seluruh Indonesia."
+        />
+      </Reveal>
 
-      <div className="relative max-w-7xl mx-auto px-6">
-        <ScrollReveal>
-          <div className="text-center mb-14">
-            <div className="flex items-center gap-3 mb-4 text-white/60 text-sm uppercase tracking-widest font-medium justify-center">
-              <span className="w-8 h-px bg-white/30" />
-              DIPERCAYA OLEH
-              <span className="w-8 h-px bg-white/30" />
-            </div>
-            <h2 className="font-heading font-bold text-3xl md:text-4xl text-white mb-4">
-              Klien & Mitra di Berbagai Sektor
-            </h2>
-            <p className="text-base text-white/70 max-w-xl mx-auto">
-              Melayani PDAM, pemerintahan, BUMN, dan sektor swasta di seluruh Indonesia.
-            </p>
-          </div>
-        </ScrollReveal>
-
-        <div className="space-y-4 max-w-3xl mx-auto">
-          {SECTORS.map((sector, i) => (
-            <ScrollReveal key={sector.sector} delay={i * 0.1}>
-              <div className="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-lg bg-white/15 flex items-center justify-center">
-                    <sector.icon className="text-white" size={20} />
-                  </div>
+      <div className="mt-12 grid gap-5 lg:grid-cols-3">
+        {SECTORS.map((s, i) => {
+          const Icon = s.icon
+          return (
+            <Reveal key={s.sector} delay={i * 0.08}>
+              <Card padding="lg" className="h-full">
+                <div className="flex items-center gap-3">
+                  <span
+                    aria-hidden
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-accent-light text-brand-blue-strong"
+                  >
+                    <Icon size={20} />
+                  </span>
                   <div>
-                    <h3 className="font-heading font-bold text-sm text-white">{sector.sector}</h3>
-                    <span className="text-xs text-white/50">{sector.clients.length} klien</span>
+                    <h3 className="font-heading text-h4 font-semibold text-text-primary">
+                      {s.sector}
+                    </h3>
+                    <p className="font-body text-body-sm text-text-muted">
+                      {s.clients.length} klien
+                    </p>
                   </div>
                 </div>
-                <div className="flex flex-wrap gap-2">
-                  {sector.clients.map((name) => (
-                    <span key={name} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 text-sm text-white/90 border border-white/10">
-                      <span className="w-1.5 h-1.5 rounded-full bg-white/40 shrink-0" />
+
+                <ul className="mt-5 flex flex-wrap gap-2">
+                  {s.clients.map((name) => (
+                    <li
+                      key={name}
+                      className="inline-flex items-center gap-2 rounded-sm border border-border bg-surface-soft px-2.5 py-1.5 font-body text-body-sm text-text-secondary"
+                    >
+                      <span aria-hidden className="h-1.5 w-1.5 shrink-0 rotate-45 bg-brand-blue" />
                       {name}
-                    </span>
+                    </li>
                   ))}
-                </div>
-              </div>
-            </ScrollReveal>
-          ))}
-        </div>
+                </ul>
+              </Card>
+            </Reveal>
+          )
+        })}
       </div>
-    </section>
+    </Section>
   )
 }

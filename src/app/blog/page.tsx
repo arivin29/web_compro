@@ -1,104 +1,108 @@
 'use client'
 
-import { CalendarBlank, Clock, ArrowRight } from '@phosphor-icons/react'
-import ScrollReveal from '@/components/ui/ScrollReveal'
-import Badge from '@/components/ui/Badge'
-import SectionHeading from '@/components/ui/SectionHeading'
+import { ArrowRight, Notebook } from '@phosphor-icons/react'
+import { Badge, Button, Card, PageHero, Reveal, Section, SectionHeading } from '@/components/ui'
 
-const ARTICLES = [
+/**
+ * Topik yang sedang disiapkan redaksi.
+ *
+ * CATATAN — versi sebelumnya menampilkan ketiganya sebagai artikel yang
+ * sudah terbit: lengkap dengan tanggal, estimasi waktu baca, dan tautan
+ * "Baca selengkapnya" yang tidak mengarah ke mana pun karena halaman
+ * artikelnya memang belum ada. Salah satu ringkasannya juga mengklaim
+ * "mengurangi NRW hingga 30%" sebagai studi kasus yang belum terverifikasi.
+ *
+ * Blueprint §21 melarang placeholder dan klaim yang belum diverifikasi,
+ * jadi topik-topik ini ditampilkan apa adanya sebagai rencana — bukan
+ * sebagai tulisan yang sudah bisa dibaca.
+ */
+const UPCOMING = [
   {
-    slug: 'transformasi-digital-pdam',
-    title: 'Transformasi Digital PDAM: Tantangan dan Peluang di 2026',
-    excerpt: 'Bagaimana PDAM di Indonesia dapat memanfaatkan teknologi untuk meningkatkan efisiensi operasional dan pelayanan pelanggan.',
     category: 'Insight',
-    date: '2026-04-15',
-    readTime: '5 min',
+    title: 'Transformasi digital PDAM: tantangan dan peluang',
+    desc: 'Apa saja yang biasanya menghambat digitalisasi PDAM, dan urutan pembenahan yang paling masuk akal.',
   },
   {
-    slug: 'iot-monitoring-kebocoran',
-    title: 'Implementasi IoT untuk Deteksi Kebocoran Air Real-Time',
-    excerpt: 'Studi kasus: bagaimana sensor HELIOS membantu mengurangi NRW hingga 30% di beberapa PDAM mitra kami.',
     category: 'Studi Kasus',
-    date: '2026-03-28',
-    readTime: '7 min',
+    title: 'Menemukan kebocoran lewat data, bukan laporan pelanggan',
+    desc: 'Bagaimana pemantauan tekanan dan aliran per DMA mengubah cara tim lapangan menelusuri gangguan.',
   },
   {
-    slug: 'erp-vs-software-custom',
-    title: 'ERP vs Custom Software: Mana yang Tepat untuk Bisnis Anda?',
-    excerpt: 'Panduan memilih antara solusi ERP siap pakai atau pengembangan software custom berdasarkan kebutuhan.',
-    category: 'Artikel',
-    date: '2026-03-10',
-    readTime: '4 min',
+    category: 'Panduan',
+    title: 'ERP siap pakai atau software custom?',
+    desc: 'Pertimbangan memilih antara keduanya berdasarkan kondisi proses bisnis yang sudah berjalan.',
   },
 ]
 
 export default function BlogPage() {
   return (
-    <main className="pt-24">
-      {/* Hero */}
-      <section className="py-16 md:py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-6 text-center">
-          <ScrollReveal>
-            <Badge>BLOG & INSIGHT</Badge>
-            <h1 className="mt-4 text-4xl md:text-5xl font-heading font-bold text-brand-dark">
-              Artikel, Update & Studi Kasus
-            </h1>
-            <p className="mt-4 text-lg text-text-body max-w-2xl mx-auto">
-              Wawasan terbaru seputar teknologi, digitalisasi, dan solusi industri.
+    <>
+      <PageHero
+        eyebrow="Blog"
+        title="Catatan dari lapangan"
+        description="Tulisan tentang digitalisasi sektor publik dan enterprise, berdasarkan sistem yang benar-benar kami bangun dan operasikan."
+        breadcrumb={[{ label: 'Beranda', href: '/' }, { label: 'Blog' }]}
+      />
+
+      <Section tone="white">
+        {/* Keadaan kosong yang jujur — belum ada artikel yang bisa dibaca */}
+        <Reveal>
+          <Card padding="lg" accent="orange" className="items-start">
+            <span
+              aria-hidden
+              className="mb-4 flex h-11 w-11 items-center justify-center rounded-md bg-accent-light text-brand-blue-strong"
+            >
+              <Notebook size={22} />
+            </span>
+            <h2 className="font-heading text-h3 font-semibold text-text-primary">
+              Belum ada artikel yang terbit
+            </h2>
+            <p className="measure mt-2 font-body leading-relaxed text-text-secondary">
+              Kami sedang menyiapkan tulisan pertama. Sementara menunggu, hal paling dekat dengan
+              isi blog ini ada di portofolio — sistem nyata yang sudah berjalan di klien kami.
             </p>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* Articles */}
-      <section className="py-16 md:py-24 bg-surface-alt">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {ARTICLES.map((article, i) => (
-              <ScrollReveal key={article.slug} delay={i * 0.1}>
-                <article className="glass-card overflow-hidden h-full flex flex-col">
-                  {/* Thumbnail placeholder */}
-                  <div className="h-48 bg-gradient-to-br from-accent/10 to-brand-red/10 flex items-center justify-center">
-                    <span className="px-3 py-1 text-xs font-semibold rounded-full bg-white/80 text-accent">
-                      {article.category}
-                    </span>
-                  </div>
-                  <div className="p-6 flex flex-col flex-1">
-                    <div className="flex items-center gap-4 text-xs text-text-muted mb-3">
-                      <span className="flex items-center gap-1">
-                        <CalendarBlank size={14} weight="bold" />
-                        {new Date(article.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Clock size={14} weight="bold" />
-                        {article.readTime}
-                      </span>
-                    </div>
-                    <h3 className="font-heading font-bold text-brand-dark leading-snug">
-                      {article.title}
-                    </h3>
-                    <p className="mt-2 text-sm text-text-body flex-1">
-                      {article.excerpt}
-                    </p>
-                    <div className="mt-4 flex items-center text-accent font-medium text-sm">
-                      Baca selengkapnya <ArrowRight size={14} className="ml-1" />
-                    </div>
-                  </div>
-                </article>
-              </ScrollReveal>
-            ))}
-          </div>
-
-          {/* Coming soon note */}
-          <ScrollReveal delay={0.3}>
-            <div className="mt-16 text-center p-8 rounded-2xl bg-white border border-border">
-              <p className="text-text-body">
-                📝 Artikel lengkap akan segera hadir. Stay tuned!
-              </p>
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+              <Button href="/clients">
+                Lihat Portofolio
+                <ArrowRight size={16} weight="bold" />
+              </Button>
+              <Button href="/contact" variant="secondary">
+                Diskusikan Kebutuhan Anda
+              </Button>
             </div>
-          </ScrollReveal>
-        </div>
-      </section>
-    </main>
+          </Card>
+        </Reveal>
+      </Section>
+
+      <Section tone="soft">
+        <Reveal>
+          <SectionHeading
+            label="Sedang Disiapkan"
+            title="Topik yang akan dibahas"
+            subtitle="Belum bisa dibaca — daftar ini menunjukkan arah tulisan yang sedang kami garap."
+          />
+        </Reveal>
+
+        <ul className="mt-12 grid gap-5 md:grid-cols-3">
+          {UPCOMING.map((item, i) => (
+            <li key={item.title}>
+              <Reveal delay={i * 0.08}>
+                <Card padding="lg" interactive={false} className="h-full">
+                  <Badge variant="neutral" className="self-start">
+                    {item.category}
+                  </Badge>
+                  <h3 className="mt-3 font-heading text-h3 font-semibold text-text-primary">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 font-body text-body-sm leading-relaxed text-text-secondary">
+                    {item.desc}
+                  </p>
+                </Card>
+              </Reveal>
+            </li>
+          ))}
+        </ul>
+      </Section>
+    </>
   )
 }

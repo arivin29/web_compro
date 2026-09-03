@@ -1,73 +1,89 @@
 'use client'
 
 import Image from 'next/image'
-import ScrollReveal from '@/components/ui/ScrollReveal'
+import { Reveal, Section, SectionHeading } from '@/components/ui'
 import { COMPANY } from '@/lib/constants'
 
+/**
+ * Cerita perusahaan — blueprint §18.
+ * Kolom kanan memakai foto kantor, bukan screenshot produk: screenshot
+ * sudah dipakai di beranda dan tidak menjelaskan apa pun tentang perusahaan.
+ */
 export default function CompanyStory() {
   return (
-    <section className="relative py-20 md:py-28 bg-white overflow-hidden">
-      {/* Subtle dot pattern */}
-      <div aria-hidden className="absolute inset-0 opacity-[0.03]" style={{
-        backgroundImage: 'radial-gradient(circle at 1px 1px, #1565C0 1px, transparent 0)',
-        backgroundSize: '32px 32px',
-      }} />
-      <div className="relative max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <ScrollReveal>
-            <div>
-              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-brand-blue/10 text-brand-blue mb-4">
-                SEJAK 2012
-              </span>
-              <h2 className="font-heading font-bold text-3xl md:text-4xl text-brand-dark mb-6">
-                Tentang {COMPANY.brand}
-              </h2>
-              <div className="space-y-4 text-text-secondary leading-relaxed text-[15px]">
-                <p>
-                  Devetek adalah perusahaan teknologi yang berdiri sejak 2012, dan resmi
-                  berbadan hukum sebagai PT Comon Cipta Inovasi pada tahun 2018. Kami berfokus pada
-                  pengembangan solusi perangkat lunak dan sistem sensor yang mendukung
-                  digitalisasi sektor swasta, BUMN, BUMD, dan Pemerintahan.
-                </p>
-                <p>
-                  Dengan pengalaman lebih dari satu dekade, Devetek telah menangani berbagai
-                  proyek mulai dari ERP terintegrasi, infrastruktur cloud, hingga sistem PDAM
-                  lengkap. Kini Devetek telah berekspansi ke bidang IT,
-                  Telekomunikasi, dan Kelistrikan.
-                </p>
-                <p>
-                  Sebagai induk perusahaan, CCI memiliki lisensi dan didukung oleh PT Devetek
-                  Marapi Inovasi (DMI) sebagai rekanan yang fokus pada pasar PDAM.
-                </p>
-              </div>
-            </div>
-          </ScrollReveal>
+    <Section tone="white">
+      <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
+        <Reveal>
+          <div>
+            <SectionHeading
+              label="Profil Perusahaan"
+              title={`Tentang ${COMPANY.brand}`}
+            />
 
-          <ScrollReveal delay={0.2}>
-            <div className="space-y-4">
-              <div className="rounded-2xl overflow-hidden border border-border shadow-sm h-56 md:h-72 relative bg-gradient-to-br from-brand-blue/5 to-brand-blue/10">
-                <Image
-                  src="/images/projects/pdam-billing.png"
-                  alt="Devetek Platform"
-                  fill
-                  className="object-cover object-top"
-                />
-              </div>
-              {/* Entity info */}
-              <div className="grid grid-cols-3 gap-3">
-                {Object.values(COMPANY.entities).map((entity) => (
-                  <div key={entity.name} className="bg-surface-alt border border-border rounded-xl p-4 text-center">
-                    <div className="font-heading font-semibold text-sm text-brand-dark">
-                      {entity.name}
-                    </div>
-                    <div className="text-xs text-text-muted mt-1">{entity.role}</div>
-                  </div>
-                ))}
-              </div>
+            <div className="measure mt-6 space-y-4 font-body text-body leading-relaxed text-text-secondary">
+              <p>
+                Devetek berdiri pada {COMPANY.founded} sebagai tim kecil pembuat sistem
+                informasi, lalu resmi berbadan hukum sebagai {COMPANY.name} pada{' '}
+                {COMPANY.incorporated}. Sejak awal arah kami sama: menyatukan perangkat lunak
+                dan perangkat sensor agar pekerjaan yang tadinya manual bisa dijalankan
+                berdasarkan data.
+              </p>
+              <p>
+                Sepanjang perjalanan itu kami menangani berbagai proyek — dari ERP
+                terintegrasi, infrastruktur cloud, sistem PDAM lengkap, hingga pemantauan
+                berbasis sensor. Kini Devetek berekspansi ke bidang IT, telekomunikasi, dan
+                kelistrikan.
+              </p>
             </div>
-          </ScrollReveal>
-        </div>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.15}>
+          <div className="space-y-5">
+            <div className="relative aspect-[16/10] overflow-hidden rounded-lg border border-border bg-surface-soft shadow-card">
+              <Image
+                src="/images/about/office.jpg"
+                alt="Suasana kantor Devetek di Bogor"
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover"
+              />
+            </div>
+
+            {/* Struktur entitas — blueprint §18 */}
+            <div className="rounded-lg border border-border bg-surface-soft p-5">
+              <h3 className="label-section mb-4 text-brand-blue-strong">Struktur Perusahaan</h3>
+              <ul className="space-y-2.5">
+                {Object.values(COMPANY.entities).map((entity) => (
+                  <li
+                    key={entity.name}
+                    className="flex items-start gap-3 rounded-md border border-border bg-surface-white p-3.5"
+                  >
+                    <span
+                      aria-hidden
+                      className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-accent-light font-heading text-[0.6875rem] font-bold text-brand-blue-strong"
+                    >
+                      {entity.name
+                        .split(' ')
+                        .map((w) => w[0])
+                        .slice(0, 3)
+                        .join('')}
+                    </span>
+                    <span>
+                      <span className="block font-heading text-body-sm font-semibold text-text-primary">
+                        {entity.name}
+                      </span>
+                      <span className="mt-0.5 block font-body text-body-sm text-text-muted">
+                        {entity.desc}
+                      </span>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </Reveal>
       </div>
-    </section>
+    </Section>
   )
 }
