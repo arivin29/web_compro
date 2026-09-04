@@ -1,15 +1,7 @@
 'use client'
 
-import {
-  ChartLineDown,
-  Headset,
-  Lightning,
-  PuzzlePiece,
-  ShieldCheck,
-  Stack,
-  Clock,
-} from '@phosphor-icons/react'
-import { Card, FeatureCard, Reveal, Section, SectionHeading } from '@/components/ui'
+import { ChartLineDown, Clock, Stack } from '@phosphor-icons/react'
+import { Card, Reveal, Section, SectionHeading } from '@/components/ui'
 
 /** Masalah operasional yang paling sering ditemui di lapangan. */
 const PROBLEMS = [
@@ -30,34 +22,16 @@ const PROBLEMS = [
   },
 ]
 
-/** Cara Devetek menjawab — dulu berdiri sebagai section terpisah. */
-const ANSWERS = [
-  {
-    icon: PuzzlePiece,
-    title: 'Terintegrasi end-to-end',
-    desc: 'Billing, aset, IoT, dan laporan terhubung dalam satu ekosistem. Tidak ada data silo antar-modul.',
-  },
-  {
-    icon: Lightning,
-    title: 'Otomatis dan real-time',
-    desc: 'Data dari lapangan langsung diproses menjadi tagihan, peringatan, dan laporan tanpa rekap manual.',
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Terbukti di lapangan',
-    desc: 'Bukan prototipe. Produk kami berjalan harian di PDAM dan instansi di berbagai daerah.',
-  },
-  {
-    icon: Headset,
-    title: 'Didampingi sampai jalan',
-    desc: 'Dari analisa kebutuhan, implementasi, pelatihan operator, hingga maintenance pasca-launch.',
-  },
-]
-
 /**
  * Masalah bisnis yang diselesaikan — blueprint §17 poin 3.
- * Menggabungkan section "masalah" dan "kenapa Devetek" yang sebelumnya
- * terpisah, sesuai arahan Tahap 3 untuk mengurangi section berulang.
+ *
+ * Section ini sekarang mengerjakan satu hal saja: menyatakan masalahnya.
+ * Blok "Cara Devetek Menjawabnya" dibuang setelah EngagementSection masuk
+ * tepat di bawahnya — dua section berturut-turut sama-sama menjawab
+ * "bagaimana cara Devetek", dan yang di bawah menjawabnya jauh lebih
+ * konkret. Keempat klaimnya pun sudah punya rumah yang lebih tepat:
+ * keterhubungan di EcosystemSection, bukti lapangan di ProjectsSection
+ * dan ClientsSection, pendampingan di ProcessSection.
  */
 export default function ProblemSection() {
   return (
@@ -89,31 +63,6 @@ export default function ProblemSection() {
         })}
       </div>
 
-      <Reveal>
-        <div className="mt-16">
-          <SectionHeading
-            label="Cara Devetek Menjawabnya"
-            title="Partner teknologi yang bisa diandalkan"
-            as="h3"
-          />
-        </div>
-      </Reveal>
-
-      <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-        {ANSWERS.map((a, i) => {
-          const Icon = a.icon
-          return (
-            <Reveal key={a.title} delay={i * 0.08}>
-              <FeatureCard
-                icon={<Icon size={21} />}
-                title={a.title}
-                description={a.desc}
-                className="h-full"
-              />
-            </Reveal>
-          )
-        })}
-      </div>
     </Section>
   )
 }

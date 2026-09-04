@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { ArrowRight } from '@phosphor-icons/react'
 import { BrowserFrame, Button, Container, ForwardLayers } from '@/components/ui'
 import { COMPANY } from '@/lib/constants'
+import { slotImage } from '@/lib/images'
 
 /**
  * Hero beranda — blueprint §11.1.
@@ -60,8 +61,9 @@ export default function HeroSection() {
               {...rise(0.16)}
               className="measure mt-6 font-body text-body-lg text-text-inverse-muted"
             >
-              Devetek membangun dan mengintegrasikan sistem billing, monitoring IoT, manajemen
-              aset, hingga ERP untuk PDAM, pemerintahan, dan perusahaan swasta di Indonesia.
+              Devetek membuat produknya sendiri, membangun sistem yang belum ada, lalu
+              mengadakan dan merawat perangkat pendukungnya — untuk PDAM, pemerintahan, dan
+              perusahaan swasta di Indonesia.
             </motion.p>
 
             <motion.div {...rise(0.24)} className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -87,7 +89,7 @@ export default function HeroSection() {
             className="relative"
           >
             <BrowserFrame
-              src="/images/projects/d-ibs-dashboard.png"
+              src={slotImage('home_hero_dashboard')}
               alt="Dashboard D-IBS menampilkan ringkasan billing dan pelanggan PDAM"
               label="d-ibs.devetek.com"
               priority

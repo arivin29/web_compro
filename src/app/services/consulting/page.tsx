@@ -148,7 +148,7 @@ export default function ConsultingPage() {
         description="Berpengalaman mengadakan barang dan jasa IT untuk sektor pemerintahan maupun swasta — produk resmi bergaransi, dipasang dan didukung tim internal kami."
         breadcrumb={[
           { label: 'Beranda', href: '/' },
-          { label: 'Produk', href: '/products' },
+          { label: 'Layanan', href: '/services' },
           { label: 'Konsultasi & Pengadaan' },
         ]}
         actions={
@@ -157,8 +157,8 @@ export default function ConsultingPage() {
               Minta Penawaran
               <ArrowRight size={16} weight="bold" />
             </Button>
-            <Button href="/products" variant="secondary">
-              Produk Lain
+            <Button href="/services/software-house" variant="secondary">
+              Layanan Lain
             </Button>
           </>
         }

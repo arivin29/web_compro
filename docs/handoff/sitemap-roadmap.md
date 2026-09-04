@@ -1,6 +1,9 @@
 # Sitemap & Roadmap — Company Profile Devetek
 
-> Status: WORKING DRAFT
+> Status: WORKING DRAFT — struktur route di bawah sudah tidak sepenuhnya
+> berlaku. Sejak 4 September 2026 produk dan layanan dipisah: layanan pindah
+> ke `/services/…` dan `/portfolio` tidak pernah dibuat. Struktur yang
+> berlaku ada di `style-reconstruction-blueprint.md` §26.
 > Fungsi: dokumen kerja gabungan untuk struktur halaman, prioritas launch, dan roadmap delivery.
 > Catatan: roadmap dan tech stack di bawah adalah rekomendasi implementasi, bukan scope final, kecuali item yang sudah ditetapkan sebagai `P0`.
 

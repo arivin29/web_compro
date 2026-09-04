@@ -16,10 +16,16 @@ export const seoConfig: Record<string, Metadata> = {
     openGraph: { url: `${siteUrl}/about` },
   },
   products: {
-    title: 'Produk & Layanan',
+    title: 'Produk',
     description:
-      'Dari sensor di lapangan hingga laporan eksekutif — semua dalam ekosistem Devetek.',
+      'Sistem yang sudah berjalan harian di PDAM dan perusahaan — solusi PDAM terintegrasi, platform IoT HELIOS, dan ERP modular.',
     openGraph: { url: `${siteUrl}/products` },
+  },
+  services: {
+    title: 'Layanan',
+    description:
+      'Software house dan pengadaan IT dalam satu tim: kami bangun sistemnya, kami adakan perangkatnya, kami rawat setelah terpasang.',
+    openGraph: { url: `${siteUrl}/services` },
   },
   pdamSuite: {
     title: 'Solusi PDAM (D-IBS + D-ASSET)',
@@ -46,21 +52,21 @@ export const seoConfig: Record<string, Metadata> = {
     openGraph: { url: `${siteUrl}/products/erp` },
   },
   softwareHouse: {
-    title: 'Custom Software Development',
+    title: 'Software House',
     description:
-      'Web app, mobile app, WebGIS, dan solusi digital custom untuk kebutuhan spesifik bisnis Anda.',
-    openGraph: { url: `${siteUrl}/products/software-house` },
+      'Web app, mobile app, WebGIS, dan integrasi sistem yang dibangun mengikuti proses bisnis Anda.',
+    openGraph: { url: `${siteUrl}/services/software-house` },
   },
   consulting: {
     title: 'Konsultasi & Pengadaan IT',
     description:
       'IT consulting, pengadaan barang, maintenance, dan instalasi untuk sektor publik & swasta.',
-    openGraph: { url: `${siteUrl}/products/consulting` },
+    openGraph: { url: `${siteUrl}/services/consulting` },
   },
   clients: {
-    title: 'Portfolio & Klien',
+    title: 'Klien',
     description:
-      'Dipercaya oleh PDAM, kementerian, dan perusahaan swasta di seluruh Indonesia.',
+      'PDAM, kementerian, dan perusahaan swasta yang sistemnya kami bangun dan dampingi — disebut dengan nama.',
     openGraph: { url: `${siteUrl}/clients` },
   },
   blog: {

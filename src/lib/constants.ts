@@ -1,3 +1,5 @@
+import { slotImage, slotImageOrNull } from './images'
+
 export const COMPANY = {
   name: 'PT Comon Cipta Inovasi',
   brand: 'Devetek',
@@ -40,12 +42,22 @@ export const CONTACT = {
   },
 } as const
 
+/**
+ * Menu utama — maksimal tujuh item (blueprint §10.1).
+ *
+ * Produk dan Layanan sengaja dipisah menjadi dua dropdown. Sebelumnya
+ * keduanya dicampur di bawah satu label "Produk", sehingga Software House
+ * dan Konsultasi & Pengadaan — yang sebenarnya jasa dengan lingkup dan cara
+ * membeli yang sama sekali berbeda — terbaca seolah lisensi siap pakai.
+ * Pemisahan ini ikut berlaku di URL: produk di `/products`, jasa di
+ * `/services`.
+ */
 export const NAV_ITEMS = [
   { label: 'Beranda', href: '/' },
-  { label: 'Tentang', href: '/about' },
   {
     label: 'Produk',
     href: '/products',
+    hubLabel: 'Lihat semua produk',
     children: [
       {
         label: 'Solusi PDAM',
@@ -60,26 +72,34 @@ export const NAV_ITEMS = [
         desc: 'Sensor lapangan dan monitoring 24/7',
       },
       {
-        label: 'ERP',
+        label: 'Devetek ERP',
         href: '/products/erp',
         icon: 'GearSix',
         desc: 'Sistem ERP modular untuk operasional enterprise',
       },
+    ],
+  },
+  {
+    label: 'Layanan',
+    href: '/services',
+    hubLabel: 'Lihat semua layanan',
+    children: [
       {
         label: 'Software House',
-        href: '/products/software-house',
+        href: '/services/software-house',
         icon: 'Code',
-        desc: 'Web app, mobile app, dan Web GIS custom',
+        desc: 'Web app, mobile app, dan Web GIS yang dibangun khusus',
       },
       {
-        label: 'Konsultasi',
-        href: '/products/consulting',
+        label: 'Konsultasi & Pengadaan',
+        href: '/services/consulting',
         icon: 'Handshake',
-        desc: 'IT consulting, pengadaan, dan maintenance',
+        desc: 'Perangkat, instalasi, dan perawatan setelah terpasang',
       },
     ],
   },
-  { label: 'Portfolio & Klien', href: '/clients' },
+  { label: 'Klien', href: '/clients' },
+  { label: 'Tentang', href: '/about' },
   { label: 'Blog', href: '/blog' },
   { label: 'Kontak', href: '/contact' },
 ] as const
@@ -87,14 +107,16 @@ export const NAV_ITEMS = [
 export const FOOTER_LINKS = {
   produk: [
     { label: 'Solusi PDAM', href: '/products/pdam-suite' },
-    { label: 'ERP Custom', href: '/products/erp' },
-    { label: 'HELIOS', href: '/products/helios' },
-    { label: 'Software House', href: '/products/software-house' },
-    { label: 'Konsultasi', href: '/products/consulting' },
+    { label: 'HELIOS (IoT)', href: '/products/helios' },
+    { label: 'Devetek ERP', href: '/products/erp' },
+  ],
+  layanan: [
+    { label: 'Software House', href: '/services/software-house' },
+    { label: 'Konsultasi & Pengadaan', href: '/services/consulting' },
   ],
   perusahaan: [
     { label: 'Tentang Kami', href: '/about' },
-    { label: 'Portfolio & Klien', href: '/clients' },
+    { label: 'Klien', href: '/clients' },
     { label: 'Blog', href: '/blog' },
     { label: 'Kontak', href: '/contact' },
     { label: 'Privacy Policy', href: '/privacy-policy' },
@@ -128,29 +150,36 @@ export const VALUES = [
 /**
  * Tim Devetek.
  *
- * `photo` hanya diisi bila filenya benar-benar ada di public/images/team.
- * Sebelumnya sembilan dari sepuluh path salah ekstensi atau tidak punya
- * file sama sekali (mis. 'yasdiq.jpg' padahal filenya 'yashdiq.png');
- * bug ini tidak terlihat karena komponen tim hanya menampilkan inisial.
- * Anggota tanpa foto memakai inisial sebagai fallback.
+ * Foto diambil dari folder slot `public/images/slots/tim_<nama>/`, jadi
+ * nama filenya tidak lagi perlu cocok dengan apa pun di kode. Slot yang
+ * foldernya masih kosong menghasilkan `null`, dan komponen tim menampilkan
+ * inisial nama sebagai gantinya — bukan placeholder.
+ *
+ * Sebelum sistem slot ada, sembilan dari sepuluh path di sini salah
+ * ekstensi atau tidak punya file sama sekali. Kesalahan itu tidak terlihat
+ * karena komponennya memang hanya menampilkan inisial.
  */
 export const TEAM = [
-  { name: 'Muhammad Arifin', role: 'Founder', photo: '/images/team/arifin.png' },
-  { name: 'Nedya Amrih Prakasa', role: 'Co-Founder', photo: '/images/team/raka.png' },
-  { name: 'Kusuma Indra Putra', role: 'Co-Founder', photo: '/images/team/kusuma.png' },
-  { name: 'Yasdiq Lubis', role: 'Project Manager', photo: '/images/team/yashdiq.png' },
-  { name: 'Fahmi Zulhasymi', role: 'Solution Architect', photo: '/images/team/fahmi.jpg' },
-  { name: 'Muhammad Ilham C.', role: 'Developer', photo: null },
-  { name: 'Muhammad Arifan', role: 'Developer', photo: null },
-  { name: 'Randi Maizul', role: 'Developer', photo: null },
-  { name: 'Robinaldi', role: 'Design', photo: null },
-  { name: 'Rully Culit', role: 'Digital Creative', photo: null },
+  { name: 'Muhammad Arifin', role: 'Founder', photo: slotImageOrNull('tim_muhammad_arifin') },
+  { name: 'Nedya Amrih Prakasa', role: 'Co-Founder', photo: slotImageOrNull('tim_nedya_amrih_prakasa') },
+  { name: 'Kusuma Indra Putra', role: 'Co-Founder', photo: slotImageOrNull('tim_kusuma_indra_putra') },
+  { name: 'Yasdiq Lubis', role: 'Project Manager', photo: slotImageOrNull('tim_yasdiq_lubis') },
+  { name: 'Fahmi Zulhasymi', role: 'Solution Architect', photo: slotImageOrNull('tim_fahmi_zulhasymi') },
+  { name: 'Muhammad Ilham C.', role: 'Developer', photo: slotImageOrNull('tim_muhammad_ilham') },
+  { name: 'Muhammad Arifan', role: 'Developer', photo: slotImageOrNull('tim_muhammad_arifan') },
+  { name: 'Randi Maizul', role: 'Developer', photo: slotImageOrNull('tim_randi_maizul') },
+  { name: 'Robinaldi', role: 'Design', photo: slotImageOrNull('tim_robinaldi') },
+  { name: 'Rully Culit', role: 'Digital Creative', photo: slotImageOrNull('tim_rully_culit') },
 ] as const
 
 /**
- * Katalog produk — sumber tunggal untuk halaman /products, dropdown navbar,
- * dan tautan di footer. Sebelumnya halaman /products punya salinan sendiri
- * yang isinya sedikit berbeda dan kehilangan HELIOS.
+ * Katalog produk — barang jadi yang sudah berjalan di klien lain dan bisa
+ * dipasang lagi. Sumber tunggal untuk halaman /products, dropdown navbar,
+ * dan tautan di footer.
+ *
+ * Jasa TIDAK ada di sini; lihat `SERVICES` di bawah. Sebelumnya keduanya
+ * bercampur dalam satu array sehingga "Software House" tampil sebagai
+ * produk yang bisa dibeli seperti lisensi.
  *
  * `icon` memakai nama komponen Phosphor; petakan lewat Record dengan
  * fallback, jangan diindeks langsung.
@@ -184,32 +213,43 @@ export const PRODUCTS = [
     icon: 'GearSix',
     href: '/products/erp',
   },
+] as const
+
+/**
+ * Katalog layanan — dikerjakan per proyek, lingkupnya ditentukan bersama
+ * klien, dan harganya tidak bisa dipasang di katalog seperti produk.
+ */
+export const SERVICES = [
   {
     slug: 'software-house',
-    title: 'Custom Software',
-    subtitle: 'Software House',
+    title: 'Software House',
+    subtitle: 'Pengembangan Custom',
     description:
-      'Web app, mobile app, Web GIS, dan solusi digital yang dibangun sesuai proses bisnis Anda.',
+      'Web app, mobile app, Web GIS, dan integrasi sistem yang dibangun mengikuti proses bisnis Anda — oleh tim yang juga membangun produk kami sendiri.',
     icon: 'Code',
-    href: '/products/software-house',
+    href: '/services/software-house',
   },
   {
     slug: 'consulting',
-    title: 'Konsultasi & Pengadaan',
-    subtitle: 'IT Services',
+    title: 'Konsultasi & Pengadaan IT',
+    subtitle: 'Perangkat sampai Perawatan',
     description:
-      'IT consulting, pengadaan barang IT dan elektronik, maintenance, serta instalasi untuk sektor publik dan swasta.',
+      'Pengadaan perangkat IT dan elektronik, instalasi di lokasi, serta perawatan berkala untuk sektor pemerintahan maupun swasta.',
     icon: 'Handshake',
-    href: '/products/consulting',
+    href: '/services/consulting',
   },
 ] as const
 
 /**
- * Daftar klien dan portofolio proyek.
+ * Daftar klien dan proyek yang sudah dikerjakan.
  *
  * Sumber tunggal untuk halaman /clients DAN untuk section "Implementasi
  * Nyata" di beranda. Sebelumnya data ini di-hardcode di dalam
  * src/app/clients/page.tsx sehingga tidak bisa dipakai ulang.
+ *
+ * Gambar tiap proyek diambil dari folder slot masing-masing, sehingga
+ * mengganti screenshot cukup dengan menaruh file baru di foldernya —
+ * lihat scripts/image-slots.config.mjs.
  *
  * `featured: true` menandai proyek yang tampil di beranda — dipilih satu
  * per sektor (PDAM, Pemerintahan, Swasta) agar cakupan Devetek terlihat,
@@ -239,16 +279,16 @@ export const CLIENTS = [
 ] as const
 
 export const PROJECTS = [
-  { title: 'Sistem PDAM Terintegrasi (D-IBS)', client: 'Perumda Batu Sangkar & Multiple PDAM', category: 'PDAM', desc: 'Integrated Billing System — billing, baca meter, penagihan, akuntansi SKETAP, dan pelaporan terintegrasi.', tech: ['D-IBS', 'D-ASSET', 'HELIOS'], image: '/images/projects/pdam-billing.png', featured: true },
-  { title: 'IoT Monitoring & DMA (HELIOS)', client: 'PT Bakti Air Indonesia', category: 'PDAM', desc: 'Deployment 200+ node sensor IoT untuk deteksi kebocoran real-time di 5 DMA.', tech: ['HELIOS', 'IoT', 'Cloud'], image: '/images/projects/helios-dashboard.jpg' },
-  { title: 'Mobile Baca Meter PDAM', client: 'Multiple PDAM', category: 'PDAM', desc: 'Aplikasi Android baca meter semi-offline dengan GPS tracking, foto meter, dan sinkronisasi data.', tech: ['Mobile', 'GPS', 'Offline-first'], image: '/images/projects/baca-meter-mobile.jpg' },
-  { title: 'AMIMS — Aircraft Maintenance', client: 'PT Derazona Air Service', category: 'Swasta', desc: 'Management Part Helicopter: Purchase Request/Order, stock management, life-time part, cycle hour calculation, component tracking.', tech: ['Web App', 'Inventory', 'Reporting'], image: '/images/projects/amims.png', featured: true },
-  { title: 'VMS — Vessel Monitoring System', client: 'Kementerian Kelautan & Perikanan', category: 'Pemerintahan', desc: 'WebGIS tracking kapal perikanan, vessel alert, pemantauan illegal fishing berbasis satelit.', tech: ['WebGIS', 'Satellite', 'Real-time'], image: '/images/projects/vms.png', featured: true },
-  { title: 'SDKP & SalmonTrack Mobile', client: 'Kementerian Kelautan & Perikanan', category: 'Pemerintahan', desc: 'Pelaporan pelanggaran SDKP berbasis masyarakat + mobile tracking posisi kapal dari smartphone.', tech: ['Mobile', 'Chatbot', 'SMS Gateway'], image: '/images/projects/sdkp.png' },
-  { title: 'BPBD — Sistem Informasi Kebencanaan', client: 'BPBD (Multi-Kabupaten)', category: 'Pemerintahan', desc: 'Penyajian & penyebarluasan informasi kebencanaan berbasis peta digital interaktif untuk Kutai Timur, Barito Utara, Murung Raya.', tech: ['WebGIS', 'Real-time', 'Dashboard'], image: '/images/projects/bpbd.png' },
-  { title: 'OPTIMIS — Perizinan Online', client: 'Pemkab Bogor (DPMPTSP)', category: 'Pemerintahan', desc: 'Badan Perizinan Satu Pintu — registrasi online, tracking izin, disposition, multi-level approval, arsip SK.', tech: ['Web App', 'Workflow', 'E-Gov'], image: '/images/projects/optimis.png' },
-  { title: 'ERP Custom Modular', client: 'PT RPN (Rajawali Parama Nusantara)', category: 'Swasta', desc: 'Sistem ERP modular dengan multi-level approval, integrasi payment, purchasing, dan reporting.', tech: ['ERP', 'Microservice', 'React'], image: '/images/projects/erp-illustration.jpg' },
-  { title: 'LAP-APP (Sertifikasi Lab)', client: 'PT BMT Asia Indonesia', category: 'Swasta', desc: 'Manajemen data sample hingga sertifikat — approval dinamik, WebGIS lokasi sample, output sertifikat otomatis.', tech: ['Web App', 'WebGIS', 'Workflow'], image: '/images/projects/app-screenshot-1.png' },
+  { title: 'Sistem PDAM Terintegrasi (D-IBS)', client: 'Perumda Batu Sangkar & Multiple PDAM', category: 'PDAM', desc: 'Integrated Billing System — billing, baca meter, penagihan, akuntansi SKETAP, dan pelaporan terintegrasi.', tech: ['D-IBS', 'D-ASSET', 'HELIOS'], image: slotImage('proyek_pdam_ibs'), featured: true },
+  { title: 'IoT Monitoring & DMA (HELIOS)', client: 'PT Bakti Air Indonesia', category: 'PDAM', desc: 'Deployment 200+ node sensor IoT untuk deteksi kebocoran real-time di 5 DMA.', tech: ['HELIOS', 'IoT', 'Cloud'], image: slotImage('proyek_helios_dma') },
+  { title: 'Mobile Baca Meter PDAM', client: 'Multiple PDAM', category: 'PDAM', desc: 'Aplikasi Android baca meter semi-offline dengan GPS tracking, foto meter, dan sinkronisasi data.', tech: ['Mobile', 'GPS', 'Offline-first'], image: slotImage('proyek_baca_meter') },
+  { title: 'AMIMS — Aircraft Maintenance', client: 'PT Derazona Air Service', category: 'Swasta', desc: 'Management Part Helicopter: Purchase Request/Order, stock management, life-time part, cycle hour calculation, component tracking.', tech: ['Web App', 'Inventory', 'Reporting'], image: slotImage('proyek_amims'), featured: true },
+  { title: 'VMS — Vessel Monitoring System', client: 'Kementerian Kelautan & Perikanan', category: 'Pemerintahan', desc: 'WebGIS tracking kapal perikanan, vessel alert, pemantauan illegal fishing berbasis satelit.', tech: ['WebGIS', 'Satellite', 'Real-time'], image: slotImage('proyek_vms'), featured: true },
+  { title: 'SDKP & SalmonTrack Mobile', client: 'Kementerian Kelautan & Perikanan', category: 'Pemerintahan', desc: 'Pelaporan pelanggaran SDKP berbasis masyarakat + mobile tracking posisi kapal dari smartphone.', tech: ['Mobile', 'Chatbot', 'SMS Gateway'], image: slotImage('proyek_sdkp') },
+  { title: 'BPBD — Sistem Informasi Kebencanaan', client: 'BPBD (Multi-Kabupaten)', category: 'Pemerintahan', desc: 'Penyajian & penyebarluasan informasi kebencanaan berbasis peta digital interaktif untuk Kutai Timur, Barito Utara, Murung Raya.', tech: ['WebGIS', 'Real-time', 'Dashboard'], image: slotImage('proyek_bpbd') },
+  { title: 'OPTIMIS — Perizinan Online', client: 'Pemkab Bogor (DPMPTSP)', category: 'Pemerintahan', desc: 'Badan Perizinan Satu Pintu — registrasi online, tracking izin, disposition, multi-level approval, arsip SK.', tech: ['Web App', 'Workflow', 'E-Gov'], image: slotImage('proyek_optimis') },
+  { title: 'ERP Custom Modular', client: 'PT RPN (Rajawali Parama Nusantara)', category: 'Swasta', desc: 'Sistem ERP modular dengan multi-level approval, integrasi payment, purchasing, dan reporting.', tech: ['ERP', 'Microservice', 'React'], image: slotImage('proyek_erp_rpn') },
+  { title: 'LAP-APP (Sertifikasi Lab)', client: 'PT BMT Asia Indonesia', category: 'Swasta', desc: 'Manajemen data sample hingga sertifikat — approval dinamik, WebGIS lokasi sample, output sertifikat otomatis.', tech: ['Web App', 'WebGIS', 'Workflow'], image: slotImage('proyek_lap_app') },
 ] as const
 
 export const FEATURED_PROJECTS = PROJECTS.filter((p) => 'featured' in p && p.featured)

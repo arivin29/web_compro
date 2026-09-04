@@ -48,7 +48,7 @@ export default function Footer() {
       <div aria-hidden className="signature-line" />
 
       <Container className="py-14 md:py-16">
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.3fr] lg:gap-8">
+        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr_1.3fr] lg:gap-8">
           {/* Brand */}
           <div>
             <Logo tone="dark" />
@@ -67,6 +67,20 @@ export default function Footer() {
             </ColumnHeading>
             <ul className="space-y-1">
               {FOOTER_LINKS.produk.map((link) => (
+                <li key={link.href}>
+                  <FooterLink href={link.href}>{link.label}</FooterLink>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* Layanan */}
+          <nav aria-labelledby="footer-layanan">
+            <ColumnHeading>
+              <span id="footer-layanan">Layanan</span>
+            </ColumnHeading>
+            <ul className="space-y-1">
+              {FOOTER_LINKS.layanan.map((link) => (
                 <li key={link.href}>
                   <FooterLink href={link.href}>{link.label}</FooterLink>
                 </li>

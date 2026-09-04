@@ -59,11 +59,11 @@ export default function BlogPage() {
             </h2>
             <p className="measure mt-2 font-body leading-relaxed text-text-secondary">
               Kami sedang menyiapkan tulisan pertama. Sementara menunggu, hal paling dekat dengan
-              isi blog ini ada di portofolio — sistem nyata yang sudah berjalan di klien kami.
+              isi blog ini ada di daftar klien — sistem nyata yang sudah berjalan setiap hari.
             </p>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <Button href="/clients">
-                Lihat Portofolio
+                Lihat Klien Kami
                 <ArrowRight size={16} weight="bold" />
               </Button>
               <Button href="/contact" variant="secondary">

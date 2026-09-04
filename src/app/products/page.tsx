@@ -1,15 +1,7 @@
 'use client'
 
-import {
-  ArrowRight,
-  Code,
-  Database,
-  Drop,
-  GearSix,
-  Handshake,
-  WifiHigh,
-  type Icon,
-} from '@phosphor-icons/react'
+import Link from 'next/link'
+import { ArrowRight, Database, Drop, GearSix, WifiHigh, type Icon } from '@phosphor-icons/react'
 import {
   Badge,
   Card,
@@ -22,7 +14,7 @@ import {
 import { PRODUCTS } from '@/lib/constants'
 import CTASection from '@/components/sections/CTASection'
 
-const ICONS: Record<string, Icon> = { Drop, WifiHigh, GearSix, Code, Handshake }
+const ICONS: Record<string, Icon> = { Drop, WifiHigh, GearSix }
 
 /** Tiga sistem yang berbagi satu basis data — inti ekosistem PDAM. */
 const ECOSYSTEM = [
@@ -34,6 +26,10 @@ const ECOSYSTEM = [
 /**
  * Ikhtisar produk — blueprint §18: satu card unggulan PDAM Suite,
  * sisanya dikelompokkan, CTA konsultasi di akhir halaman.
+ *
+ * Halaman ini hanya memuat produk. Software House dan Konsultasi &
+ * Pengadaan pindah ke `/services` karena keduanya jasa: lingkupnya
+ * disusun bersama klien, bukan dipilih dari katalog.
  */
 export default function ProductsPage() {
   const flagship = PRODUCTS.find((p) => p.slug === 'pdam-suite')!
@@ -43,9 +39,9 @@ export default function ProductsPage() {
   return (
     <>
       <PageHero
-        eyebrow="Produk & Layanan"
-        title="Solusi digital dari sensor sampai laporan"
-        description="Kami menyediakan teknologi, pendampingan SDM, dan tata kelola dalam satu paket — bukan sekadar menyerahkan perangkat lunak."
+        eyebrow="Produk"
+        title="Sistem yang sudah berjalan, bukan janji"
+        description="Ketiganya dipakai harian di PDAM dan perusahaan. Karena sudah jadi, implementasinya lebih cepat dan lebih murah daripada membangun dari nol."
         breadcrumb={[{ label: 'Beranda', href: '/' }, { label: 'Produk' }]}
       />
 
@@ -93,13 +89,17 @@ export default function ProductsPage() {
 
         <Reveal>
           <div className="mt-16">
-            <SectionHeading label="Layanan Lain" title="Untuk kebutuhan di luar sektor air" as="h3" />
+            <SectionHeading
+              label="Produk Lain"
+              title="Untuk kebutuhan di luar sektor air"
+              as="h3"
+            />
           </div>
         </Reveal>
 
         <div className="mt-10 grid gap-5 md:grid-cols-2">
           {others.map((p, i) => {
-            const ProductIcon = ICONS[p.icon] ?? Code
+            const ProductIcon = ICONS[p.icon] ?? Drop
             return (
               <Reveal key={p.slug} delay={i * 0.08}>
                 <FeatureCard
@@ -120,6 +120,17 @@ export default function ProductsPage() {
             )
           })}
         </div>
+
+        <Reveal>
+          <p className="mt-8 font-body text-body-sm text-text-secondary">
+            Butuh sistem yang belum ada di daftar ini, atau perangkat beserta
+            pemasangannya?{' '}
+            <Link href="/services" className="link-inline font-semibold">
+              Lihat layanan kami
+            </Link>
+            .
+          </p>
+        </Reveal>
       </Section>
 
       <Section tone="dark" pattern="grid">

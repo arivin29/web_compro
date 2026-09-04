@@ -899,3 +899,130 @@ Shim kompatibilitas dihapus, sehingga tidak ada lagi jalur lama yang tersisa.
    (efisiensi PDAM, performa platform HELIOS).
 3. Persetujuan pencantuman nama dan foto tim sebelum `TeamSection` dipasang.
 4. Artikel blog pertama.
+
+
+---
+
+## 26. Pemisahan Produk dan Layanan (4 September 2026)
+
+### Masalahnya
+
+Dropdown `Produk` memuat lima item, dua di antaranya bukan produk:
+
+| Item | Sebenarnya |
+|---|---|
+| Solusi PDAM | Produk — sudah jadi, tinggal dipasang |
+| HELIOS (IoT) | Produk |
+| Devetek ERP | Produk |
+| Software House | **Jasa** — lingkupnya disusun bersama klien |
+| Konsultasi & Pengadaan | **Jasa** |
+
+Akibatnya pembaca harus menebak sendiri mana yang bisa dibeli dan mana yang
+harus dibicarakan dulu. Halaman `/products` pun ikut rancu: judulnya "Produk
+& Layanan", tetapi seluruh isinya diperlakukan sebagai katalog.
+
+### Yang diubah
+
+1. **Menu dipecah menjadi dua dropdown.** Susunan sekarang:
+   `Beranda · Produk ▾ · Layanan ▾ · Klien · Tentang · Blog · Kontak` —
+   tujuh item, masih dalam batas §10.1.
+
+2. **Pemisahan ikut berlaku di URL.** `/products/software-house` dan
+   `/products/consulting` pindah ke `/services/…`, dan lahir hub baru
+   `/services`. `public/sitemap.xml` menyesuaikan.
+
+3. **`PRODUCTS` di `constants.ts` dipecah** menjadi `PRODUCTS` (tiga produk)
+   dan `SERVICES` (dua layanan). `FOOTER_LINKS` mendapat kolom `layanan`.
+
+4. **Navbar mendukung lebih dari satu dropdown.** State-nya kini menyimpan
+   label menu yang terbuka, bukan boolean per menu, sehingga membuka satu
+   dropdown otomatis menutup yang lain.
+
+5. **Beranda mendapat section "Tiga cara bekerja bersama kami"**
+   (`EngagementSection`, setelah `ProblemSection`): pakai produk kami · kami
+   bangunkan · kami adakan dan rawat. Penutupnya menyatakan ketiganya
+   dikerjakan tim yang sama — inti argumen integrasi vertikal, dan alasan
+   satu vendor lebih mudah dipertanggungjawabkan daripada empat.
+
+6. **`/clients` berhenti menjadi galeri portofolio.** Sepuluh kartu proyek
+   dengan filter diganti bukti sektor: nama tiap institusi per sektor
+   berikut jumlahnya, dua rujukan lengkap dengan angkanya, dan pernyataan
+   terbuka bahwa calon klien bisa dipertemukan dengan pengguna sistem yang
+   sejenis. Daftar proyek lintas sektor pindah ke `/services/software-house`,
+   tempat keluasan justru menjadi nilai jual alih-alih pengaburan.
+
+### Temuan sampingan
+
+`ClientsSection` di beranda menyalin daftar klien secara manual dan sudah
+menyimpang dari `CLIENTS`: memuat "Kementerian PUPR" yang tidak ada di data,
+dan menempatkan PT Bakti Air Indonesia di kelompok pemerintahan padahal
+perusahaan swasta. Sekarang diturunkan langsung dari `constants.ts`.
+
+### Yang masih menunggu jawaban
+
+1. **Apakah pengadaan, instalasi, dan perawatan perangkat keras benar-benar
+   dikerjakan tim internal Devetek?** Halaman `/services/consulting` menulis
+   "tim teknis in-house bersertifikat, bukan outsource". Bila akurat, kalimat
+   itu layak menjadi klaim utama integrasi vertikal; bila sebagian
+   disubkontrakkan, kata-katanya harus dilunakkan supaya tidak runtuh saat
+   aanwijzing. Halaman `/services` sengaja ditulis dengan "satu kontrak dan
+   satu penanggung jawab" — pernyataan yang tetap benar dalam kedua keadaan.
+2. **Nama dua PDAM yang belum tercatat.** `CLIENTS` memuat tujuh PDAM,
+   sementara jumlah yang disebut adalah sembilan. Semua angka di situs
+   dihitung dari `CLIENTS`, jadi begitu dua nama itu ditambahkan, seluruh
+   halaman ikut menyesuaikan sendiri.
+
+
+---
+
+## 27. Slot gambar (4 September 2026)
+
+### Masalahnya
+
+Setiap gambar dirujuk dengan nama filenya persis — `d-ibs-dashboard.png`,
+`helios-dashboard.jpg`, `yashdiq.png`. Mengganti satu screenshot berarti
+mengganti nama file agar cocok dengan kode, atau mengubah kodenya. Dua-duanya
+menuntut orang yang mengganti foto untuk menyentuh repo, dan itu sumber
+kesalahan: sembilan dari sepuluh path foto tim ternyata salah dan tidak ada
+yang menyadarinya karena komponennya hanya menampilkan inisial.
+
+### Kenapa bukan endpoint
+
+Situs ini `output: 'export'`. Yang di-deploy ke Firebase Hosting adalah HTML
+statis; tidak ada proses yang hidup untuk membaca isi folder ketika halaman
+dibuka, sehingga route handler Next tidak bisa dipakai.
+
+Pembacaan folder dipindahkan ke waktu build, dan hasilnya ditulis sebagai
+modul. Bagi pengisi konten hasilnya tidak berbeda dari endpoint — taruh file,
+gambar berganti — hanya waktunya yang bergeser.
+
+### Bentuknya
+
+| Bagian | Peran |
+|---|---|
+| `public/images/slots/<slot>/` | Satu folder per posisi gambar. Nama file di dalamnya bebas |
+| `scripts/image-slots.config.mjs` | Daftar slot beserta keterangannya |
+| `scripts/sync-image-slots.mjs` | Membaca folder, menulis modul. `--watch` untuk dev |
+| `src/lib/image-slots.generated.ts` | Hasil — dihasilkan otomatis, jangan diedit |
+| `src/lib/images.ts` | `slotImage()` dan `slotImageOrNull()` |
+| `public/images/placeholder.svg` | Dipakai bila folder slotnya kosong |
+
+`npm run dev` menjalankan watcher-nya, jadi menaruh file langsung terlihat
+tanpa restart. `npm run build` menyinkronkan sekali sebelum build.
+
+Nama file di-`encodeURIComponent` per segmen, sehingga nama seperti
+`Foto Kantor (baru).png` tetap menghasilkan URL yang sah.
+
+Bila satu folder berisi lebih dari satu gambar, yang dipakai file pertama
+menurut urutan nama dan sinkronisasi memberi peringatan. Ini disengaja: lebih
+baik memberitahu daripada diam-diam memilih.
+
+25 slot dibuat pada tahap ini — hero beranda, tiga gambar halaman Solusi
+PDAM, foto kantor, sepuluh proyek, dan sepuluh anggota tim.
+
+### Yang belum dikerjakan
+
+Gambar lama di `public/images/projects/`, `products/`, dan `clients/` masih
+ada dan kini terduplikasi di dalam folder slot (sekitar 8 MB). File itu tidak
+lagi dirujuk kode mana pun, tetapi tidak dihapus karena sebagian tidak punya
+salinan di slot. Pembersihannya perlu keputusan pemilik aset.

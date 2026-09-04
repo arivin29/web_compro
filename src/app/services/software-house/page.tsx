@@ -26,10 +26,12 @@ import {
   FeatureCard,
   PageHero,
   ProcessCard,
+  ProjectCard,
   Reveal,
   Section,
   SectionHeading,
 } from '@/components/ui'
+import { PROJECTS } from '@/lib/constants'
 import CTASection from '@/components/sections/CTASection'
 
 const CAPABILITIES = [
@@ -155,8 +157,8 @@ export default function SoftwareHousePage() {
         description="Kami tidak hanya mengerjakan proyek klien. Produk vertikal kami sendiri dibangun dengan teknologi dan tim yang sama."
         breadcrumb={[
           { label: 'Beranda', href: '/' },
-          { label: 'Produk', href: '/products' },
-          { label: 'Custom Software' },
+          { label: 'Layanan', href: '/services' },
+          { label: 'Software House' },
         ]}
         actions={
           <>
@@ -165,7 +167,7 @@ export default function SoftwareHousePage() {
               <ArrowRight size={16} weight="bold" />
             </Button>
             <Button href="/clients" variant="secondary">
-              Lihat Portofolio
+              Lihat Klien Kami
             </Button>
           </>
         }
@@ -272,6 +274,30 @@ export default function SoftwareHousePage() {
       <Section tone="white">
         <Reveal>
           <SectionHeading
+            label="Portofolio"
+            title="Sistem yang kami bangun untuk klien lain"
+            subtitle="Daftar ini sengaja lintas sektor. Kalau proses kerja Anda tidak mirip contoh mana pun di bawah, itu justru pekerjaan yang biasa kami terima."
+          />
+        </Reveal>
+
+        <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {PROJECTS.map((project, i) => (
+            <Reveal key={project.title} delay={Math.min(i, 6) * 0.06}>
+              <ProjectCard
+                image={project.image}
+                title={project.title}
+                category={project.category}
+                client={project.client}
+                impact={project.desc}
+              />
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
+      <Section tone="soft">
+        <Reveal>
+          <SectionHeading
             label="Teknologi"
             title="Perkakas yang kami pakai sehari-hari"
             subtitle="Pilihan teknologi menyesuaikan kebutuhan proyek, bukan sebaliknya."
@@ -296,7 +322,7 @@ export default function SoftwareHousePage() {
         </div>
       </Section>
 
-      <Section tone="soft">
+      <Section tone="white">
         <Reveal>
           <SectionHeading
             label="Proses"
@@ -332,7 +358,7 @@ export default function SoftwareHousePage() {
           {COMMITMENTS.map((c) => (
             <li
               key={c}
-              className="flex items-start gap-2.5 rounded-md border border-border bg-surface-white px-4 py-3.5"
+              className="flex items-start gap-2.5 rounded-md border border-border bg-surface-soft px-4 py-3.5"
             >
               <CheckCircle size={17} weight="fill" aria-hidden className="mt-0.5 shrink-0 text-brand-blue" />
               <span className="font-body text-body-sm text-text-secondary">{c}</span>

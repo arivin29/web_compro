@@ -1,15 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import {
-  ArrowRight,
-  Code,
-  Drop,
-  GearSix,
-  Handshake,
-  MapPinArea,
-  WifiHigh,
-} from '@phosphor-icons/react'
+import { ArrowRight, Drop, GearSix, MapPinArea, WifiHigh } from '@phosphor-icons/react'
 import { Badge, Card, FeatureCard, Reveal, Section, SectionHeading } from '@/components/ui'
 
 /** Produk unggulan — mendapat card lebih besar dan permukaan navy (blueprint §8.2). */
@@ -25,6 +17,11 @@ const FLAGSHIP = {
   ],
 }
 
+/**
+ * HELIOS muncul dua kali di section ini — sebagai modul di dalam paket PDAM
+ * dan sebagai produk berdiri sendiri. Itu memang dua hal berbeda, jadi
+ * penyebutan keduanya dibedakan secara eksplisit di deskripsi.
+ */
 const OTHER_PRODUCTS = [
   {
     icon: GearSix,
@@ -33,28 +30,25 @@ const OTHER_PRODUCTS = [
     href: '/products/erp',
   },
   {
-    icon: Code,
-    title: 'Custom Software',
-    description: 'Web app, mobile app, Web GIS, dan solusi digital sesuai kebutuhan spesifik.',
-    href: '/products/software-house',
-  },
-  {
-    icon: Handshake,
-    title: 'Konsultasi & Pengadaan',
-    description: 'IT consulting, pengadaan barang IT, maintenance, dan instalasi.',
-    href: '/products/consulting',
+    icon: WifiHigh,
+    title: 'DEVETEK HELIOS',
+    description:
+      'Platform IoT-nya juga dijual terpisah — dipakai memantau infrastruktur di luar sektor air.',
+    href: '/products/helios',
   },
 ]
 
 /** Produk & layanan — blueprint §17 poin 4 dan 5. */
 export default function ProductsSection() {
   return (
-    <Section tone="white">
+    <Section tone="soft">
+      {/* Judul sengaja tidak memakai frasa "sistem yang sudah dipakai":
+          ProjectsSection di bawah memakai pembuka yang sama persis. */}
       <Reveal>
         <SectionHeading
-          label="Produk & Layanan"
-          title="Solusi lengkap untuk transformasi digital"
-          subtitle="Satu produk unggulan untuk sektor air minum, ditopang layanan enterprise lain yang memakai fondasi teknologi sama."
+          label="Produk"
+          title="Tiga produk, satu fondasi teknologi"
+          subtitle="Satu paket unggulan untuk sektor air minum, ditambah dua produk yang berdiri sendiri di atas fondasi teknologi yang sama."
         />
       </Reveal>
 
@@ -114,7 +108,7 @@ export default function ProductsSection() {
       </Reveal>
 
       {/* ── Produk lain ── */}
-      <div className="mt-5 grid gap-5 md:grid-cols-3">
+      <div className="mt-5 grid gap-5 md:grid-cols-2">
         {OTHER_PRODUCTS.map((p, i) => {
           const Icon = p.icon
           return (

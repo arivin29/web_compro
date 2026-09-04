@@ -15,6 +15,10 @@ import { FEATURED_PROJECTS } from '@/lib/constants'
  * Section ini sebelumnya menampilkan D-IBS/D-ASSET/HELIOS lagi — produk
  * yang sudah dijelaskan di ProductsSection dan EcosystemSection, memakai
  * screenshot yang sama dengan hero. Itu pengulangan, bukan bukti.
+ *
+ * Kartu di sini tidak lagi menautkan ke /clients. Halaman itu kini berisi
+ * bukti sektor, bukan galeri proyek; daftar proyek lengkapnya ada di
+ * halaman Software House.
  */
 export default function ProjectsSection() {
   return (
@@ -36,7 +40,6 @@ export default function ProjectsSection() {
               category={p.category}
               client={p.client}
               impact={p.desc}
-              href="/clients"
             />
           </Reveal>
         ))}
@@ -45,7 +48,7 @@ export default function ProjectsSection() {
       <Reveal>
         <div className="mt-10">
           <Button href="/clients" variant="secondary">
-            Lihat seluruh portofolio
+            Lihat klien dan sektornya
             <ArrowRight size={16} weight="bold" />
           </Button>
         </div>

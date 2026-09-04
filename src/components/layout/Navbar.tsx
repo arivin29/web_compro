@@ -20,8 +20,8 @@ import Button from '@/components/ui/Button'
 import Container from '@/components/ui/Container'
 import Logo from '@/components/ui/Logo'
 
-/** Ikon dropdown produk — satu keluarga (Phosphor), blueprint §14. */
-const PRODUCT_ICONS: Record<string, Icon> = {
+/** Ikon dropdown — satu keluarga (Phosphor), blueprint §14. */
+const MENU_ICONS: Record<string, Icon> = {
   Drop,
   WifiHigh,
   GearSix,
@@ -34,22 +34,36 @@ const PRODUCT_ICONS: Record<string, Icon> = {
  * saat berada di puncak halaman. Route lain selalu navy solid supaya
  * kontras logo dan menu tetap aman.
  */
-const DARK_HERO_ROUTES = ['/', '/about', '/clients', '/contact', '/products']
+const DARK_HERO_ROUTES = ['/', '/about', '/clients', '/contact', '/products', '/services']
 
 function hasDarkHero(pathname: string) {
   return DARK_HERO_ROUTES.some((r) => (r === '/' ? pathname === '/' : pathname.startsWith(r)))
 }
 
+type NavItem = (typeof NAV_ITEMS)[number]
+type NavGroup = Extract<NavItem, { children: readonly unknown[] }>
+
+function isGroup(item: NavItem): item is NavGroup {
+  return 'children' in item
+}
+
+/**
+ * Header global — blueprint §10.
+ *
+ * Menu punya lebih dari satu dropdown (Produk dan Layanan), jadi state-nya
+ * menyimpan label menu yang sedang terbuka, bukan boolean per menu. Dengan
+ * begitu membuka satu dropdown otomatis menutup yang lain.
+ */
 export default function Navbar() {
   const pathname = usePathname()
   const reduce = useReducedMotion()
 
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [productsOpen, setProductsOpen] = useState(false)
-  const [mobileProductsOpen, setMobileProductsOpen] = useState(false)
+  const [openMenu, setOpenMenu] = useState<string | null>(null)
+  const [mobileMenu, setMobileMenu] = useState<string | null>(null)
 
-  const dropdownRef = useRef<HTMLLIElement>(null)
+  const navRef = useRef<HTMLUListElement>(null)
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const transparent = hasDarkHero(pathname) && !scrolled
@@ -64,8 +78,8 @@ export default function Navbar() {
   // Tutup semua panel ketika pindah halaman
   useEffect(() => {
     setMobileOpen(false)
-    setProductsOpen(false)
-    setMobileProductsOpen(false)
+    setOpenMenu(null)
+    setMobileMenu(null)
   }, [pathname])
 
   // Blueprint §10.3 — kunci scroll body saat drawer terbuka
@@ -82,38 +96,36 @@ export default function Navbar() {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== 'Escape') return
-      setProductsOpen(false)
+      setOpenMenu(null)
       setMobileOpen(false)
     }
     document.addEventListener('keydown', onKey)
     return () => document.removeEventListener('keydown', onKey)
   }, [])
 
-  // Klik di luar menutup dropdown
+  // Klik di luar daftar menu menutup dropdown yang terbuka
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-        setProductsOpen(false)
+      if (navRef.current && !navRef.current.contains(e.target as Node)) {
+        setOpenMenu(null)
       }
     }
     document.addEventListener('mousedown', onClick)
     return () => document.removeEventListener('mousedown', onClick)
   }, [])
 
-  const openDropdown = useCallback(() => {
+  const openDropdown = useCallback((label: string) => {
     if (closeTimer.current) clearTimeout(closeTimer.current)
-    setProductsOpen(true)
+    setOpenMenu(label)
   }, [])
 
   const scheduleClose = useCallback(() => {
     if (closeTimer.current) clearTimeout(closeTimer.current)
-    closeTimer.current = setTimeout(() => setProductsOpen(false), 140)
+    closeTimer.current = setTimeout(() => setOpenMenu(null), 140)
   }, [])
 
   const isActive = (href: string) =>
     href === '/' ? pathname === '/' : pathname.startsWith(href)
-
-  const productsActive = pathname.startsWith('/products')
 
   return (
     <header
@@ -131,39 +143,39 @@ export default function Navbar() {
           <Logo tone="dark" />
 
           {/* ── Desktop ── */}
-          <ul className="hidden items-center gap-0.5 lg:flex">
+          <ul ref={navRef} className="hidden items-center gap-0.5 lg:flex">
             {NAV_ITEMS.map((item) => {
-              if ('children' in item && item.children) {
+              if (isGroup(item)) {
+                const expanded = openMenu === item.label
+                const active = isActive(item.href)
+
                 return (
                   <li
                     key={item.label}
-                    ref={dropdownRef}
                     className="relative"
-                    onMouseEnter={openDropdown}
+                    onMouseEnter={() => openDropdown(item.label)}
                     onMouseLeave={scheduleClose}
                   >
                     <button
                       type="button"
-                      aria-expanded={productsOpen}
+                      aria-expanded={expanded}
                       aria-haspopup="true"
-                      onClick={() => setProductsOpen((v) => !v)}
-                      className={`relative flex items-center gap-1.5 rounded-md px-3.5 py-2 font-body text-body-sm transition-colors ${
-                        productsActive
-                          ? 'font-semibold text-white'
-                          : 'text-white/75 hover:text-white'
+                      onClick={() => setOpenMenu((v) => (v === item.label ? null : item.label))}
+                      className={`relative flex items-center gap-1.5 rounded-md px-3 py-2 font-body text-body-sm transition-colors ${
+                        active ? 'font-semibold text-white' : 'text-white/75 hover:text-white'
                       }`}
                     >
                       {item.label}
                       <CaretDown
                         size={13}
                         weight="bold"
-                        className={`transition-transform duration-200 ${productsOpen ? 'rotate-180' : ''}`}
+                        className={`transition-transform duration-200 ${expanded ? 'rotate-180' : ''}`}
                       />
-                      {productsActive && <ActiveMarker />}
+                      {active && <ActiveMarker />}
                     </button>
 
                     <AnimatePresence>
-                      {productsOpen && (
+                      {expanded && (
                         <motion.div
                           initial={reduce ? false : { opacity: 0, y: 6 }}
                           animate={{ opacity: 1, y: 0 }}
@@ -173,7 +185,7 @@ export default function Navbar() {
                         >
                           <ul>
                             {item.children.map((child) => {
-                              const ChildIcon = PRODUCT_ICONS[child.icon] ?? Drop
+                              const ChildIcon = MENU_ICONS[child.icon] ?? Drop
                               return (
                                 <li key={child.href}>
                                   <Link
@@ -205,7 +217,7 @@ export default function Navbar() {
                               href={item.href}
                               className="block rounded-md px-3 py-2.5 font-body text-body-sm font-semibold text-brand-blue-soft transition-colors hover:bg-white/8"
                             >
-                              Lihat semua produk →
+                              {item.hubLabel} →
                             </Link>
                           </div>
                         </motion.div>
@@ -220,7 +232,7 @@ export default function Navbar() {
                   <Link
                     href={item.href}
                     aria-current={isActive(item.href) ? 'page' : undefined}
-                    className={`relative block rounded-md px-3.5 py-2 font-body text-body-sm transition-colors ${
+                    className={`relative block rounded-md px-3 py-2 font-body text-body-sm transition-colors ${
                       isActive(item.href)
                         ? 'font-semibold text-white'
                         : 'text-white/75 hover:text-white'
@@ -268,13 +280,14 @@ export default function Navbar() {
             <Container className="py-6">
               <ul className="space-y-1">
                 {NAV_ITEMS.map((item) => {
-                  if ('children' in item && item.children) {
+                  if (isGroup(item)) {
+                    const expanded = mobileMenu === item.label
                     return (
                       <li key={item.label}>
                         <button
                           type="button"
-                          onClick={() => setMobileProductsOpen((v) => !v)}
-                          aria-expanded={mobileProductsOpen}
+                          onClick={() => setMobileMenu((v) => (v === item.label ? null : item.label))}
+                          aria-expanded={expanded}
                           className="tap-target flex w-full items-center justify-between rounded-md px-3 py-3 font-body text-body font-medium text-white"
                         >
                           {item.label}
@@ -282,15 +295,15 @@ export default function Navbar() {
                             size={15}
                             weight="bold"
                             className={`transition-transform duration-200 ${
-                              mobileProductsOpen ? 'rotate-180' : ''
+                              expanded ? 'rotate-180' : ''
                             }`}
                           />
                         </button>
 
-                        {mobileProductsOpen && (
+                        {expanded && (
                           <ul className="ml-3 space-y-0.5 border-l border-white/12 pl-3">
                             {item.children.map((child) => {
-                              const ChildIcon = PRODUCT_ICONS[child.icon] ?? Drop
+                              const ChildIcon = MENU_ICONS[child.icon] ?? Drop
                               return (
                                 <li key={child.href}>
                                   <Link
@@ -303,6 +316,14 @@ export default function Navbar() {
                                 </li>
                               )
                             })}
+                            <li>
+                              <Link
+                                href={item.href}
+                                className="tap-target flex items-center rounded-md px-3 py-2.5 font-body text-body-sm font-semibold text-brand-blue-soft"
+                              >
+                                {item.hubLabel} →
+                              </Link>
+                            </li>
                           </ul>
                         )}
                       </li>

@@ -1,24 +1,68 @@
 'use client'
 
-import { useState } from 'react'
-import { Bank, Buildings, Drop, Handshake, type Icon } from '@phosphor-icons/react'
+import { Bank, Buildings, Drop, Handshake, MapPin, type Icon } from '@phosphor-icons/react'
 import {
   Card,
   PageHero,
-  ProjectCard,
   Reveal,
   Section,
   SectionHeading,
   TestimonialCard,
 } from '@/components/ui'
-import { CLIENTS, CLIENT_CATEGORIES, PROJECTS, TESTIMONIALS } from '@/lib/constants'
+import { CLIENTS, TESTIMONIALS } from '@/lib/constants'
 import CTASection from '@/components/sections/CTASection'
 
-const SECTOR_ICONS: Record<string, Icon> = {
-  PDAM: Drop,
-  Pemerintahan: Bank,
-  Swasta: Buildings,
-}
+const SECTORS: { key: string; icon: Icon; title: string; note: string }[] = [
+  {
+    key: 'PDAM',
+    icon: Drop,
+    title: 'PDAM & Air Minum',
+    note: 'Billing, baca meter, akuntansi, dan monitoring jaringan berjalan harian.',
+  },
+  {
+    key: 'Pemerintahan',
+    icon: Bank,
+    title: 'Kementerian & Pemerintah Daerah',
+    note: 'Sistem perizinan, pemantauan berbasis peta, dan pelaporan lintas wilayah.',
+  },
+  {
+    key: 'Swasta',
+    icon: Buildings,
+    title: 'Perusahaan Swasta',
+    note: 'ERP, manajemen aset, dan sistem operasional khusus per industri.',
+  },
+]
+
+/**
+ * Dua rujukan yang boleh disebut lengkap dengan angkanya.
+ *
+ * Angka di sini berasal dari keterangan klien sendiri — bukan estimasi
+ * kami. Rujukan tanpa angka yang bisa dipertanggungjawabkan sengaja
+ * ditulis apa adanya sebagai lingkup pekerjaan, bukan dibuatkan
+ * "peningkatan sekian persen".
+ */
+const REFERENCES = [
+  {
+    client: 'PT Bakti Air Indonesia',
+    sector: 'Monitoring jaringan air',
+    scope: 'Pemasangan HELIOS di 5 DMA dengan lebih dari 200 node sensor.',
+    outcome:
+      'Kebocoran terbaca dari data, bukan dari keluhan pelanggan. Menurut tim teknis mereka, waktu deteksi turun dari hitungan hari menjadi hitungan menit.',
+    facts: [
+      { value: '5', label: 'DMA dipantau' },
+      { value: '200+', label: 'node sensor' },
+    ],
+  },
+  {
+    client: 'Kementerian Kelautan & Perikanan',
+    sector: 'Pengawasan perikanan',
+    scope:
+      'Vessel Monitoring System berbasis WebGIS, ditambah kanal pelaporan pelanggaran SDKP dan pelacakan posisi kapal lewat ponsel.',
+    outcome:
+      'Posisi kapal dan laporan lapangan masuk ke satu peta yang sama, sehingga pengawas tidak lagi menggabungkan data dari beberapa sumber terpisah.',
+    facts: [],
+  },
+]
 
 const PARTNERS = [
   { name: 'PT Bakti Air Indonesia', role: 'Rekanan produk PDAM' },
@@ -26,122 +70,136 @@ const PARTNERS = [
 ]
 
 /**
- * Portofolio & klien — blueprint §18.
+ * Klien — blueprint §18, disusun ulang September 2026.
  *
- * Filter sektor berlaku untuk daftar klien maupun daftar proyek sekaligus,
- * sehingga keduanya selalu bercerita tentang sektor yang sama.
+ * Sebelumnya halaman ini berupa galeri portofolio: sepuluh kartu proyek
+ * lintas sektor dengan filter. Untuk pembaca korporat, galeri semacam itu
+ * membaca sebagai perusahaan yang masih perlu membuktikan diri, dan
+ * keluasannya justru mengaburkan kedalaman di sektor air minum.
  *
- * Testimoni diambil dari TESTIMONIALS di constants; sebelumnya kutipan yang
- * sama ditulis ulang secara hardcoded di halaman ini.
+ * Yang tinggal di sini sekarang adalah bukti yang bisa diperiksa: nama
+ * institusi per sektor, dua rujukan berikut angkanya, dan tawaran untuk
+ * dipertemukan langsung dengan pengguna sistemnya. Daftar proyek lintas
+ * sektor pindah ke halaman Software House, tempat keluasan justru menjadi
+ * nilai jual.
  */
 export default function ClientsPage() {
-  const [filter, setFilter] = useState<(typeof CLIENT_CATEGORIES)[number]>('Semua')
-
-  const clients = filter === 'Semua' ? CLIENTS : CLIENTS.filter((c) => c.category === filter)
-  const projects = filter === 'Semua' ? PROJECTS : PROJECTS.filter((p) => p.category === filter)
-
   return (
     <>
       <PageHero
-        eyebrow="Portofolio"
-        title="Dipercaya lintas sektor"
-        description="Dari PDAM, kementerian, hingga perusahaan swasta — berikut institusi yang sistemnya kami bangun dan dampingi."
-        breadcrumb={[{ label: 'Beranda', href: '/' }, { label: 'Portofolio & Klien' }]}
+        eyebrow="Klien"
+        title="Siapa yang sistemnya kami jalankan"
+        description="Bukan galeri logo. Ini institusi yang memakai sistem kami setiap hari, disebut dengan nama, beserta sektornya."
+        breadcrumb={[{ label: 'Beranda', href: '/' }, { label: 'Klien' }]}
       />
 
       <Section tone="white">
         <Reveal>
           <SectionHeading
-            label="Klien Kami"
-            title="Institusi yang mempercayakan sistemnya"
-            subtitle="Saring berdasarkan sektor untuk melihat klien dan proyek yang relevan."
+            label="Sebaran Klien"
+            title="Tiga sektor, seluruhnya disebut dengan nama"
+            subtitle="Setiap nama di bawah ini adalah institusi yang sistemnya sudah diserahterimakan dan masih berjalan."
           />
         </Reveal>
 
-        {/* Filter — menandai keadaan aktif lewat border, background, dan bobot
-            teks sekaligus, bukan warna saja (blueprint §16) */}
-        <Reveal delay={0.05}>
-          <div
-            role="radiogroup"
-            aria-label="Saring berdasarkan sektor"
-            className="mt-8 flex flex-wrap gap-2"
-          >
-            {CLIENT_CATEGORIES.map((c) => (
-              <button
-                key={c}
-                type="button"
-                role="radio"
-                aria-checked={filter === c}
-                onClick={() => setFilter(c)}
-                className={`tap-target rounded-sm border px-4 py-2 font-body text-body-sm transition-colors duration-200 ${
-                  filter === c
-                    ? 'border-brand-blue bg-accent-light font-semibold text-brand-blue-strong'
-                    : 'border-border bg-surface-white text-text-secondary hover:border-brand-blue/50 hover:text-text-primary'
-                }`}
-              >
-                {c}
-              </button>
-            ))}
-          </div>
-
-          <p aria-live="polite" className="mt-4 font-body text-body-sm text-text-muted">
-            {clients.length} klien dan {projects.length} proyek ditampilkan.
-          </p>
-        </Reveal>
-
-        <ul className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
-          {clients.map((client, i) => {
-            const SectorIcon = SECTOR_ICONS[client.category] ?? Buildings
+        <div className="mt-12 grid gap-5 lg:grid-cols-3">
+          {SECTORS.map((s, i) => {
+            const list = CLIENTS.filter((c) => c.category === s.key)
+            const SectorIcon = s.icon
             return (
-              <li key={client.name}>
-                <Reveal delay={Math.min(i, 8) * 0.03}>
-                  <Card padding="sm" interactive={false} className="h-full py-5 text-center">
+              <Reveal key={s.key} delay={i * 0.08}>
+                <Card padding="lg" interactive={false} className="h-full">
+                  <div className="flex items-center gap-3.5">
                     <span
                       aria-hidden
-                      className="mx-auto flex h-10 w-10 items-center justify-center rounded-md bg-accent-light text-brand-blue-strong"
+                      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-accent-light text-brand-blue-strong"
                     >
-                      <SectorIcon size={19} />
+                      <SectorIcon size={21} />
                     </span>
-                    <p className="mt-3 font-heading text-body-sm font-semibold text-text-primary">
-                      {client.name}
-                    </p>
-                    <p className="mt-1 font-body text-body-sm text-text-muted">{client.category}</p>
-                  </Card>
-                </Reveal>
-              </li>
+                    <div>
+                      <h3 className="font-heading text-h3 font-semibold text-text-primary">
+                        {s.title}
+                      </h3>
+                      <p className="tabular font-body text-body-sm text-text-muted">
+                        {list.length} institusi
+                      </p>
+                    </div>
+                  </div>
+
+                  <p className="mt-4 font-body text-body-sm leading-relaxed text-text-secondary">
+                    {s.note}
+                  </p>
+
+                  <ul className="mt-5 space-y-2">
+                    {list.map((c) => (
+                      <li key={c.name} className="flex items-start gap-2.5">
+                        <span
+                          aria-hidden
+                          className="mt-[0.45rem] h-1.5 w-1.5 shrink-0 rotate-45 bg-brand-blue"
+                        />
+                        <span className="font-body text-body-sm text-text-secondary">{c.name}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </Card>
+              </Reveal>
             )
           })}
-        </ul>
+        </div>
       </Section>
 
       <Section tone="soft">
         <Reveal>
           <SectionHeading
-            label="Proyek"
-            title="Sistem yang sudah berjalan"
-            subtitle="Setiap kartu adalah implementasi nyata, bukan konsep atau purwarupa."
+            label="Rujukan"
+            title="Dua yang boleh Anda periksa sendiri"
+            subtitle="Angka pada rujukan pertama berasal dari keterangan klien, bukan hitungan kami."
           />
         </Reveal>
 
-        <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {projects.map((p, i) => (
-            <Reveal key={p.title} delay={Math.min(i, 6) * 0.06}>
-              <ProjectCard
-                image={p.image}
-                title={p.title}
-                category={p.category}
-                client={p.client}
-                impact={p.desc}
-              />
+        <div className="mt-12 grid gap-5 md:grid-cols-2">
+          {REFERENCES.map((r, i) => (
+            <Reveal key={r.client} delay={i * 0.08}>
+              <Card padding="lg" accent="orange" interactive={false} className="h-full">
+                <p className="label-section text-brand-blue-strong">{r.sector}</p>
+                <h3 className="mt-3 font-heading text-h3 font-semibold text-text-primary">
+                  {r.client}
+                </h3>
+
+                <p className="mt-4 font-body text-body-sm leading-relaxed text-text-secondary">
+                  {r.scope}
+                </p>
+                <p className="mt-3 font-body text-body-sm leading-relaxed text-text-secondary">
+                  {r.outcome}
+                </p>
+
+                {r.facts.length > 0 && (
+                  <dl className="mt-6 flex gap-8 border-t border-border pt-5">
+                    {r.facts.map((f) => (
+                      <div key={f.label} className="flex flex-col-reverse">
+                        <dt className="font-body text-body-sm text-text-muted">{f.label}</dt>
+                        <dd className="tabular font-heading text-h2 font-bold text-brand-blue-strong">
+                          {f.value}
+                        </dd>
+                      </div>
+                    ))}
+                  </dl>
+                )}
+              </Card>
             </Reveal>
           ))}
         </div>
 
-        {projects.length === 0 && (
-          <p className="mt-8 font-body text-text-secondary">
-            Belum ada proyek yang dipublikasikan untuk sektor ini.
-          </p>
-        )}
+        <Reveal delay={0.16}>
+          <div className="mt-8 flex items-start gap-3.5 rounded-md border border-border bg-surface-white px-5 py-4">
+            <MapPin size={19} aria-hidden className="mt-0.5 shrink-0 text-brand-orange" />
+            <p className="font-body text-body-sm leading-relaxed text-text-secondary">
+              Ingin mendengar langsung dari penggunanya? Kami bersedia mempertemukan Anda dengan
+              klien yang sistemnya sejenis, atau mengatur kunjungan ke lokasi tempat sistem itu
+              berjalan. Cukup sampaikan saat pembicaraan awal.
+            </p>
+          </div>
+        </Reveal>
       </Section>
 
       <Section tone="white">
@@ -181,14 +239,10 @@ export default function ClientsPage() {
               <SectionHeading label="Testimoni" title="Kata mereka" as="h2" />
               <div className="mt-8">
                 <TestimonialCard
-                  quote={TESTIMONIALS[0].quote}
-                  name={TESTIMONIALS[0].name}
-                  role={TESTIMONIALS[0].role}
-                  company={TESTIMONIALS[0].company}
-                  highlights={[
-                    { value: '5', label: 'DMA dipantau' },
-                    { value: '200+', label: 'sensor node' },
-                  ]}
+                  quote={TESTIMONIALS[1].quote}
+                  name={TESTIMONIALS[1].name}
+                  role={TESTIMONIALS[1].role}
+                  company={TESTIMONIALS[1].company}
                 />
               </div>
             </div>
