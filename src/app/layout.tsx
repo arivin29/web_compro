@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { ogImage, siteUrl } from '@/lib/metadata'
 import { Outfit, Inter, JetBrains_Mono } from 'next/font/google'
 import '@/styles/globals.css'
 import Navbar from '@/components/layout/Navbar'
@@ -39,17 +40,18 @@ export const metadata: Metadata = {
   },
   description:
     'Solusi teknologi end-to-end untuk PDAM, Pemerintahan, BUMN & Swasta. Berpengalaman lebih dari satu dekade membangun sistem yang benar-benar bekerja.',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://devetek-compro.web.app'),
+  metadataBase: new URL(siteUrl),
   openGraph: {
     type: 'website',
     locale: 'id_ID',
     siteName: 'Devetek',
-    images: [{ url: '/images/devetek-icon.png', width: 512, height: 512, alt: 'Devetek Logo' }],
+    images: [ogImage],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Devetek — Digitalisasi Tanpa Batas',
     description: 'Solusi teknologi end-to-end untuk PDAM, Pemerintahan, BUMN & Swasta.',
+    images: [ogImage],
   },
   robots: {
     index: true,
@@ -87,8 +89,8 @@ export default function RootLayout({
               '@type': 'Organization',
               name: 'PT Comon Cipta Inovasi',
               alternateName: 'Devetek',
-              url: 'https://devetek-compro.web.app',
-              logo: 'https://devetek-compro.web.app/images/devetek-icon.png',
+              url: siteUrl,
+              logo: `${siteUrl}/images/logo/devetek-lockup.png`,
               description: 'Perusahaan teknologi yang berfokus pada pengembangan solusi perangkat lunak dan sistem sensor untuk digitalisasi sektor publik dan swasta.',
               foundingDate: '2012',
               address: {

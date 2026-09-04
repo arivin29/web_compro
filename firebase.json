@@ -28,6 +28,18 @@
           }
         ]
       }
+    ],
+    "redirects": [
+      {
+        "source": "/products/software-house",
+        "destination": "/services/software-house",
+        "type": 301
+      },
+      {
+        "source": "/products/consulting",
+        "destination": "/services/consulting",
+        "type": 301
+      }
     ]
   }
 }

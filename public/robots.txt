@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://devetek-compro.web.app/sitemap.xml
+Sitemap: https://devetek.com/sitemap.xml
