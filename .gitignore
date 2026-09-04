@@ -44,3 +44,8 @@ graphify-out/
 
 # Cache Python dari skrip di scripts/
 __pycache__/
+
+# Dump basis data tidak boleh masuk repo ini (lihat blueprint §28)
+*.sql
+*.sql.gz
+*.dump

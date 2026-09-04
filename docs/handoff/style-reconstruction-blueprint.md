@@ -960,13 +960,12 @@ perusahaan swasta. Sekarang diturunkan langsung dari `constants.ts`.
 
 ### Yang masih menunggu jawaban
 
-1. **Apakah pengadaan, instalasi, dan perawatan perangkat keras benar-benar
-   dikerjakan tim internal Devetek?** Halaman `/services/consulting` menulis
-   "tim teknis in-house bersertifikat, bukan outsource". Bila akurat, kalimat
-   itu layak menjadi klaim utama integrasi vertikal; bila sebagian
-   disubkontrakkan, kata-katanya harus dilunakkan supaya tidak runtuh saat
-   aanwijzing. Halaman `/services` sengaja ditulis dengan "satu kontrak dan
-   satu penanggung jawab" — pernyataan yang tetap benar dalam kedua keadaan.
+1. ~~Apakah pengadaan, instalasi, dan perawatan perangkat keras dikerjakan
+   tim internal?~~ **Terjawab 4 September 2026: ya, tim internal.** Halaman
+   `/services` karena itu tidak lagi memakai kalimat lunak "satu kontrak dan
+   satu penanggung jawab", melainkan menyebut terus terang bahwa keempat
+   pekerjaan itu tidak disubkontrakkan. Klaim ini akan diperiksa saat
+   aanwijzing — jangan melebarkannya tanpa konfirmasi ulang.
 2. **Nama dua PDAM yang belum tercatat.** `CLIENTS` memuat tujuh PDAM,
    sementara jumlah yang disebut adalah sembilan. Semua angka di situs
    dihitung dari `CLIENTS`, jadi begitu dua nama itu ditambahkan, seluruh

@@ -46,6 +46,11 @@ const CHAIN = [
  * House dan Konsultasi & Pengadaan berada di bawah `/products`, sehingga
  * pekerjaan yang lingkupnya disusun bersama klien terbaca seperti lisensi
  * siap beli.
+ *
+ * Klaim "tidak disubkontrakkan" dikonfirmasi pemilik pada 4 September 2026:
+ * pengadaan, instalasi, dan perawatan perangkat memang dikerjakan tim
+ * internal. Klaim ini akan diperiksa saat aanwijzing, jadi jangan
+ * melunakkan ATAU melebarkannya tanpa konfirmasi ulang.
  */
 export default function ServicesPage() {
   return (
@@ -107,7 +112,7 @@ export default function ServicesPage() {
           <SectionHeading
             label="Kenapa Digabung"
             title="Empat pekerjaan yang biasanya dipecah ke empat vendor"
-            subtitle="Ketika sistem, perangkat, instalasi, dan perawatan dipegang pihak berbeda, setiap gangguan berubah menjadi perdebatan siapa yang salah. Kami menutup keempatnya lewat satu kontrak dan satu penanggung jawab."
+            subtitle="Ketika sistem, perangkat, instalasi, dan perawatan dipegang pihak berbeda, setiap gangguan berubah menjadi perdebatan siapa yang salah. Keempatnya dikerjakan tim teknis kami sendiri — tidak disubkontrakkan — sehingga hanya ada satu kontrak dan satu penanggung jawab."
           />
         </Reveal>
 
