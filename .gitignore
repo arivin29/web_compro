@@ -41,3 +41,6 @@ next-env.d.ts
 
 # output tool graphify
 graphify-out/
+
+# Cache Python dari skrip di scripts/
+__pycache__/

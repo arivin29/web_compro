@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { Reveal, Section, SectionHeading } from '@/components/ui'
 import { COMPANY } from '@/lib/constants'
+import { slotImage } from '@/lib/images'
 
 /**
  * Cerita perusahaan — blueprint §18.
@@ -42,7 +43,7 @@ export default function CompanyStory() {
           <div className="space-y-5">
             <div className="relative aspect-[16/10] overflow-hidden rounded-lg border border-border bg-surface-soft shadow-card">
               <Image
-                src="/images/about/office.jpg"
+                src={slotImage('about_kantor')}
                 alt="Suasana kantor Devetek di Bogor"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
