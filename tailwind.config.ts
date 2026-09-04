@@ -33,6 +33,14 @@ const config: Config = {
           'red-strong': '#C7291A', // dipakai bila butuh teks putih di atasnya
           orange: '#F0701F',
           'orange-hover': '#D8620F',
+          // Teks oranye di permukaan terang. `brand-orange` hanya 2.98:1 di
+          // atas putih — gagal AA — jadi label dan penanda memakai varian ini
+          // (5.80:1 di atas putih, 5.34:1 di atas `orange-pale`).
+          'orange-ink': '#A8490B',
+          // Permukaan oranye pucat yang OPAK. Dibutuhkan karena
+          // `bg-brand-orange/[0.04]` tembus pandang: elemen dekoratif di
+          // belakang kartu — mis. garis alur — ikut terlihat menembusnya.
+          'orange-pale': '#FDF4EC',
           blue: '#4479B3', // fill, ikon, dekorasi
           'blue-strong': '#356399', // teks & link di permukaan terang (AA)
           'blue-soft': '#7FB0E6', // teks & link di permukaan gelap (AA)

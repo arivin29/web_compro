@@ -26,6 +26,7 @@ import {
   SectionHeading,
 } from '@/components/ui'
 import CTASection from '@/components/sections/CTASection'
+import { slotImage } from '@/lib/images'
 
 const CHALLENGES = [
   {
@@ -156,7 +157,7 @@ export default function PDAMSuitePage() {
         }
         media={
           <BrowserFrame
-            src="/images/projects/d-ibs-dashboard.png"
+            src={slotImage('pdam_ibs_dashboard')}
             alt="Dashboard D-IBS menampilkan ringkasan billing dan pelanggan"
             label="d-ibs.devetek.com"
           />
@@ -240,7 +241,7 @@ export default function PDAMSuitePage() {
 
           <Reveal delay={0.1}>
             <BrowserFrame
-              src="/images/projects/d-asset-webgis.png"
+              src={slotImage('pdam_asset_webgis')}
               alt="Peta jaringan pipa dan aset pada D-ASSET WebGIS"
               label="d-asset.devetek.com"
             />
@@ -252,7 +253,7 @@ export default function PDAMSuitePage() {
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <Reveal>
             <BrowserFrame
-              src="/images/projects/helios-dashboard.jpg"
+              src={slotImage('pdam_helios_monitoring')}
               alt="Dashboard pemantauan sensor HELIOS"
               label="helios.devetek.com"
             />

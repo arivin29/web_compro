@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import {
   ArrowDown,
@@ -32,7 +33,7 @@ import {
   WhatsappLogo,
   XCircle,
 } from '@phosphor-icons/react'
-import { twMerge } from 'tailwind-merge'
+import { twMerge } from '@/lib/cn'
 import {
   Button,
   PageHero,
@@ -40,6 +41,7 @@ import {
   Section,
   SectionHeading,
 } from '@/components/ui'
+import { slotImageOrNull, type ImageSlot } from '@/lib/images'
 import CTASection from '@/components/sections/CTASection'
 import Badge from '@/components/ui/Badge'
 
@@ -140,15 +142,65 @@ const TRACEABILITY = [
   },
 ]
 
-const SAKEP_REPORTS = [
-  { name: 'Neraca / Posisi Keuangan', scope: 'Bulanan · Triwulan · Semester · Tahunan' },
-  { name: 'Laba Rugi & Penghasilan Komprehensif', scope: 'Bulanan · Triwulan · Semester · Tahunan' },
-  { name: 'Neraca Saldo', scope: 'Bulanan · Triwulan · Semester · Tahunan' },
-  { name: 'Rincian Biaya', scope: 'Bulanan · Triwulan · Semester · Tahunan' },
-  { name: 'Arus Kas', scope: 'Bulanan · Triwulan · Semester · Tahunan' },
-  { name: 'Perubahan Ekuitas', scope: 'Bulanan · Triwulan · Semester · Tahunan' },
-  { name: 'Buku Besar — satu akun', scope: 'Kumulatif · per bulan · rentang bebas' },
-  { name: 'Buku Besar — seluruh akun', scope: 'Bulanan · Triwulan · Semester · Tahunan' },
+/**
+ * Laporan keuangan SAK EP, dikelompokkan menurut cakupan periodenya.
+ *
+ * Sebelumnya kedelapan laporan ditulis sebagai satu daftar datar, dan enam
+ * di antaranya mengulang teks cakupan yang persis sama. Section ini berjudul
+ * "bukan daftar panjang", jadi pengulangan itu justru membantah judulnya
+ * sendiri. Dengan dikelompokkan, cakupannya cukup disebut sekali per
+ * kelompok — dan yang menyimpang jadi langsung terlihat.
+ */
+const SAKEP_PERIODIK = [
+  {
+    name: 'Neraca / Posisi Keuangan',
+    what: 'Aset, kewajiban, dan ekuitas pada satu tanggal tertentu.',
+  },
+  {
+    name: 'Laba Rugi & Penghasilan Komprehensif',
+    what: 'Pendapatan air dan non-air dikurangi beban, sampai hasil periode berjalan.',
+  },
+  {
+    name: 'Neraca Saldo',
+    what: 'Saldo awal, mutasi debit–kredit, dan saldo akhir tiap akun — dipakai memeriksa sebelum laporan lain dicetak.',
+  },
+  {
+    name: 'Rincian Biaya',
+    what: 'Beban dipecah per kelompok, untuk menelusuri pos mana yang naik dan sebesar apa.',
+  },
+  {
+    name: 'Arus Kas',
+    what: 'Kas masuk dan keluar, dipisah menurut aktivitas operasi, investasi, dan pendanaan.',
+  },
+  {
+    name: 'Perubahan Ekuitas',
+    what: 'Pergerakan modal, penyertaan, dan laba ditahan sepanjang periode.',
+  },
+  {
+    name: 'Buku Besar — seluruh akun',
+    what: 'Seluruh jurnal yang membentuk tiap saldo, berurutan — dari angka laporan sampai transaksi asalnya.',
+  },
+]
+
+/** Keluaran yang tersedia untuk setiap laporan di atas. */
+const SAKEP_OUTPUTS = [
+  { icon: Eye, label: 'Layar' },
+  { icon: FileText, label: 'PDF' },
+  { icon: Table, label: 'Excel' },
+]
+
+/**
+ * Tujuh nama laporan manajemen. Sebagian punya versi bulanan dan tahunan,
+ * sehingga totalnya dua belas keluaran — angka itu yang dipakai di judul.
+ */
+const LAPORAN_MANAJEMEN = [
+  'Neraca Lajur',
+  'Neraca',
+  'Laba Rugi',
+  'Laba Rugi vs Anggaran',
+  'Rincian Biaya',
+  'Perubahan Ekuitas',
+  'Arus Kas',
 ]
 
 type EditionRow = { label: string; mandiri: string; terintegrasi: string }
@@ -228,7 +280,9 @@ const UI = {
   card: 'rounded-md border border-border bg-white p-6 shadow-card',
   cardSoft: 'rounded-md border border-border bg-surface-soft p-6',
   cardDark: 'rounded-md border border-white/15 bg-white/[0.06] p-6 backdrop-blur-sm',
-  marker: 'inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.16em] text-brand-orange',
+  // Memakai `orange-ink`, bukan `brand-orange`: teks 11px oranye terang di
+  // atas permukaan putih hanya 2.98:1 dan gagal AA.
+  marker: 'inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.16em] text-brand-orange-ink',
 }
 
 /**
@@ -425,25 +479,67 @@ function FlowConnector({ chips }: { chips: string[] }) {
 /**
  * Penampung tangkapan layar.
  *
- * Sengaja kosong dan berlabel, bukan gambar produk lain yang dipinjam —
- * supaya tidak ada yang mengira ini tampilan aplikasinya. Ganti dengan
- * <img src="..." /> begitu bidikan aslinya siap; tata letaknya tidak
- * perlu ikut berubah.
+ * Gambarnya diambil dari folder slot — taruh file apa pun di
+ * `public/images/slots/<slot>/` dan bidikan itu langsung terpasang di sini.
+ *
+ * Selama foldernya masih kosong, yang tampil adalah kerangka bergaris
+ * putus-putus berisi keterangan apa yang seharusnya ada di posisi itu.
+ * Itu disengaja: lebih jujur daripada meminjam gambar produk lain, dan
+ * lebih berguna daripada placeholder umum karena menyebutkan bidikan
+ * mana yang masih kurang.
+ *
+ * Gambar dipasang dengan `object-contain`, jadi tangkapan layar tidak
+ * pernah terpotong berapa pun rasio aslinya — ruang sisanya dibiarkan
+ * kosong, bukan gambarnya yang dipaksa masuk.
  */
-function ShotFrame({ caption, className }: { caption: string; className?: string }) {
+function ShotFrame({
+  slot,
+  caption,
+  className,
+}: {
+  slot: ImageSlot
+  caption: string
+  className?: string
+}) {
+  const src = slotImageOrNull(slot)
+
+  if (!src) {
+    return (
+      <div
+        className={twMerge(
+          'flex flex-col items-center justify-center rounded-md border-2 border-dashed border-brand-blue/25 bg-brand-blue/[0.03] p-8 text-center',
+          className,
+        )}
+      >
+        <ImageSquare size={32} weight="light" className="text-brand-blue/40" />
+        <p className="mt-3 text-xs font-medium uppercase tracking-widest text-brand-blue-strong/60">
+          Tangkapan layar
+        </p>
+        <p className="mt-1 max-w-xs text-sm text-text-muted">{caption}</p>
+      </div>
+    )
+  }
+
   return (
-    <div
+    <figure
       className={twMerge(
-        'flex flex-col items-center justify-center rounded-md border-2 border-dashed border-brand-blue/25 bg-brand-blue/[0.03] p-8 text-center',
+        'overflow-hidden rounded-md border border-border bg-surface-soft [.on-dark_&]:border-white/12 [.on-dark_&]:bg-white/[0.04]',
         className,
       )}
     >
-      <ImageSquare size={32} weight="light" className="text-brand-blue/40" />
-      <p className="mt-3 text-xs font-medium uppercase tracking-widest text-brand-blue-strong/60">
-        Tangkapan layar
-      </p>
-      <p className="mt-1 max-w-xs text-sm text-text-muted">{caption}</p>
-    </div>
+      <div className="relative aspect-[16/10] w-full">
+        <Image
+          src={src}
+          alt={caption}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 40vw"
+          className="object-contain"
+        />
+      </div>
+      <figcaption className="border-t border-border px-4 py-3 font-body text-body-sm text-text-muted [.on-dark_&]:border-white/12 [.on-dark_&]:text-text-inverse-muted">
+        {caption}
+      </figcaption>
+    </figure>
   )
 }
 
@@ -551,7 +647,7 @@ export default function AkuntansiPDAMPage() {
       </Section>
 
       {/* Alur empat langkah */}
-      <Section tone="white">
+      <Section tone="white" pattern="dots">
           <Reveal>
             <SectionHeading
               label="Alur kerja"
@@ -559,34 +655,110 @@ export default function AkuntansiPDAMPage() {
               subtitle="Satu alur, dengan satu gerbang pemeriksaan di tengahnya"
             />
           </Reveal>
-          <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            {STEPS.map((step, i) => {
-              const Icon = step.icon
-              return (
-                <Reveal key={step.num} delay={i * 0.08}>
-                  <div className={`${UI.card} relative h-full border-t-2 border-t-brand-blue`}>
-                    <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-md bg-blue-50">
-                      <Icon size={24} weight="bold" className="text-brand-blue" />
-                    </div>
-                    <span className="font-heading text-xs font-bold uppercase tracking-widest text-brand-blue-strong">
-                      Langkah {step.num}
-                    </span>
-                    <h3 className="mt-1 font-heading font-semibold text-text-primary">
-                      {step.title}
-                    </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-text-secondary">
-                      {step.desc}
-                    </p>
-                  </div>
-                </Reveal>
-              )
-            })}
+
+          {/* Empat kartu ini sebelumnya kembar semua — warna, aksen, dan
+              bobotnya sama persis — sehingga tidak terbaca sebagai urutan,
+              dan gerbang yang dijanjikan subtitle tidak terlihat di mana pun.
+              Sekarang: satu garis alur menembus keempatnya, angka besar
+              menandai urutan, dan langkah 2 memakai aksen oranye sebagai
+              satu-satunya titik pemeriksaan. */}
+          <div className="relative mt-12">
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-x-0 top-12 hidden h-px bg-gradient-to-r from-brand-blue/35 via-brand-orange/60 to-brand-blue/35 lg:block"
+            />
+
+            <ol className="relative grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+              {STEPS.map((step, i) => {
+                const Icon = step.icon
+                // Langkah 2 adalah gerbangnya: satu-satunya tahap yang
+                // menahan sebelum ada yang ditulis ke buku besar.
+                const isGate = step.num === '2'
+
+                return (
+                  <li key={step.num} className="h-full">
+                    <Reveal delay={i * 0.08} className="h-full">
+                      <div
+                        className={`flex h-full flex-col rounded-md border border-border border-t-2 p-6 shadow-card ${
+                          isGate
+                            ? 'border-t-brand-orange bg-brand-orange-pale'
+                            : 'border-t-brand-blue bg-white'
+                        }`}
+                      >
+                        <div className="flex items-start justify-between gap-3">
+                          <span
+                            aria-hidden
+                            className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-md ${
+                              isGate ? 'bg-brand-orange/10' : 'bg-accent-light'
+                            }`}
+                          >
+                            <Icon
+                              size={24}
+                              weight="bold"
+                              className={isGate ? 'text-brand-orange' : 'text-brand-blue'}
+                            />
+                          </span>
+                          {/* Angka besar sebagai penanda urutan. Memakai
+                              varian -strong meski opasitasnya rendah, supaya
+                              tetap sejalan dengan aturan warna teks biru. */}
+                          <span
+                            aria-hidden
+                            className={`tabular font-heading text-h2 font-bold leading-none ${
+                              isGate ? 'text-brand-orange/30' : 'text-brand-blue-strong/20'
+                            }`}
+                          >
+                            0{step.num}
+                          </span>
+                        </div>
+
+                        {isGate ? (
+                          <span className={`${UI.marker} mt-5`}>
+                            <span aria-hidden className="h-1.5 w-1.5 rotate-45 bg-brand-orange" />
+                            Langkah 2 — Gerbang
+                          </span>
+                        ) : (
+                          <span className="mt-5 font-heading text-xs font-bold uppercase tracking-widest text-brand-blue-strong">
+                            Langkah {step.num}
+                          </span>
+                        )}
+
+                        <h3 className="mt-1.5 font-heading font-semibold text-text-primary">
+                          {step.title}
+                        </h3>
+                        <p className="mt-2 text-sm leading-relaxed text-text-secondary">
+                          {step.desc}
+                        </p>
+                      </div>
+                    </Reveal>
+                  </li>
+                )
+              })}
+            </ol>
           </div>
+
+          {/* Satu kalimat yang menjelaskan kenapa gerbang itu ada. Tanpa ini,
+              aksen oranye hanya terbaca sebagai hiasan. */}
+          <Reveal delay={0.16}>
+            <div className="mt-6 flex items-start gap-3.5 rounded-md border border-brand-orange/25 bg-brand-orange-pale px-5 py-4">
+              <ShieldCheck
+                size={19}
+                weight="bold"
+                aria-hidden
+                className="mt-0.5 shrink-0 text-brand-orange"
+              />
+              <span className="measure text-sm leading-relaxed text-text-secondary">
+                Hanya langkah 2 yang bisa membatalkan. Setelah melewatinya, jurnal sudah lahir
+                dan yang tersisa adalah membacanya — karena itu pemeriksaannya diletakkan
+                sebelum penulisan, bukan sesudahnya.
+              </span>
+            </div>
+          </Reveal>
 
           <Reveal delay={0.2}>
             <ShotFrame
+              slot="akuntansi_dashboard_rekonsiliasi"
               caption="Dashboard Rekonsiliasi dengan panel Pratinjau posting terbuka — inilah gerbang di langkah 2."
-              className="mt-12 min-h-[280px] md:min-h-[380px]"
+              className="mt-6 min-h-[280px] md:min-h-[380px]"
             />
           </Reveal>
       </Section>
@@ -705,6 +877,7 @@ export default function AkuntansiPDAMPage() {
                   ))}
                 </ul>
                 <ShotFrame
+                  slot="akuntansi_panel_preflight"
                   caption="Panel preflight menampilkan temuan pemblokir."
                   className="mt-6 min-h-[140px] border-white/20 bg-white/[0.04] [&_p]:text-white/50"
                 />
@@ -762,94 +935,218 @@ export default function AkuntansiPDAMPage() {
             />
           </Reveal>
 
-          <div className="mt-12 grid items-start gap-8 lg:grid-cols-2">
-            <Reveal>
-              <div className="overflow-hidden rounded-md border border-border bg-white shadow-card">
-                <div className="flex items-center gap-3 border-b border-border bg-white px-6 py-4">
+          {/* Tata letak sengaja bertumpuk, bukan dua kolom sejajar.
+              Versi dua kolom membuat kartu SAK EP berdampingan dengan tiga
+              blok pendukung sekaligus, sehingga tingginya tidak pernah imbang
+              dan sisi kiri terlihat kosong di bawah. */}
+          <Reveal>
+            <div className="mt-12 overflow-hidden rounded-md border border-border bg-white shadow-card">
+              <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border px-6 py-4">
+                <div className="flex items-center gap-3">
                   <Bank size={20} weight="bold" className="text-brand-blue" />
                   <h3 className="font-heading font-bold text-text-primary">
                     Laporan Keuangan SAK EP
                   </h3>
                 </div>
-                <ul>
-                  {SAKEP_REPORTS.map((r) => (
-                    <li
-                      key={r.name}
-                      className="flex flex-col gap-1 border-b border-border px-6 py-4 last:border-0 sm:flex-row sm:items-center sm:justify-between sm:gap-4"
+                <span className="tabular shrink-0 rounded-sm border border-border bg-surface-soft px-2.5 py-1 font-mono text-xs text-text-secondary">
+                  8 laporan
+                </span>
+              </div>
+
+              {/* Cakupan periode disebut sekali sebagai judul kelompok, bukan
+                  diulang di tiap baris seperti sebelumnya. */}
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-2 border-b border-border bg-surface-soft px-6 py-3.5">
+                <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-text-muted">
+                  Tiap laporan tersedia dalam
+                </span>
+                <span className="flex flex-wrap gap-1.5">
+                  {['Bulanan', 'Triwulan', 'Semester', 'Tahunan'].map((c) => (
+                    <span
+                      key={c}
+                      className="rounded-sm border border-brand-blue/25 bg-white px-2 py-0.5 font-mono text-xs text-brand-blue-strong"
                     >
-                      <span className="flex items-start gap-3 text-sm font-medium text-text-primary">
-                        <CheckCircle
-                          size={18}
-                          weight="bold"
-                          className="mt-0.5 flex-shrink-0 text-green-500"
-                        />
-                        {r.name}
+                      {c}
+                    </span>
+                  ))}
+                </span>
+              </div>
+
+              <ul className="grid md:grid-cols-2">
+                {SAKEP_PERIODIK.map((r, i) => (
+                  <li
+                    key={r.name}
+                    // Garis pemisah kolom tidak dipasang pada baris terakhir
+                    // yang berpasangan dengan kartu pengecualian di sebelahnya —
+                    // di situ aksen oranyenya yang menjadi pembatas.
+                    className={`border-b border-border px-6 py-4 ${
+                      i % 2 === 0 && i < SAKEP_PERIODIK.length - 1 ? 'md:border-r' : ''
+                    }`}
+                  >
+                    <span className="flex items-start gap-2.5">
+                      <CheckCircle
+                        size={17}
+                        weight="bold"
+                        aria-hidden
+                        className="mt-0.5 flex-shrink-0 text-state-success"
+                      />
+                      <span>
+                        <span className="block font-heading text-sm font-semibold leading-snug text-text-primary">
+                          {r.name}
+                        </span>
+                        <span className="mt-1 block text-sm leading-relaxed text-text-secondary">
+                          {r.what}
+                        </span>
                       </span>
-                      <span className="pl-8 text-xs text-text-muted sm:pl-0 sm:text-right">
-                        {r.scope}
+                    </span>
+                  </li>
+                ))}
+
+                {/* Satu-satunya laporan yang cakupan waktunya berbeda.
+                    Dibedakan supaya tidak tenggelam di antara tujuh lainnya. */}
+                <li className="border-b border-border border-l-2 border-l-brand-orange bg-brand-orange-pale px-6 py-4">
+                  <span className="flex items-start gap-2.5">
+                    <MagnifyingGlass
+                      size={17}
+                      weight="bold"
+                      aria-hidden
+                      className="mt-0.5 flex-shrink-0 text-brand-orange"
+                    />
+                    <span>
+                      <span className="flex flex-wrap items-baseline gap-x-2.5 gap-y-1">
+                        <span className="font-heading text-sm font-semibold text-text-primary">
+                          Buku Besar — satu akun
+                        </span>
+                        <span className="font-mono text-xs text-brand-orange">
+                          rentang tanggal bebas
+                        </span>
                       </span>
+                      <span className="mt-1 block text-sm leading-relaxed text-text-secondary">
+                        Kumulatif, per bulan, atau rentang yang Anda tentukan sendiri — untuk
+                        menelusuri satu akun tanpa terkunci batas periode.
+                      </span>
+                    </span>
+                  </span>
+                </li>
+              </ul>
+
+              {/* Klaim "satu jalur hitung" pada subtitle diberi wujudnya di
+                  sini — ditunjukkan, bukan ditulis ulang. */}
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-3 border-b border-border px-6 py-4">
+                <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-text-muted">
+                  Keluaran
+                </span>
+                {SAKEP_OUTPUTS.map((o) => {
+                  const OutIcon = o.icon
+                  return (
+                    <span
+                      key={o.label}
+                      className="inline-flex items-center gap-2 text-sm font-medium text-text-secondary"
+                    >
+                      <OutIcon size={16} weight="bold" aria-hidden className="text-brand-blue" />
+                      {o.label}
+                    </span>
+                  )
+                })}
+              </div>
+
+              <div className="bg-surface-soft px-6 py-4 text-xs text-text-secondary">
+                Ditambah <strong>Dashboard Keuangan</strong> dan{' '}
+                <strong>Periksa Konfigurasi</strong> — dua halaman pendukung, bukan laporan.
+              </div>
+            </div>
+          </Reveal>
+
+          {/* Dua kartu pendukung. Keduanya dalam satu baris grid, sehingga
+              tingginya otomatis sama tanpa perlu diatur manual. */}
+          <div className="mt-6 grid gap-6 lg:grid-cols-2">
+            <Reveal delay={0.1}>
+              <div className={`${UI.card} h-full`}>
+                <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <Table size={20} weight="bold" className="text-brand-blue" />
+                    <h3 className="font-heading font-bold text-text-primary">
+                      Laporan Manajemen
+                    </h3>
+                  </div>
+                  <span className="tabular shrink-0 rounded-sm border border-border bg-surface-soft px-2.5 py-1 font-mono text-xs text-text-secondary">
+                    12 keluaran
+                  </span>
+                </div>
+
+                <ul className="flex flex-wrap gap-2">
+                  {LAPORAN_MANAJEMEN.map((name) => (
+                    <li
+                      key={name}
+                      className="rounded-sm border border-border bg-surface-soft px-2.5 py-1.5 text-xs font-medium text-text-secondary"
+                    >
+                      {name}
                     </li>
                   ))}
                 </ul>
-                <div className="bg-surface-soft px-6 py-4 text-xs text-text-secondary">
-                  Ditambah <strong>Dashboard Keuangan</strong> dan{' '}
-                  <strong>Periksa Konfigurasi</strong> — dua halaman pendukung, bukan laporan.
-                </div>
+
+                <p className="mt-4 text-sm leading-relaxed text-text-secondary">
+                  Tujuh laporan, sebagian punya versi bulanan dan tahunan — karena itu dua
+                  belas keluaran, semuanya bisa diunduh ke Excel. Dipakai untuk kebutuhan
+                  internal dan rapat, di luar laporan resmi SAK EP.
+                </p>
               </div>
             </Reveal>
 
-            <div className="space-y-6">
-              <Reveal delay={0.1}>
-                <div className={UI.card}>
-                  <div className="mb-4 flex items-center gap-3">
-                    <Table size={20} weight="bold" className="text-brand-blue" />
-                    <h3 className="font-heading font-bold text-text-primary">
-                      Laporan Manajemen — dua belas
-                    </h3>
-                  </div>
-                  <p className="text-sm leading-relaxed text-text-secondary">
-                    Neraca Lajur, Neraca, Laba Rugi, Laba Rugi vs Anggaran, Rincian Biaya,
-                    Ekuitas, dan Arus Kas — dalam cakupan bulanan maupun tahunan, dengan
-                    export Excel. Untuk kebutuhan internal, di luar laporan resmi SAK EP.
-                  </p>
+            <Reveal delay={0.15}>
+              <div className="h-full rounded-md border border-brand-blue/20 border-l-2 border-l-brand-blue bg-brand-blue/5 p-6">
+                <Badge className="mb-4">Jarang ada di tempat lain</Badge>
+                <div className="mb-3 flex items-center gap-3">
+                  <MagnifyingGlass size={20} weight="bold" className="text-brand-blue" />
+                  <h3 className="font-heading font-bold text-text-primary">Periksa Konfigurasi</h3>
                 </div>
-              </Reveal>
+                <p className="text-sm leading-relaxed text-text-secondary">
+                  Susunan Arus Kas dan Perubahan Ekuitas disimpan sebagai konfigurasi per buku.
+                  Kalau konfigurasi itu menunjuk akun yang tidak ada — misalnya karena disalin
+                  dari PDAM lain yang bagan akunnya berbeda — laporannya <strong>tidak
+                  error</strong>, ia hanya mencetak nol. Halaman ini memeriksa seluruh barisnya
+                  terhadap bagan akun buku yang sedang dipakai, dan menyebutkan mana yang
+                  menggantung.
+                </p>
 
-              <Reveal delay={0.15}>
-                <div className="rounded-md border border-brand-blue/20 border-l-2 border-l-brand-blue bg-brand-blue/5 p-6">
-                  <Badge className="mb-4">Jarang ada di tempat lain</Badge>
-                  <div className="mb-3 flex items-center gap-3">
-                    <MagnifyingGlass size={20} weight="bold" className="text-brand-blue" />
-                    <h3 className="font-heading font-bold text-text-primary">
-                      Periksa Konfigurasi
-                    </h3>
+                {/* Dua angka ini sebelumnya terkubur di dalam paragraf,
+                    padahal inilah bukti paling kuat di kartu ini. */}
+                <dl className="mt-5 flex gap-8 border-t border-brand-blue/15 pt-5">
+                  <div className="flex flex-col-reverse">
+                    <dt className="text-xs leading-snug text-text-muted">
+                      rujukan kelompok akun
+                    </dt>
+                    <dd className="tabular font-heading text-h2 font-bold text-brand-blue-strong">
+                      27
+                    </dd>
                   </div>
-                  <p className="text-sm leading-relaxed text-text-secondary">
-                    Susunan Arus Kas dan Perubahan Ekuitas disimpan sebagai konfigurasi per
-                    buku. Kalau konfigurasi itu menunjuk akun yang tidak ada — misalnya
-                    karena disalin dari PDAM lain yang bagan akunnya berbeda — laporannya{' '}
-                    <strong>tidak error</strong>, ia hanya mencetak nol. Halaman ini
-                    memeriksa seluruh barisnya terhadap bagan akun buku yang sedang dipakai,
-                    dan menyebutkan mana yang menggantung.
-                  </p>
-                  <p className="mt-4 border-t border-brand-blue/15 pt-4 text-sm leading-relaxed text-text-secondary">
-                    Bukan fitur teoretis: di satu pemasangan,{' '}
-                    <strong className="text-text-primary">
-                      27 rujukan kelompok akun dan 16 rujukan akun menggantung sekaligus
-                    </strong>{' '}
-                    — tanpa satu pun pesan kesalahan sebelumnya.
-                  </p>
-                </div>
-              </Reveal>
-
-              <Reveal delay={0.2}>
-                <ShotFrame
-                  caption="Neraca dengan grid ala Excel — header dan baris Total beku saat digulir."
-                  className="min-h-[200px]"
-                />
-              </Reveal>
-            </div>
+                  <div className="flex flex-col-reverse">
+                    <dt className="text-xs leading-snug text-text-muted">rujukan akun</dt>
+                    <dd className="tabular font-heading text-h2 font-bold text-brand-blue-strong">
+                      16
+                    </dd>
+                  </div>
+                </dl>
+                <p className="mt-3 text-sm leading-relaxed text-text-secondary">
+                  Menggantung sekaligus di satu pemasangan —{' '}
+                  <strong className="text-text-primary">
+                    tanpa satu pun pesan kesalahan sebelumnya
+                  </strong>
+                  .
+                </p>
+              </div>
+            </Reveal>
           </div>
+
+          {/* Tangkapan layar diberi lebar penuh: isinya tabel keuangan yang
+              lebar, dan menyempitkannya ke setengah kolom membuat angkanya
+              tidak terbaca. */}
+          <Reveal delay={0.2}>
+            <ShotFrame
+              slot="akuntansi_laporan_neraca"
+              caption="Neraca dengan grid ala Excel — header dan baris Total beku saat digulir."
+              className="mt-6 min-h-[200px]"
+            />
+          </Reveal>
       </Section>
 
       {/* Dua edisi */}
@@ -940,6 +1237,7 @@ export default function AkuntansiPDAMPage() {
             </Reveal>
             <Reveal delay={0.15}>
               <ShotFrame
+                slot="akuntansi_drawer_panduan"
                 caption="Drawer panduan terbuka di atas layar modul."
                 className="min-h-[300px] bg-white"
               />

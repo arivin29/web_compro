@@ -126,9 +126,25 @@ Jangan dua `soft` berturut-turut, jangan seluruh halaman `white`.
 ### Lebar container
 
 Pakai prop `width` pada `Section` (`default` · `narrow` · `prose`), **bukan**
-`containerClassName="max-w-…"`. tailwind-merge tidak mengenali token
-`max-w-container`, jadi menimpanya lewat class menghasilkan dua kelas
-max-width sekaligus dan lebarnya bergantung urutan CSS.
+`containerClassName="max-w-…"`. Pilihannya terbatas dan bernama, sehingga
+lebar halaman tidak berubah diam-diam lewat angka acak di tengah markup.
+
+### tailwind-merge
+
+Impor `twMerge` dari **`@/lib/cn`**, jangan langsung dari `tailwind-merge`.
+
+tailwind-merge menebak kelompok sebuah kelas dari namanya, dan skala
+tipografi di sini memakai nama sendiri (`text-body-sm`, `text-h2`, …) yang
+ia kira warna teks. Tanpa konfigurasi, satu pemanggilan yang memuat ukuran
+dan warna sekaligus akan kehilangan salah satunya — diam-diam, saat runtime:
+
+```
+twMerge('bg-brand-orange text-white', 'text-body-sm')
+  → 'bg-brand-orange text-body-sm'      ← text-white hilang
+```
+
+Itu yang membuat label tombol primary tidak pernah benar-benar putih sampai
+4 September 2026. Audit memeriksa impor langsung.
 
 ---
 
@@ -142,6 +158,8 @@ Butuh warna yang belum ada? Tambahkan tokennya dulu.
 | Token | Hex | Untuk apa |
 |---|---|---|
 | `brand-orange` | `#F0701F` | CTA utama, highlight, active state |
+| `brand-orange-ink` | `#A8490B` | **Teks/label oranye di permukaan terang** (5.80:1) |
+| `brand-orange-pale` | `#FDF4EC` | Permukaan oranye pucat yang **opak** |
 | `brand-red` | `#E5301E` | Aksen dampak, dekorasi. Bukan warna aksi |
 | `brand-blue` | `#4479B3` | Fill, ikon, dekorasi |
 | `brand-blue-strong` | `#356399` | **Teks & link di permukaan terang** |
@@ -159,7 +177,8 @@ Rasio yang disarankan: **70% netral, 20% biru/navy, 10% oranye/merah.**
 
 Angka di bawah dari perhitungan WCAG, bukan perkiraan.
 
-**Tombol oranye memakai label putih bersih** — keputusan merek (3 Sep 2026).
+**Setiap permukaan `bg-brand-orange` yang memuat teks memakai putih bersih** —
+keputusan merek (3 Sep 2026, diperluas ke seluruh permukaan 4 Sep 2026).
 Kontrasnya 2.98:1 dan tidak memenuhi AA, sehingga berlaku batasan:
 
 - Jangan memakai `size="sm"` untuk aksi penting.
@@ -169,6 +188,12 @@ Kontrasnya 2.98:1 dan tidak memenuhi AA, sehingga berlaku batasan:
   aman (5.87:1).
 - Bila AA perlu dipulihkan, cukup gelapkan permukaan tombol ke `#B9540E`
   (putih = 4.84:1). Tidak ada perubahan lain yang dibutuhkan.
+- **Teks oranye di atas permukaan terang** pakai `brand-orange-ink`, bukan
+  `brand-orange` — yang terakhir hanya 2.98:1 di atas putih. `brand-orange`
+  tetap benar untuk ikon, garis aksen, dan angka dekoratif.
+- Latar bernada pakai token opak (`brand-orange-pale`, `accent-light`), bukan
+  `bg-brand-orange/[0.04]`. Warna transparan membuat elemen dekoratif di
+  belakang kartu — garis penghubung, pola titik — terlihat menembusnya.
 
 Sisanya mengikat:
 
@@ -176,8 +201,9 @@ Sisanya mengikat:
   (`brand-blue` di atas `surface-soft` hanya 4.06:1).
 - Di permukaan gelap pakai `brand-blue-soft`.
 - Teks putih di atas `brand-red` hanya 4.4:1 — pakai `brand-red-strong`.
-- Nomor tahap `ProcessCard` tetap navy di atas oranye: ukurannya 11px,
-  terlalu kecil untuk 2.98:1, dan itu penanda — bukan tombol.
+- Nomor tahap `ProcessCard` juga putih di atas oranye. Ukurannya 11px,
+  jadi ini titik paling rawan dari aturan di atas — jangan mengecilkannya
+  lagi, dan pertahankan `font-bold`.
 
 Kombinasi warna baru wajib dihitung ulang, bukan dikira-kira.
 
@@ -233,6 +259,61 @@ Semua dari `@/components/ui`. Props lengkap: `references/component-api.md`.
 
 Maksimal **satu tombol `primary`** per kelompok aksi.
 Maksimal **satu `ForwardLayers` dominan** per viewport.
+
+---
+
+## Gambar
+
+**Jangan pernah menulis path gambar konten langsung** (`src="/images/..."`).
+Semua screenshot, foto, dan ilustrasi diambil lewat slot:
+
+```tsx
+import { slotImage, slotImageOrNull } from '@/lib/images'
+
+<Image src={slotImage('pdam_ibs_dashboard')} alt="…" fill />
+```
+
+Satu slot = satu posisi gambar = satu folder di
+`public/images/slots/<slot>/`. Pengisi konten menaruh file dengan nama
+bebas ke folder itu; `scripts/sync-image-slots.mjs` membaca isinya saat
+dev dan saat build, lalu menulis `src/lib/image-slots.generated.ts`.
+File itu **dihasilkan otomatis — jangan diedit tangan.**
+
+- Folder kosong → `slotImage` mengembalikan `/images/placeholder.svg`.
+- `slotImageOrNull` mengembalikan `null`, untuk tempat yang punya
+  pengganti lebih baik daripada placeholder (mis. inisial nama di foto tim).
+- Nama slot bertipe union, jadi salah ketik tertangkap `tsc`.
+
+Menambah posisi gambar baru: tambahkan entri di
+`scripts/image-slots.config.mjs`, jalankan `npm run images:sync`.
+
+Pengecualian yang tetap memakai path langsung: logo dan favicon
+(`public/images/logo/`, `public/images/devetek-icon.png`) — itu aset
+identitas, bukan konten yang diganti-ganti.
+
+---
+
+## Struktur informasi
+
+Produk dan layanan **tidak boleh dicampur** dalam satu daftar, satu menu,
+atau satu halaman. Keduanya dibeli dengan cara yang berbeda:
+
+| | Produk | Layanan |
+|---|---|---|
+| Sumber data | `PRODUCTS` | `SERVICES` |
+| Route | `/products/…` | `/services/…` |
+| Sifat | Sudah jadi, tinggal disesuaikan | Lingkupnya disusun bersama klien |
+| Isi | Solusi PDAM · HELIOS · ERP | Software House · Konsultasi & Pengadaan |
+
+Menu utama memakai dua dropdown terpisah (`Produk ▾`, `Layanan ▾`) yang
+keduanya berasal dari `NAV_ITEMS`. Menambah dropdown ketiga tidak perlu
+mengubah `Navbar.tsx` — cukup tambahkan entri ber-`children` beserta
+`hubLabel`-nya.
+
+Daftar proyek lintas sektor tinggal di `/services/software-house`, bukan di
+`/clients`. Halaman `/clients` berisi bukti sektor — nama institusi, jumlah
+per sektor, dan rujukan yang bisa dihubungi — bukan galeri portofolio.
+Alasannya di blueprint §26.
 
 ---
 

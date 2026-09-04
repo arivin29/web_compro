@@ -32,6 +32,7 @@ import {
   Section,
   SectionHeading,
 } from '@/components/ui'
+import { slotImageOrNull, type ImageSlot } from '@/lib/images'
 import CTASection from '@/components/sections/CTASection'
 
 const PLATFORM_FEATURES = [
@@ -73,26 +74,85 @@ const PLATFORM_FEATURES = [
   },
 ]
 
+/**
+ * Spesifikasi perangkat keras.
+ *
+ * Diselaraskan dengan iot.devetek.app/hardware.html pada 4 September 2026.
+ * Versi sebelumnya di halaman ini menyimpang dari situs produk — mis. BLE
+ * dan SD Card 32GB dicantumkan pada Type B, padahal keduanya berlaku umum,
+ * sementara pilihan LoRa justru milik Type C. Dua situs milik perusahaan
+ * yang sama menyebut spesifikasi berbeda adalah masalah nyata saat dokumen
+ * penawaran diperiksa.
+ *
+ * `included` menyebut yang sudah masuk paket — ini pertanyaan pertama
+ * bagian pengadaan, dan sebelumnya tidak terjawab di mana pun.
+ */
 const HARDWARE = [
   {
     type: 'Type A',
     name: 'Universal Logger',
-    desc: 'Multi-sensor untuk flow, pressure, dan level monitoring. Cocok untuk DMA dan titik kritis.',
-    specs: ['Baterai LiFePO4 jangka panjang', 'Solar powered 20WP', 'IP65 weatherproof', 'RS485 Modbus RTU + 4-20mA'],
+    desc: 'Perangkat paling lengkap. Untuk titik yang butuh baca sekaligus kendali — rumah pompa, titik kritis distribusi, dan instalasi industri.',
+    included: 'Sensor tekanan + sensor debit TUF-2000M',
+    battery: 'LiFePO4 25Ah — bertahan 3–5 hari tanpa matahari',
+    specs: [
+      'RS485 Modbus, 1–5 alamat',
+      '2× analog 4–20mA · 2× digital input',
+      '2× relay 10A @ 250VAC untuk kendali',
+      'Konfigurasi diubah dari cloud, tanpa datang ke lokasi',
+    ],
   },
   {
     type: 'Type B',
     name: 'Pipeline Logger',
-    desc: 'Khusus monitoring tekanan dan aliran pipa distribusi. Deteksi kebocoran realtime.',
-    specs: ['GSM 4G / 2G + BLE 5.0', 'SD Card offline 32GB', 'Auto-calibration', 'Pressure transducer'],
+    desc: 'Versi ringkas untuk pemantauan tekanan pipa distribusi. Paling banyak dipakai PDAM karena bisa langsung dipasang tanpa penyesuaian.',
+    included: 'Sensor tekanan',
+    battery: 'LiFePO4 8Ah — bertahan 1–2 hari tanpa matahari',
+    specs: [
+      '2× analog 4–20mA · 2× digital input',
+      'Panel surya 20WP, kaca tempered 1,2mm',
+      'Siap pasang di titik DMA',
+    ],
   },
   {
     type: 'Type C',
     name: 'Custom Solution',
-    desc: 'Disesuaikan kebutuhan spesifik: water quality, pump monitoring, atau telemetri custom.',
-    specs: ['Modular design', 'Custom firmware', 'Flexible I/O', 'Multi-protocol support'],
+    desc: 'Dirakit mengikuti kebutuhan lokasi. Dipilih ketika sinyal seluler tidak tersedia, atau ketika titik pantaunya banyak dan berdekatan.',
+    included: 'Ditentukan saat pemesanan',
+    battery: 'Kapasitas menyesuaikan kebutuhan',
+    specs: [
+      'GSM 4G/2G atau LoRa — dipilih saat pemesanan',
+      'LoRa berjalan tanpa SIM card di tiap titik',
+      'RS485, analog, relay, dan sensor bersifat opsional',
+    ],
   },
 ]
+
+/** Berlaku untuk ketiga tipe. Garansi sengaja ditaruh paling depan. */
+const HARDWARE_COMMON = [
+  { label: 'Garansi', value: '12 bulan perangkat · 24 bulan baterai' },
+  { label: 'Ketahanan', value: 'IP65 — tahan hujan dan debu lapangan' },
+  { label: 'Panel surya', value: '20WP, efisiensi ≥18%, IP67, usia pakai 25+ tahun' },
+  { label: 'Interval kirim', value: '2 menit, dapat diatur sesuai kebutuhan' },
+  { label: 'Saat jaringan putus', value: 'Data ditahan di SD card, dikirim ulang setelah tersambung' },
+  { label: 'Pembaruan', value: 'Firmware diperbarui jarak jauh (OTA), tanpa kunjungan' },
+  { label: 'Keamanan', value: 'Enkripsi TLS/SSL dari perangkat sampai server' },
+]
+
+/**
+ * Dokumentasi pemasangan di lapangan.
+ *
+ * Foto hanya ditampilkan bila folder slotnya berisi; galeri yang separuh
+ * kosong lebih merugikan daripada tidak ada galeri sama sekali.
+ */
+const FIELD_PHOTOS = [
+  { slot: 'helios_kegiatan_tiang_terpasang', caption: 'Tiang monitoring terpasang lengkap dengan panel surya dan boks sensor' },
+  { slot: 'helios_kegiatan_node_sensor', caption: 'Node dengan rangkaian sensor terpasang penuh' },
+  { slot: 'helios_kegiatan_lokasi_pdam', caption: 'Unit terpasang di salah satu lokasi PDAM' },
+  { slot: 'helios_kegiatan_rakit_tiang', caption: 'Perakitan tiang galvanis sebelum didirikan' },
+  { slot: 'helios_kegiatan_bracket_panel', caption: 'Pemasangan bracket panel surya' },
+  { slot: 'helios_kegiatan_pondasi', caption: 'Persiapan pondasi di titik pemasangan' },
+  { slot: 'helios_kegiatan_angkat_tiang', caption: 'Pendirian tiang di lokasi' },
+] as const
 
 const PIPELINE_STEPS = [
   { num: '1', icon: PlugsConnected, title: 'Hubungkan', desc: 'Hubungkan device apapun — ESP32, Arduino, PLC, Raspberry Pi — via MQTT, TCP, atau HTTP. Auto-discovery bawaan.' },
@@ -175,11 +235,12 @@ const SCREENSHOTS = [
 /**
  * DEVETEK HELIOS — blueprint §18.
  *
- * CATATAN: angka pada bagian "Spesifikasi platform" (respons API, throughput,
- * uptime) adalah target rancangan, bukan hasil pengukuran yang dipublikasikan.
- * Penyebutannya sengaja dibingkai sebagai spesifikasi, sesuai blueprint §8.4
- * yang mensyaratkan konteks untuk angka yang bersifat publik. Ganti dengan
- * hasil pengukuran begitu tersedia.
+ * CATATAN ANGKA: nilai pada "Spesifikasi Platform" (respons API, throughput,
+ * ketersediaan) diselaraskan dengan yang diterbitkan Devetek sendiri di
+ * iot.devetek.app. Angka 99,9% dibingkai sebagai komitmen layanan, bukan
+ * hasil pengukuran — pembedaan itu penting karena keduanya diperlakukan
+ * berbeda dalam dokumen kontrak. Bila suatu saat ada laporan ketersediaan
+ * yang benar-benar diukur, tambahkan periodenya di sini.
  */
 export default function HeliosPage() {
   return (
@@ -373,24 +434,47 @@ export default function HeliosPage() {
           <SectionHeading
             label="Perangkat Keras"
             title="Tiga jenis logger untuk kondisi lapangan berbeda"
+            subtitle="Kami merancang perangkatnya sendiri, bukan membeli lalu memberi merek. Itu sebabnya sensor, baterai, dan panel suryanya sudah cocok satu sama lain sejak dari kotaknya."
           />
         </Reveal>
+
         <div className="mt-12 grid gap-5 md:grid-cols-3">
           {HARDWARE.map((hw, i) => (
-            <Reveal key={hw.type} delay={i * 0.08}>
+            <Reveal key={hw.type} delay={i * 0.08} className="h-full">
               <Card padding="lg" accent="orange" interactive={false} className="h-full">
-                <span className="font-mono text-body-sm text-brand-orange">{hw.type}</span>
+                <span className="font-mono text-body-sm text-brand-orange-ink">{hw.type}</span>
                 <h3 className="mt-2 font-heading text-h3 font-semibold text-text-primary">
                   {hw.name}
                 </h3>
                 <p className="mt-2 font-body text-body-sm leading-relaxed text-text-secondary">
                   {hw.desc}
                 </p>
+
+                {/* Dua hal yang paling sering ditanyakan lebih dulu:
+                    apa yang sudah termasuk, dan tahan berapa lama. */}
+                <dl className="mt-5 space-y-3 rounded-md border border-border bg-surface-soft p-4">
+                  <div className="flex flex-col-reverse">
+                    <dt className="font-body text-body-sm text-text-muted">Sudah termasuk</dt>
+                    <dd className="font-body text-body-sm font-semibold text-text-primary">
+                      {hw.included}
+                    </dd>
+                  </div>
+                  <div className="flex flex-col-reverse border-t border-border pt-3">
+                    <dt className="font-body text-body-sm text-text-muted">Daya cadangan</dt>
+                    <dd className="font-body text-body-sm font-semibold text-text-primary">
+                      {hw.battery}
+                    </dd>
+                  </div>
+                </dl>
+
                 <ul className="mt-4 space-y-1.5">
-                  {hw.specs.map((s) => (
-                    <li key={s} className="flex items-start gap-2">
-                      <span aria-hidden className="mt-[0.45rem] h-1.5 w-1.5 shrink-0 rotate-45 bg-brand-blue" />
-                      <span className="font-body text-body-sm text-text-secondary">{s}</span>
+                  {hw.specs.map((spec) => (
+                    <li key={spec} className="flex items-start gap-2">
+                      <span
+                        aria-hidden
+                        className="mt-[0.45rem] h-1.5 w-1.5 shrink-0 rotate-45 bg-brand-blue"
+                      />
+                      <span className="font-body text-body-sm text-text-secondary">{spec}</span>
                     </li>
                   ))}
                 </ul>
@@ -398,9 +482,93 @@ export default function HeliosPage() {
             </Reveal>
           ))}
         </div>
+
+        {/* Yang berlaku untuk ketiga tipe — sebelumnya tercecer di kartu
+            masing-masing sehingga terbaca seolah pembeda antar-tipe. */}
+        <Reveal delay={0.16}>
+          <div className="mt-6 overflow-hidden rounded-md border border-border bg-surface-white shadow-card">
+            <div className="border-b border-border px-6 py-4">
+              <h3 className="font-heading font-bold text-text-primary">
+                Berlaku untuk ketiga tipe
+              </h3>
+            </div>
+            <dl className="grid md:grid-cols-2 lg:grid-cols-3">
+              {HARDWARE_COMMON.map((c, i) => (
+                <div
+                  key={c.label}
+                  className={`border-b border-border px-6 py-4 lg:border-r ${
+                    i === 0 ? 'bg-brand-orange-pale' : ''
+                  }`}
+                >
+                  <dt className="font-body text-body-sm text-text-muted">{c.label}</dt>
+                  <dd className="mt-1 font-body text-body-sm font-medium leading-relaxed text-text-primary">
+                    {c.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </Reveal>
       </Section>
 
-      <Section tone="white">
+      {/* Dokumentasi lapangan — bukti bahwa perangkatnya benar-benar dipasang,
+          bukan hanya ada di katalog. */}
+      {FIELD_PHOTOS.some((f) => slotImageOrNull(f.slot as ImageSlot)) && (
+        <Section tone="white">
+          <Reveal>
+            <SectionHeading
+              label="Dokumentasi Lapangan"
+              title="Bukan render katalog — ini pemasangan sesungguhnya"
+              subtitle="Dari penyiapan pondasi, perakitan tiang, sampai unit berdiri dan mengirim data. Seluruhnya dikerjakan tim yang sama."
+            />
+          </Reveal>
+
+          <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {FIELD_PHOTOS.map((photo, i) => {
+              const src = slotImageOrNull(photo.slot as ImageSlot)
+              if (!src) return null
+
+              // Foto pertama diberi porsi lebih besar: itu gambaran utuh
+              // hasil pemasangan, sisanya potongan prosesnya.
+              const featured = i === 0
+
+              return (
+                <li
+                  key={photo.slot}
+                  className={featured ? 'sm:col-span-2 sm:row-span-2' : undefined}
+                >
+                  <Reveal delay={Math.min(i, 6) * 0.06} className="h-full">
+                    <figure className="flex h-full flex-col overflow-hidden rounded-md border border-border bg-surface-white shadow-card">
+                      <div
+                        className={`relative w-full overflow-hidden bg-surface-soft ${
+                          featured ? 'aspect-[4/3] sm:flex-1' : 'aspect-[4/5]'
+                        }`}
+                      >
+                        <Image
+                          src={src}
+                          alt={photo.caption}
+                          fill
+                          sizes={
+                            featured
+                              ? '(max-width: 640px) 100vw, 50vw'
+                              : '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw'
+                          }
+                          className="object-cover"
+                        />
+                      </div>
+                      <figcaption className="px-4 py-3 font-body text-body-sm leading-snug text-text-secondary">
+                        {photo.caption}
+                      </figcaption>
+                    </figure>
+                  </Reveal>
+                </li>
+              )
+            })}
+          </ul>
+        </Section>
+      )}
+
+      <Section tone="soft">
         <div className="grid gap-12 lg:grid-cols-[1.1fr_1fr]">
           <Reveal>
             <div>
@@ -446,14 +614,19 @@ export default function HeliosPage() {
 
           <Reveal delay={0.1}>
             <div>
-              <SectionHeading label="Spesifikasi Platform" title="Target rancangan" as="h2" />
+              <SectionHeading
+                label="Spesifikasi Platform"
+                title="Angka yang kami pegang"
+                as="h2"
+              />
               <p className="measure mt-3 font-body text-body-sm text-text-muted">
-                Angka berikut adalah target rancangan platform, bukan hasil pengukuran yang
-                dipublikasikan.
+                Spesifikasi dan komitmen layanan platform, sebagaimana diterbitkan di situs
+                produk HELIOS. Ketersediaan 99,9% adalah komitmen layanan, bukan rata-rata
+                pengukuran satu periode tertentu.
               </p>
               <dl className="mt-8 grid grid-cols-2 gap-4">
                 {STATS.map((s) => (
-                  <div key={s.label} className="rounded-md border border-border bg-surface-soft p-5">
+                  <div key={s.label} className="rounded-md border border-border bg-surface-white p-5">
                     <div className="flex flex-col-reverse">
                       <dt className="mt-1.5 font-body text-body-sm text-text-secondary">
                         {s.label}

@@ -83,6 +83,17 @@ if [ -z "$HEX" ]; then pass "Tidak ada hex mentah di komponen"; else
 fi
 
 # ── 2. Bentuk & radius ────────────────────────────────────────
+# tailwind-merge harus lewat src/lib/cn.ts. Mengimpornya langsung berarti
+# memakai konfigurasi bawaan, yang tidak mengenal token tipografi project ini
+# dan diam-diam membuang `text-white` atau `text-body-sm` dari hasil merge.
+RAW_TWMERGE=$(grep -rn "from 'tailwind-merge'" src/ 2>/dev/null | grep -v 'src/lib/cn.ts' || true)
+if [ -n "$RAW_TWMERGE" ]; then
+  fail "tailwind-merge diimpor langsung — pakai twMerge dari @/lib/cn"
+  echo "$RAW_TWMERGE" | sed 's/^/      /'
+else
+  pass "tailwind-merge lewat konfigurasi bersama"
+fi
+
 head1 "2. Bentuk & radius"
 
 PILL=$(grep -rn 'rounded-full' src/ --include='*.tsx' 2>/dev/null \
@@ -129,8 +140,14 @@ fi
 # menyalakan server. Bila dev server kebetulan jalan, ia dipakai dan build
 # dilewati, karena keduanya berbagi direktori .next.
 SERVER_UP=0
+DEV_SERVER=0
 RENDER_SRC=""
-curl -sf -o /dev/null --max-time 3 "$URL/" 2>/dev/null && SERVER_UP=1
+BODY=$(curl -sf --max-time 3 "$URL/" 2>/dev/null) && SERVER_UP=1
+# Bedakan `next dev` dari server file statis biasa (mis. `serve out`).
+# Hanya dev server yang berbagi .next dan karena itu perlu membuat build
+# dilewati; server statis justru menyajikan hasil build, jadi build tetap
+# harus jalan. Penanda: dev server memuat /_next/static/development/.
+case "$BODY" in *"_next/static/development"*) DEV_SERVER=1 ;; esac
 
 if [ "$FAST" -eq 1 ]; then
   head1 "4. Build"; warn "dilewati (--fast)"
@@ -142,7 +159,7 @@ else
   npx next lint >/tmp/dv-lint.log 2>&1 && pass "lint bersih" \
     || { fail "lint gagal"; tail -12 /tmp/dv-lint.log | sed 's/^/      /'; }
 
-  if [ "$SERVER_UP" -eq 1 ]; then
+  if [ "$DEV_SERVER" -eq 1 ]; then
     warn "dev server jalan — build dilewati (berbagi .next); render diperiksa lewat $URL"
     RENDER_SRC="server"
   elif npm run build >/tmp/dv-build.log 2>&1; then
