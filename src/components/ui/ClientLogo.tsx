@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { twMerge } from 'tailwind-merge'
+import { twMerge } from '@/lib/cn'
 
 interface ClientLogoProps {
   src: string

@@ -1,6 +1,6 @@
 import { ElementType, ReactNode } from 'react'
 import Link from 'next/link'
-import { twMerge } from 'tailwind-merge'
+import { twMerge } from '@/lib/cn'
 
 export type CardTone = 'light' | 'soft' | 'dark' | 'dark-soft'
 export type CardAccent = 'none' | 'brand' | 'orange' | 'blue' | 'gradient'

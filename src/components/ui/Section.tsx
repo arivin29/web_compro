@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { twMerge } from 'tailwind-merge'
+import { twMerge } from '@/lib/cn'
 import Container from './Container'
 
 export type SectionTone = 'page' | 'white' | 'soft' | 'dark' | 'dark-soft'
@@ -19,10 +19,13 @@ interface SectionProps {
   /** Garis pembatas atas/bawah. */
   divider?: 'none' | 'top' | 'signature-top'
   /**
-   * Lebar container. Pakai prop ini, JANGAN menimpa lewat
-   * `containerClassName="max-w-..."` — tailwind-merge tidak mengenali
-   * token `max-w-container`, sehingga dua kelas max-width akan ikut
-   * terpasang sekaligus dan hasilnya bergantung urutan CSS.
+   * Lebar container. Pakai prop ini, bukan `containerClassName="max-w-..."`.
+   *
+   * Sejak `@/lib/cn` mengajari tailwind-merge token `max-w-container`,
+   * menimpanya lewat class memang tidak lagi menghasilkan dua kelas
+   * max-width sekaligus. Prop ini tetap satu-satunya jalan yang benar:
+   * pilihannya terbatas dan bernama, sehingga lebar halaman tidak berubah
+   * diam-diam lewat angka acak di tengah markup.
    */
   width?: 'default' | 'narrow' | 'prose'
   id?: string

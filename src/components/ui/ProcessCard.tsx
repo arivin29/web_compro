@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { twMerge } from 'tailwind-merge'
+import { twMerge } from '@/lib/cn'
 
 interface ProcessCardProps {
   /** Nomor tahap, mis. "01". Tampil besar sesuai blueprint §8.5. */
@@ -39,7 +39,10 @@ export default function ProcessCard({
           {icon}
           <span
             aria-hidden
-            className="absolute -right-2 -top-2 flex h-6 min-w-6 items-center justify-center rounded-sm bg-brand-orange px-1 font-heading text-[0.6875rem] font-bold text-brand-navy"
+            /* Putih bersih di atas oranye merek — keputusan merek, berlaku
+               untuk SETIAP permukaan `bg-brand-orange` yang memuat teks,
+               bukan hanya tombol. Ditetapkan 4 September 2026. */
+            className="absolute -right-2 -top-2 flex h-6 min-w-6 items-center justify-center rounded-sm bg-brand-orange px-1 font-heading text-[0.6875rem] font-bold text-white"
           >
             {step}
           </span>

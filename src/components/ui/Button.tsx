@@ -2,7 +2,7 @@
 
 import { AnchorHTMLAttributes, ButtonHTMLAttributes, forwardRef, ReactNode } from 'react'
 import Link from 'next/link'
-import { twMerge } from 'tailwind-merge'
+import { twMerge } from '@/lib/cn'
 
 export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'whatsapp'
 export type ButtonSize = 'sm' | 'default' | 'lg'
@@ -30,8 +30,10 @@ export type ButtonProps = ButtonAsButton | ButtonAsLink
  * Varian tombol — blueprint §7.1.
  *
  * Label primary memakai putih bersih di atas oranye merek — keputusan
- * merek, ditetapkan 3 Sep 2026. Kontrasnya 2.98:1, jadi kombinasi ini
- * tidak memenuhi WCAG AA untuk teks. Konsekuensinya:
+ * merek, ditetapkan 3 Sep 2026 dan sejak 4 Sep 2026 berlaku untuk setiap
+ * permukaan `bg-brand-orange` yang memuat teks, bukan hanya tombol.
+ * Kontrasnya 2.98:1, jadi kombinasi ini tidak memenuhi WCAG AA untuk teks.
+ * Konsekuensinya:
  *
  *  - Jangan memakai `size="sm"` untuk aksi penting; makin kecil teks,
  *    makin terasa kurangnya kontras.

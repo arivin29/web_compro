@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import Link from 'next/link'
-import { twMerge } from 'tailwind-merge'
+import { twMerge } from '@/lib/cn'
 import Container from './Container'
 import ForwardLayers from './ForwardLayers'
 

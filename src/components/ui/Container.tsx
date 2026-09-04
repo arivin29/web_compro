@@ -1,5 +1,5 @@
 import { ElementType, ReactNode } from 'react'
-import { twMerge } from 'tailwind-merge'
+import { twMerge } from '@/lib/cn'
 
 interface ContainerProps {
   children: ReactNode

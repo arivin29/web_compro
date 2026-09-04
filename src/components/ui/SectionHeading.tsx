@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { twMerge } from 'tailwind-merge'
+import { twMerge } from '@/lib/cn'
 
 interface SectionHeadingProps {
   /** Label uppercase kecil di atas judul, mis. "PRODUK & LAYANAN". */
